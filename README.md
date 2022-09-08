@@ -1,4 +1,5 @@
-# AmkSandbox
+# AtlasBootcamp 2: Electric Boogaloo 
+Bootcamp Document Google Doc: https://docs.google.com/document/d/1y2uNK5R61G93KrpThK3CB2jaZXX1w5ZsF5Yz9FQZYGE/edit#
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
 
