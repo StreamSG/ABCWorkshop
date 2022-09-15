@@ -177,7 +177,16 @@ export class SeededPLEGenerator extends SeededRandomNumber {
     'What\'s the deal with all that fiber?', 'Getting the most out of every second',
     'On the Clock, Off the Record', 'Time Micro-management', 'Drop it like it\'s a hot wire',
     'Staring Into the Known', 'Finding Your Innter Technican', 'Clean Climbing',
-    'Maintaining a Good Work/Other Work Balance'
+    'Maintaining a Balance Between Work and More Work', 'If you can read this, you\'re to close',
+    'Jep and Step: The Rise and Fall of the Modern Technican', 'Service no Sync',
+    'Did you hear about Pluto? That\'s messed up, right?', 'Gasses You Should and Shouldn\'t Breathe',
+    'Drinking 37 Gallons of Water Per Day', 'How to keep your family happy when you work 82 hours a week',
+    'Weird Smells', 'When to Burn Your Clothes', 'We\'d Clone You If We Could', 'Bounce that Port',
+    'Every CO Has a Secret Dungeon, And You Can\'t Go In', 'When You Have to Install Service For Your Ex',
+    'The Basics of Leading a Complex Life', 'What to Do When Nothing\'s Due', 'All Aboard the Train Train!',
+    'If it ain\'t safe, don\'t break it!', 'Why You Have to Work Harder Than Everyone Else', 
+    'Smoke and Fears', 'Ski down those Mountains of Regret', 'Island in the Shun', 'Soft Head, Hard Hat',
+    'Which Pedal Makes It Go "Vroom!"', 'Stop Going to Breakfast First' 
   ];
   private seedCodes = {
     completedCourseCount: 1, 
