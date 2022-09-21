@@ -171,7 +171,7 @@ export class SeededBanDataGenerator extends SeededRandomNumber {
 
 export class SeededPLEGenerator extends SeededRandomNumber {
 
-  private courseNames: string[] = [
+  private courseNames: string[] = [ 
     'Climbing a Ladder', 'Circle of Safety', 'Safely Greeting the Customer', 
     'Don\'t Get Shocked', 'Cleaver? I Hardly Know \'er!', 'Working Without Tools',
     'What\'s the deal with all that fiber?', 'Getting the most out of every second',
@@ -188,12 +188,15 @@ export class SeededPLEGenerator extends SeededRandomNumber {
     'Smoke and Fears', 'Ski down those Mountains of Regret', 'Island in the Shun', 'Soft Head, Hard Hat',
     'Which Pedal Makes It Go "Vroom!"', 'Stop Going to Breakfast First' 
   ];
+
   private seedCodes = {
     completedCourseCount: 1, 
     
 
     courseListScramble: 100
   };
+
+  private userTrainingCount: number;
 
   constructor(uuid: string) {
     let uuidAsNum = '';
@@ -204,9 +207,35 @@ export class SeededPLEGenerator extends SeededRandomNumber {
 
     super(Number(uuidAsNum));
 
+    this.userTrainingCount = Math.round( this.nextNumberAtCount(this.seedCodes.completedCourseCount) * this.courseNames.length ); // 0 to courseNameCount
 
   }
 
+  public getTrainingCount(): number {
+    return this.userTrainingCount;
+  }
+
+  public getTrainingDue(): string[] { // I'm considering if re-generating the array every time it's called is better, or if it should be done in the constructor. It could also be done when first called, and then stored so it can just be returned on subsequent calls of this method.
+
+    let outputCourses: string[] = [];
+    let pulledTrainings = 0;
+
+    while(outputCourses.length < this.userTrainingCount) {
+      // Pull a random course from the array of course names
+      const trainingToComplete = this.courseNames[ Math.floor( this.nextNumberAtCount( this.seedCodes.courseListScramble + pulledTrainings ) * this.userTrainingCount ) ];
+      if(outputCourses.indexOf( trainingToComplete ) !== -1) { // If the pulled course is NOT in the output array
+        outputCourses.push(trainingToComplete); // Add it to the output array
+      }
+
+      pulledTrainings++;
+    }
+
+    return outputCourses;
+  }
+  
+  public getCourseListLength(): number {
+    return this.courseNames.length;
+  }
   
 
   
