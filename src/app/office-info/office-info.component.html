@@ -1,0 +1,19 @@
+<!-- display office info for current job -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-primary">
+                Office Info for current job:<br><br> <!-- use binding to add data to items below -->
+                WireCenter: 456123<br>
+                WireCenter Name: Capitol<br>
+                Address: 1234 Some Rd. <a href="#">map</a><br>
+                Tel Number: 123-456-7890  <a href="tel:1234567890">Click to Call</a><br>
+                C.O. Tech Details:<br>
+                Assigned tech on duty: Mary Smith<br>
+                Cell number: 890-567-1234 <a href="tel:8905671234">Click to Call</a><br>
+                <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
+                <div>Initiate Touch N Go session: <button type="button" btn-primary (click)="openTouch()">Touch n Go</button><br></div>
+            </div>
+        </div>
+    </div>
+</div>
