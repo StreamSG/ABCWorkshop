@@ -6,16 +6,24 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OfficeInfoComponent } from './office-info/office-info.component';
 import { TouchNGoComponent } from './touch-n-go/touch-n-go.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomepageComponent } from './components/homepage/homepage.component';
+import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     OfficeInfoComponent,
-    TouchNGoComponent
+    TouchNGoComponent,
+    HeaderComponent,
+    HomepageComponent,
+    TicketGeneratorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     NgbModule
   ],
   providers: [],

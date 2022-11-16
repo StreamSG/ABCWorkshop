@@ -207,7 +207,7 @@ export class SeededPLEGenerator extends SeededRandomNumber {
 
     super(Number(uuidAsNum));
 
-    this.userTrainingCount = Math.round( this.nextNumberAtCount(this.seedCodes.completedCourseCount) * this.courseNames.length ); // 0 to courseNameCount
+    this.userTrainingCount = Math.floor( this.nextNumberAtCount(this.seedCodes.completedCourseCount) * this.courseNames.length ); // 0 to courseNameCount
 
   }
 
@@ -215,19 +215,18 @@ export class SeededPLEGenerator extends SeededRandomNumber {
     return this.userTrainingCount;
   }
 
-  public getTrainingDue(): string[] { // I'm considering if re-generating the array every time it's called is better, or if it should be done in the constructor. It could also be done when first called, and then stored so it can just be returned on subsequent calls of this method.
+  public getTrainingDue(): string[] { 
 
     let outputCourses: string[] = [];
-    let pulledTrainings = 0;
+
+    let courseNamesCopy = this.courseNames.slice();
+
+    this.setSeedIndex(this.seedCodes.courseListScramble);
 
     while(outputCourses.length < this.userTrainingCount) {
-      // Pull a random course from the array of course names
-      const trainingToComplete = this.courseNames[ Math.floor( this.nextNumberAtCount( this.seedCodes.courseListScramble + pulledTrainings ) * this.userTrainingCount ) ];
-      if(outputCourses.indexOf( trainingToComplete ) !== -1) { // If the pulled course is NOT in the output array
-        outputCourses.push(trainingToComplete); // Add it to the output array
-      }
 
-      pulledTrainings++;
+      const trainingToComplete = courseNamesCopy.splice( Math.floor(this.next() * courseNamesCopy.length), 1)[0];
+      outputCourses.push(trainingToComplete);
     }
 
     return outputCourses;
