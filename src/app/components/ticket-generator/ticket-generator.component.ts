@@ -71,7 +71,7 @@ export class TicketGeneratorComponent implements OnInit {
     genID += Math.floor(Math.random()*10);
 
     const lastChar = Math.floor(Math.random()*36)+97;
-    genID += lastChar > 122 ? lastChar-122 : String.fromCharCode(lastChar); // if the ascii code is past z, return the ascii code as a number (0-9). Otherwise convert ascii code to letter
+    genID += lastChar > 122 ? lastChar-123 : String.fromCharCode(lastChar); // if the ascii code is past z, return the ascii code as a number (0-9). Otherwise convert ascii code to letter
 
     this.trainingForm.patchValue({
       'uuid': genID,
