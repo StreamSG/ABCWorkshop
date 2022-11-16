@@ -10,6 +10,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TouchNGoComponent,
     HeaderComponent,
     HomepageComponent,
-    TicketGeneratorComponent
+    TicketGeneratorComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
