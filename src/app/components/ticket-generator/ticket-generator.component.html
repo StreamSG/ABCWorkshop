@@ -8,7 +8,7 @@
           <input type="text" id="ban" class="form-control" formControlName="ban">
         </div>
         <button type="button" class="btn btn-primary" (click)="onRandomBan()">Random</button>
-        <button type="submit" class="btn btn-success" [disabled]="!banForm?.valid">Generate</button>
+        <button type="submit" class="btn btn-success" [disabled]="!(banForm && banForm.valid)">Generate</button>
       </form>
       <p>(This information is completely generated, none of the following information is based on any real customer information.)</p>
       <ng-container *ngIf="seededBan">
@@ -32,7 +32,7 @@
           <input type="text" id="uuid" class="form-control" formControlName="uuid">
         </div>
         <button type="button" class="btn btn-primary" (click)="onRandomUUID()">Random</button>
-        <button type="submit" class="btn btn-success" [disabled]="!(trainingForm?.valid)">Generate</button>
+        <button type="submit" class="btn btn-success" [disabled]="!(trainingForm && trainingForm.valid)">Generate</button>
       </form>
       <p>(This information is completely generated, none of the following information is based on any real employee information.)</p>
       <ng-container *ngIf="seededTraining">
