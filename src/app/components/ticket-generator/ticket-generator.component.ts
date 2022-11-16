@@ -26,11 +26,11 @@ export class TicketGeneratorComponent implements OnInit {
   
   ngOnInit(): void {
     this.banForm = new FormGroup({
-      'ban': new FormControl(null, [Validators.required]),
+      'ban': new FormControl(null, [Validators.required, Validators.minLength(9), Validators.maxLength(9), Validators.pattern(/^[0-9]+$/gm)]),
     });
 
     this.trainingForm = new FormGroup({
-      'uuid': new FormControl(null, [Validators.required]),
+      'uuid': new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern(/[a-z]+[a-z]+[0-9]+[0-9]+[0-9]+[a-z0-9]/g)]),
     })
   }
 
@@ -42,7 +42,7 @@ export class TicketGeneratorComponent implements OnInit {
 
   onBanFormSubmit() {
     const banData = this.banForm?.get('ban')?.value;
-    if(banData) {
+    if(banData && this.banForm.valid) {
       this.seededBan = new SeededBanDataGenerator(+banData);
       this.customerData = {
         address: this.seededBan.getAddress(),
@@ -70,7 +70,7 @@ export class TicketGeneratorComponent implements OnInit {
 
   onTrainingFormSubmit() {
     const uuidData = this.trainingForm?.get('uuid')?.value;
-    if(uuidData) {
+    if(uuidData && this.trainingForm.valid) {
       this.seededTraining = new SeededPLEGenerator(uuidData);
       this.trainingNumber = this.seededTraining.getTrainingCount();
       this.trainingDue = this.seededTraining.getTrainingDue();
