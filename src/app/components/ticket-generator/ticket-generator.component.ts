@@ -44,12 +44,20 @@ export class TicketGeneratorComponent implements OnInit {
     });
   }
 
+  /**
+   * @description For use to generate a random BAN when the Generate ban button is pressed
+   * @returns {void}
+   */
   public onRandomBan(): void {
     this.banForm.patchValue({
       'ban': ''+(Math.floor(Math.random()*224000000)+100000000) // generate a random ban between 100-000-000 and 323-999-999
     });
   }
 
+  /**
+   * @description For use to generate address, phone, and circuit ID from the given ban inte the ban form field
+   * @returns {void}
+   */
   public onBanFormSubmit(): void {
     const banData = this.banForm?.get('ban')?.value;
     if(banData && this.banForm.valid) {
@@ -62,6 +70,10 @@ export class TicketGeneratorComponent implements OnInit {
     }
   }
 
+  /**
+   * @description For use to generate a random UUID when the Generate uuid button is pressed
+   * @returns {void}
+   */
   public onRandomUUID(): void {
     let genID = ''; // generate a random ban: 2 letters, 3 numbers, and a letter or number
     genID += String.fromCharCode(Math.floor(Math.random()*26)+97);
@@ -78,6 +90,10 @@ export class TicketGeneratorComponent implements OnInit {
     });
   }
 
+  /**
+   * @description For use to generate a list of trainings due based off of the given UUID in the uuid form
+   * @returns {void}
+   */
   public onTrainingFormSubmit(): void {
     const uuidData = this.trainingForm?.get('uuid')?.value;
     if(uuidData && this.trainingForm.valid) {

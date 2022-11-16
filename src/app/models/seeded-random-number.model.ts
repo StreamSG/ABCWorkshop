@@ -143,11 +143,19 @@ export class SeededBanDataGenerator extends SeededRandomNumber {
     return `${street}, ${city}, ${state} ${zip}`;
   }
   
+  /**
+   * @description Generates a phone number
+   * @returns {string} Returns the stylized phone number as a string. Example: '123-456-7890'
+   */
   public getPhoneNumber(): string {
     const phoneNum: string = String(Math.floor( this.nextNumberAtCount(this.seedCodes.phone) *9000000000 + 1000000000 ));
     return `${phoneNum.substring(0,3)}-${phoneNum.substring(3,6)}-${phoneNum.substring(6,11)}`;
   }
 
+  /**
+   * @description Generate a circuit ID
+   * @returns {string} Returnes the circuit id as a string. Example: 'AB.CDEF.123456..mw'
+   */
   public getCircuitID(): string {
     this.setSeedIndex(this.seedCodes.circuitID)
     let output = '';
@@ -189,7 +197,7 @@ export class SeededPLEGenerator extends SeededRandomNumber {
     'Which Pedal Makes It Go "Vroom!"', 'Stop Going to Breakfast First' 
   ];
 
-  private seedCodes = {
+  private seedCodes = { // used to allow for different methods to pull different numbers from the seed without overlap.
     completedCourseCount: 1, 
     
 
@@ -201,44 +209,39 @@ export class SeededPLEGenerator extends SeededRandomNumber {
   constructor(uuid: string) {
     let uuidAsNum = '';
 
-    for(let str of uuid) {
+    for(let str of uuid) { // loop through each character of the uuid, and build out a number by appending each character ascii code to the end of the built string
       uuidAsNum += '' + (isNaN(Number(str)) ? str.charCodeAt(0) : str);
     }
 
-    super(Number(uuidAsNum));
+    super(Number(uuidAsNum)); // Set the seed for the random number generator to be the built string, converted to a number (as the string only contains numbers).
 
     this.userTrainingCount = Math.floor( this.nextNumberAtCount(this.seedCodes.completedCourseCount) * this.courseNames.length ); // 0 to courseNameCount
 
   }
 
+  /**
+   * @returns {number} Returns the number of trainings that the UUID seed has due.
+   */
   public getTrainingCount(): number {
     return this.userTrainingCount;
   }
 
+  /**
+   * @description Generate a list of training due. Uses a full list of training, and randomly picks a random number of trainings from the list. Can pick anywhere from 0 to the full length of trainings. The list is generated on demand.
+   * @returns {string[]} Returns the trainings as an array of strings
+   */
   public getTrainingDue(): string[] { 
 
     let outputCourses: string[] = [];
-
     let courseNamesCopy = this.courseNames.slice();
 
     this.setSeedIndex(this.seedCodes.courseListScramble);
 
-    while(outputCourses.length < this.userTrainingCount) {
-
+    while(outputCourses.length < this.userTrainingCount) { // as userTrainingCount is determined in the constructor, grab random courses from a copy of the master array, until userTrainingCount number of courses have been pulled.
       const trainingToComplete = courseNamesCopy.splice( Math.floor(this.next() * courseNamesCopy.length), 1)[0];
       outputCourses.push(trainingToComplete);
     }
 
     return outputCourses;
   }
-  
-  public getCourseListLength(): number {
-    return this.courseNames.length;
-  }
-  
-
-  
-
-
-
 }
