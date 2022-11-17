@@ -10,7 +10,6 @@ const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'office-info', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
-  // { path: 'about', component: AboutIDK },
   { path: 'help', component: HelpComponent },
 ];
 
