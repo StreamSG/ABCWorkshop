@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Generate customer info from a BAN</h4>
+      <form (ngSubmit)="onBanFormSubmit()" [formGroup]="banForm">
+        <div class="form-group">
+          <label for="ban">BAN:</label>
+          <input type="text" id="ban" class="form-control" formControlName="ban">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="onRandomBan()">Random</button>
+        <button type="submit" class="btn btn-success" [disabled]="!(banForm && banForm.valid)">Generate</button>
+      </form>
+      <p>(This information is completely generated, none of the following information is based on any real customer information.)</p>
+      <ng-container *ngIf="seededBan">
+        <div class="alert alert-primary">
+          <h5>Address:</h5>
+          <p>{{ customerData?.address }}</p>
+          <h5>Phone:</h5>
+          <p>{{ customerData.phone }}</p>
+          <h5>Circuit ID:</h5>
+          <p>{{ customerData.circuitID }}</p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h4>Generate courses from UUID</h4>
+      <form (ngSubmit)="onTrainingFormSubmit()" [formGroup]="trainingForm">
+        <div class="form-group">
+          <label for="uuid">UUID:</label>
+          <input type="text" id="uuid" class="form-control" formControlName="uuid">
+        </div>
+        <button type="button" class="btn btn-primary" (click)="onRandomUUID()">Random</button>
+        <button type="submit" class="btn btn-success" [disabled]="!(trainingForm && trainingForm.valid)">Generate</button>
+      </form>
+      <p>(This information is completely generated, none of the following information is based on any real employee information.)</p>
+      <ng-container *ngIf="seededTraining">
+        <div class="alert alert-success">
+          <h5>Total Training: {{ trainingNumber }}</h5>
+          <ul>
+            <ng-container *ngFor="let training of trainingDue">
+              <li>{{ training }}</li>
+            </ng-container>
+          </ul>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

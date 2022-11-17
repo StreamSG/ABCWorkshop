@@ -1,0 +1,16 @@
+<!-- Wire Tech Display -->
+<<div class="container">>
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-secondary">
+                <h3>Wire Tech Display</h3><br>
+                <div>
+                    Request Sync Check: <button type="button" btn-primary (click)="checkSync()">Check Sync</button><br><br>
+                    Request Tone on Pair: <button type="button" btn-secondary (click)="checkTone()">Place Tone</button><br><br>
+                    Request Short on pair: <button type="button" btn-warning (click)="checkShort()">Place Short</button><br><br>
+                </div>
+                <ng-container #display></ng-container>
+            </div>
+        </div>
+    </div>
+</div>
