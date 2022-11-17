@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges,SimpleChanges } fr
 
 @Component({
   selector: 'app-flow-wt',
-  template: `<h2>WT view</h2>
+  template: `<h2>Wire Tech</h2>
   Status: {{ task }}`,
   styleUrls: ['./flow-wt.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
