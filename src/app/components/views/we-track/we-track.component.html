@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>weTrack</h1>
+      <h6>This is how weTrack our project.</h6>
+      <p>(Please use this as much as you need, but don't be excessive. This is using a free database and there is a daily use limit.)</p>
+      <button type="button" class="btn btn-success" (click)="onNewTicket()">New weTrack</button>
+      <button type="button" class="btn btn-primary" (click)="onRefreshTickets()">Refresh</button>
+      <button type="button" class="btn btn-danger" (click)="onDeleteTicket()">Delete 0</button>
+      <hr>
+      <ng-container *ngFor="let ticket of tickets">
+        <h3>{{ ticket.title }}</h3>
+        <p>{{ ticket.description }}</p>
+        <hr>
+      </ng-container>
+    </div>
+  </div>
+</div>
