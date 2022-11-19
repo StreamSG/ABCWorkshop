@@ -1,0 +1,36 @@
+<ng-container *ngIf="weTrackTicket">
+  <div class="container" (click)="onActivateTicketItem()">
+    <div class="row">
+      <div class="col" style="overflow: hidden; white-space: nowrap;">
+        <h5>{{ weTrackTicket.title }}</h5>
+      </div>
+      <div class="col text-end">
+        by <b>{{ weTrackTicket.submitter }}</b>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
+      </div>
+      <div class="col text-end">
+        created: {{ prettyCreationDate }}
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col">
+        <div [ngStyle]="!isActive ? ellipsesStyleWrap : {}">
+          {{ weTrackTicket.description }} I am now going to add a lot of extra text that will make the description too long. The point is that we need to see what happens when the text is so long that it goes over to the next line! So so much. But the point is that when you click on the box then fancy fancy guess what? It will open up and you can see all the description text! haha! Imagine that!
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="isActive">
+      <div class="row">
+        <div class="col text-end">
+          <button class="btn btn-primary">Edit</button>
+          <button class="btn btn-danger" (click)="onDeleteTicket()">Delete</button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <hr>
+</ng-container>

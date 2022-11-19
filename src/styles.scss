@@ -2,3 +2,26 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+.dot {
+  border: 2px solid red;
+  height: 9px;
+  border-radius:50%;
+  width: 9px;
+  display:inline-block;
+}
+
+.dot-red {
+  background-color: #f00;
+  border-color: #800;
+}
+
+.dot-yellow {
+  background-color: #ff0;
+  border-color: #880;
+}
+
+.dot-green {
+  background-color: #0f0;
+  border-color: #080;
+}

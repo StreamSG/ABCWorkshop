@@ -26,23 +26,28 @@ export class WeTrackComponent implements OnInit, AfterViewInit {
       .catch((err) => console.error(err));
   }
 
-  public onNewTicket(): void {
+  public onGenTicket(): void {
     // temporary way to add new tickets
-    this.weTrackService.addNewTicket(
-      new WeTrackTicket(
-        'Title #' + (Math.floor(Math.random()*100)+1),
-        'feature',
-        'Blah blah blah this is a description',
-        'eh',
-        'Micah',
-      ))
+    let tempTicket = new WeTrackTicket(
+      ['Add a nice feature', 'Make this thing work', 'Do something cool', 'Work together :)', 'Reach for the stars', 'Achieve your dreams'][Math.floor(Math.random()*6)],
+      'feature',
+      'Blah blah blah this is a description',
+      'eh',
+      ['Micah', 'Aaron', 'Kerry', 'Raul', 'Someone else', 'Another person'][Math.floor(Math.random()*6)],
+    );
+    tempTicket.status = ['pending', 'in-progress', 'complete'][Math.floor(Math.random()*3)];
+    this.weTrackService.addNewTicket(tempTicket)
       .then((tickets) => { this.tickets = tickets; })
       .catch((err) => { console.error(err); });
   }
 
   public onDeleteTicket(): void {
-    this.weTrackService.deleteTicket(0)
-      .then((tickets) => { this.tickets = tickets });
+    this.deleteTicket(0);
+  }
+
+  public deleteTicket(index: number) {
+    this.weTrackService.deleteTicket(index)
+    .then((tickets) => { this.tickets = tickets });
   }
 
 }

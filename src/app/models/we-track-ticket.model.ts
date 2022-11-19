@@ -7,10 +7,10 @@ export class WeTrackTicket {
     ISSUE: 'issue',
   };
 
-  static STATUS = {
+  public static STATUS = {
     PENDING: 'pending',
     ASSIGNED: 'assigned',
-    INPROGRESS: 'inprogress',
+    IN_PROGRESS: 'in-progress',
     COMPLETE: 'complete',
     CANCELLED: 'cancelled',
   }
@@ -28,6 +28,5 @@ export class WeTrackTicket {
     public creationDate = new Date(),
     public status = WeTrackTicket.STATUS.PENDING,
   ) {}
-  
 
 }

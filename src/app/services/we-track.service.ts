@@ -9,6 +9,11 @@ import { WeTrackTicket } from '../models/we-track-ticket.model';
 })
 export class WeTrackService {
 
+  /*
+    Todo:
+      Add lock on ability to add or delete ticket when there's an open promise with server?
+  */
+
   readonly databaseUrl = 'https://atlas-boot-camp-default-rtdb.firebaseio.com/we-track.json';
 
   private tickets: WeTrackTicket[] = []; // master list of all tickets
@@ -22,6 +27,10 @@ export class WeTrackService {
    */
   public getTickets(): WeTrackTicket[] {
     return this.tickets.slice();
+  }
+
+  public getTicket(index: number): WeTrackTicket {
+    return this.tickets.slice(index, index)[0];
   }
 
   /**

@@ -13,6 +13,7 @@ import { HelpComponent } from './components/help/help.component';
 import { OfficeInfoComponent } from './components/office-info/office-info.component';
 import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
+import { WeTrackItemComponent } from './components/we-track/we-track-item/we-track-item.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { WeTrackComponent } from './components/views/we-track/we-track.component
     HelpComponent,
     OfficeInfoComponent,
     TouchNGoComponent,
-    WeTrackComponent
+    WeTrackComponent,
+    WeTrackItemComponent
   ],
   imports: [
     BrowserModule,
