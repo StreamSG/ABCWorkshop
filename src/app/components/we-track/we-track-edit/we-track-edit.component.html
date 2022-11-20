@@ -4,7 +4,7 @@
       <div class="d-flex">
         <!-- I am never happy with puttin a back button... Any ideas? -->
         <button type="button" class="btn btn-secondary" (click)="onGoBack()">&lt; Back</button>&nbsp;
-        <h4>Create a new weTrack ticket:</h4>
+        <h4>{{ isEditing ? 'Update' : 'Create a new' }} weTrack ticket:</h4>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@
             </select>
           </div>
         </ng-container>
-        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid || (weTrackForm.get('isAssigned')?.value && !weTrackForm.get('assigned')?.value)">Submit</button>
+        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid || (weTrackForm.get('isAssigned')?.value && !weTrackForm.get('assigned')?.value)">{{ isEditing ? 'Update' : 'Submit' }}</button>
       </form>
     </div>
   </div>

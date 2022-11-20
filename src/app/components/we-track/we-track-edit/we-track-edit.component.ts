@@ -12,13 +12,14 @@ import { WeTrackService } from 'src/app/services/we-track.service';
 export class WeTrackEditComponent implements OnInit {
 
   public isSubmitting = false;
+  public isEditing = false;
 
   public weTrackForm = new FormGroup({
-    'title': new FormControl(null, Validators.required),
+    'title': new FormControl('', Validators.required),
     'type': new FormControl('feature', Validators.required),
     'importance': new FormControl('low', Validators.required),
-    'submitter': new FormControl(null, Validators.required),
-    'description': new FormControl(null, Validators.required),
+    'submitter': new FormControl('', Validators.required),
+    'description': new FormControl('', Validators.required),
 
     'isAssigned': new FormControl(true), // checkbox to show nested forms
       'assigned': new FormControl(),
@@ -38,13 +39,30 @@ export class WeTrackEditComponent implements OnInit {
   constructor(private router: Router, private weTrackService: WeTrackService) { }
 
   ngOnInit(): void {
-    if(this.router.url === '/we-track/edit' && this.weTrackService.selectedTicket === -1) { // No active ticket in edit mode! 
-      this.router.navigate(['we-track']);
+    if(this.router.url === '/we-track/edit') { 
+      this.isEditing = true;
+      if(this.weTrackService.selectedTicket === -1) {// No active ticket in edit mode! 
+        this.router.navigate(['we-track']);
+      }
+      else { // 
+        const selTicket = this.weTrackService.getTicket(this.weTrackService.selectedTicket);
+        
+        this.weTrackForm.patchValue({
+          'title': selTicket.title,
+          'type': selTicket.type,
+          'importance': selTicket.importance,
+          'submitter': selTicket.submitter,
+          'description': selTicket.description,
+          'isAssigned': selTicket.assignee !== '',
+          'assigned': selTicket.assignee,
+          'status': selTicket.status,
+        });
+      }
     }
   }
 
   public onFormSubmit() {
-    this.isSubmitting = true;
+    // this.isSubmitting = true;
 
     const title = this.weTrackForm.get('title');
     const type = this.weTrackForm.get('type');
@@ -68,13 +86,23 @@ export class WeTrackEditComponent implements OnInit {
       tempTicket.status = status && status.value ? status.value : '';
     }
 
-    this.weTrackService.addNewTicket(tempTicket)
-      .then(() => { // don't care about response
-        this.weTrackService.selectedTicket = -1;
-        this.router.navigate(['we-track']);
-      });
-  }
+    if(this.isEditing) {
+      this.weTrackService.updateTicket(tempTicket, this.weTrackService.selectedTicket)
+        .then(() => {
+          this.weTrackService.selectedTicket = -1;
+          this.router.navigate(['we-track']);
+        });
+    }
+    else {
+      this.weTrackService.addNewTicket(tempTicket)
+        .then(() => { // don't care about response
+          this.weTrackService.selectedTicket = -1;
+          this.router.navigate(['we-track']);
+        });
+    }
 
+  }
+  
   public onGoBack() {
     this.router.navigate(['we-track']);
   }

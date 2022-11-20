@@ -16,6 +16,7 @@ import { WeTrackComponent } from './components/views/we-track/we-track.component
 import { WeTrackItemComponent } from './components/we-track/we-track-item/we-track-item.component';
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
+import { WeTrackCommentComponent } from './components/we-track/we-track-comment/we-track-comment.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,12 +29,14 @@ import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-tra
     WeTrackComponent,
     WeTrackItemComponent,
     WeTrackListComponent,
-    WeTrackEditComponent
+    WeTrackEditComponent,
+    WeTrackCommentComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     ReactiveFormsModule,
     NgbModule
   ],

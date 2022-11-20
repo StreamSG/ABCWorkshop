@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { WeTrackTicket } from 'src/app/models/we-track-ticket.model';
 import { WeTrackService } from 'src/app/services/we-track.service';
@@ -18,6 +18,9 @@ export class WeTrackItemComponent implements OnInit {
   public isActive = false;
   public statusColor: string = '';
   public prettyCreationDate: string = '';
+
+  public commentName: string = '';
+  public commentText: string = '';
 
   public ellipsesStyleWrap = {
     'text-overflow': 'ellipsis',
@@ -63,4 +66,21 @@ export class WeTrackItemComponent implements OnInit {
     }
   }
 
+  public onSubmitComment(): void {
+    
+    if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
+    let updatedTicketPayload = {...this.weTrackTicket};
+    if(!Array.isArray(updatedTicketPayload.comments) || updatedTicketPayload.comments.length === 0) {
+      updatedTicketPayload.comments = [{name: this.commentName, comment: this.commentText}];
+    }
+    else {
+      updatedTicketPayload.comments.push({name: this.commentName, comment: this.commentText});
+    }
+    this.commentText = '';
+
+    this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
+      .then(() => {
+        this.weTrackTicket = updatedTicketPayload;
+      });
+  }
 }

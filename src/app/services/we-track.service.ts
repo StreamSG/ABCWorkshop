@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Data } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { WeTrackTicket } from '../models/we-track-ticket.model';
 
 @Injectable({
@@ -31,7 +31,7 @@ export class WeTrackService {
   }
 
   public getTicket(index: number): WeTrackTicket {
-    return this.tickets.slice(index, index)[0];
+    return this.tickets[index];
   }
 
   /**
@@ -76,10 +76,20 @@ export class WeTrackService {
    */
   public addNewTicket(ticket: WeTrackTicket): Promise<WeTrackTicket[]> {
     let updatedTicketPayload = [...this.tickets, ticket]; // create temporary array of tickets
+    return this.putTickets(updatedTicketPayload);
+  }
+
+  public updateTicket(ticket: WeTrackTicket, selectedTicket: number): Promise<WeTrackTicket[]> {
+    let updatedTicketPayload = this.tickets.slice();
+    updatedTicketPayload[selectedTicket] = ticket;
+    return this.putTickets(updatedTicketPayload);
+  }
+
+  private putTickets(ticketPayload: WeTrackTicket[]): Promise<WeTrackTicket[]> {
     return new Promise( (resolve, reject) => {
-      this.http.put<{name: string}>(this.databaseUrl, JSON.stringify(updatedTicketPayload)).subscribe({
+      this.http.put<{name: string}>(this.databaseUrl, JSON.stringify(ticketPayload)).subscribe({
         next: () => {
-          this.tickets.push(ticket); // only add ticket locally if it was successfully added to DB
+          this.tickets = ticketPayload; // only add ticket locally if it was successfully added to DB
           resolve(this.getTickets());
         },
         error: (err) => {

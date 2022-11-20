@@ -1,7 +1,7 @@
 <ng-container *ngIf="weTrackTicket">
   <!-- THE INLINE STYLES ARE TEMPORARY. I WANT TO MAKE IT LOOK GOOD AND THEN I'LL STYLE APPROPRIATELY LATER -->
-  <div class="container mb-3" (click)="onActivateTicketItem()" style="border: 1px solid gray; padding: 0; border-radius: 5px; padding-bottom: 5px;">
-    <div style="border-radius:5px; padding:5px; padding-top:0; overflow:hidden;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'lightblue' : '#e8d7f0'}">
+  <div class="container mb-3" style="border: 1px solid gray; padding: 0; border-radius: 5px; padding-bottom: 5px;">
+    <div style="border-radius:5px; padding:5px; padding-top:0; overflow:hidden; cursor:pointer;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'lightblue' : '#e8d7f0'}" (click)="onActivateTicketItem()">
       <div class="row">
         <div class="col-auto" style="overflow: hidden; white-space: nowrap; position:relative; top:-10px; left:-5px; border-radius: 5px; padding-top:10px; padding-left:20px;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'blue' : 'purple'}">
           <h5 style="color: white; margin-top:5px;">{{ weTrackTicket.title }}</h5>
@@ -9,33 +9,80 @@
       </div>
       <div class="row">
         <div class="col">
-          {{ weTrackTicket.importance === 'low' ? '&darr;' : weTrackTicket.importance === 'medium' ? '~' : '&uarr;' }} {{ weTrackTicket.importance.charAt(0).toUpperCase() + weTrackTicket.importance.slice(1) }}
-        </div>
-        <div class="col text-end">
-          by: <b>{{ weTrackTicket.submitter }}</b>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
           <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
         </div>
         <div class="col text-end">
-          on: {{ prettyCreationDate }}
+          created: {{ prettyCreationDate }}
         </div>
       </div>
-    </div>
-    <div class="row mt-2">
-      <div class="col">
-        <div [ngStyle]="!isActive ? ellipsesStyleWrap : {}">
-          {{ weTrackTicket.description }} I am now going to add a lot of extra text that will make the description too long. The point is that we need to see what happens when the text is so long that it goes over to the next line! So so much. But the point is that when you click on the box then fancy fancy guess what? It will open up and you can see all the description text! haha! Imagine that!
+      <ng-container *ngIf="isActive">
+        <div class="row">
+          <div class="col">
+            <span [ngStyle]="weTrackTicket.importance === 'urgent' ? {'font-weight' : 'bold'} : {}">{{ weTrackTicket.importance === 'low' ? '&darr;' : weTrackTicket.importance === 'medium' ? '~' : '&uarr;' }}</span> {{ weTrackTicket.importance.charAt(0).toUpperCase() + weTrackTicket.importance.slice(1) }}
+          </div>
+          <div class="col text-end">
+            by: <b>{{ weTrackTicket.submitter }}</b>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col">
+            {{ weTrackTicket.type === 'feature' ? '&And; ' : '&xotime; ' }}{{ weTrackTicket.type.charAt(0).toUpperCase() + weTrackTicket.type.slice(1) }}
+          </div>
+          <div class="col text-end">
+            <span [ngStyle]="{'font-style' : weTrackTicket.assignee === '' ? 'italic' : '' }">{{ weTrackTicket.assignee === '' ? 'Unassigned' : 'for: ' }}</span><b>{{ weTrackTicket.assignee }}</b>
+          </div>
+        </div>
+      </ng-container>
     </div>
     <ng-container *ngIf="isActive">
       <div class="row">
-        <div class="col text-end">
+        <div class="col">
           <button class="btn btn-primary" (click)="onEditTicket()">Edit</button>
+        </div>
+        <div class="col text-end">
           <button class="btn btn-danger" (click)="onDeleteTicket()">Delete</button>
+        </div>
+      </div>
+    </ng-container>
+    <div class="row mt-2">
+      <div class="col">
+        <div [ngStyle]="!isActive ? ellipsesStyleWrap : {}">
+          {{ weTrackTicket.description }} 
+          <!-- I am now going to add a lot of extra text that will make the description too long. The point is that we need to see what happens when the text is so long that it goes over to the next line! So so much. But the point is that when you click on the box then fancy fancy guess what? It will open up and you can see all the description text! haha! Imagine that! -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        Comments ({{ weTrackTicket.comments ? weTrackTicket.comments.length : 0 }})
+      </div>
+    </div>
+    <ng-container *ngIf="isActive">
+      <hr>
+      <ng-container *ngFor="let comment of weTrackTicket.comments">
+        <app-we-track-comment [comment]="comment"></app-we-track-comment>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-2">
+          <label for="name">Name:</label>
+        </div>
+        <div class="col-md-10">
+          <label for="name">Comment:</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+            <div class="form-group">
+              <input type="text" title="name" class="form-control" [(ngModel)]="commentName">
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <input type="text" title="comment" class="form-control" [(ngModel)]="commentText" (keyup.enter)="onSubmitComment()">
+          </div>
+        </div>
+        <div class="col-md-2" style="padding-top: auto; padding-bottom: 0;">
+          <button type="button" class="btn btn-primary" (click)="onSubmitComment()">Comment</button>
         </div>
       </div>
     </ng-container>
