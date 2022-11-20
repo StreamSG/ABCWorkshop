@@ -61,8 +61,25 @@ export class WeTrackService {
         },
       });
     });
+    
+    this.http.get('database url.com').subscribe({
+      next: (response: any) => {
+        console.log(response);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {
+        console.log('Completed');
+      },
+    });
+
     return this.loadTicketPromise; // return the newly created promise awaiting a response from the server
   }
+
+
+
+  
 
   /**
    * @description Attempts to add the given new ticket to the database. Will only add ticket to the session local database on a successful response from the database server

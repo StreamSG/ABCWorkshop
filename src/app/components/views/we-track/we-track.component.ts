@@ -7,18 +7,18 @@ import { WeTrackService } from 'src/app/services/we-track.service';
   templateUrl: './we-track.component.html',
   styleUrls: ['./we-track.component.scss']
 })
-export class WeTrackComponent implements OnInit, AfterViewInit {
+export class WeTrackComponent implements OnInit {
 
   public tickets: WeTrackTicket[] = [];
 
   constructor(private weTrackService: WeTrackService) { }
 
   ngOnInit(): void {
+    // this.onRefreshTickets();
   }
   
-  ngAfterViewInit(): void {
-    this.onRefreshTickets();
-  }
+  // ngAfterViewInit(): void {
+  // }
 
   public onRefreshTickets(): void {
     this.weTrackService.loadTickets()
@@ -30,12 +30,12 @@ export class WeTrackComponent implements OnInit, AfterViewInit {
     // temporary way to add new tickets
     let tempTicket = new WeTrackTicket(
       ['Add a nice feature', 'Make this thing work', 'Do something cool', 'Work together :)', 'Reach for the stars', 'Achieve your dreams'][Math.floor(Math.random()*6)],
-      'feature',
+      ['issue','feature'][Math.round(Math.random())],
       'Blah blah blah this is a description',
-      'eh',
+      ['low','medium','high','urgent'][Math.floor(Math.random()*4)],
       ['Micah', 'Aaron', 'Kerry', 'Raul', 'Someone else', 'Another person'][Math.floor(Math.random()*6)],
     );
-    tempTicket.status = ['pending', 'in-progress', 'complete'][Math.floor(Math.random()*3)];
+    tempTicket.status = ['pending', 'in-progress', 'complete', 'cancelled', 'assigned'][Math.floor(Math.random()*5)];
     this.weTrackService.addNewTicket(tempTicket)
       .then((tickets) => { this.tickets = tickets; })
       .catch((err) => { console.error(err); });
@@ -47,7 +47,7 @@ export class WeTrackComponent implements OnInit, AfterViewInit {
 
   public deleteTicket(index: number) {
     this.weTrackService.deleteTicket(index)
-    .then((tickets) => { this.tickets = tickets });
+      .then((tickets) => { this.tickets = tickets });
   }
 
 }

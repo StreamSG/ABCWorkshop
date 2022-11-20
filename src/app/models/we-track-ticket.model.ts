@@ -14,6 +14,13 @@ export class WeTrackTicket {
     COMPLETE: 'complete',
     CANCELLED: 'cancelled',
   }
+
+  public static PRIORITY = {
+    LOW: 'low',
+    MEDIUM: 'medium',
+    HIGH: 'high',
+    URGENT: 'urgent',
+  }
   
   constructor(
     // Definite parameters

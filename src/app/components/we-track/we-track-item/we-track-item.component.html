@@ -1,19 +1,22 @@
 <ng-container *ngIf="weTrackTicket">
-  <div class="container" (click)="onActivateTicketItem()">
-    <div class="row">
-      <div class="col" style="overflow: hidden; white-space: nowrap;">
-        <h5>{{ weTrackTicket.title }}</h5>
+  <!-- THE INLINE STYLES ARE TEMPORARY. I WANT TO MAKE IT LOOK GOOD AND THEN I'LL STYLE APPROPRIATELY LATER -->
+  <div class="container mb-3" (click)="onActivateTicketItem()" style="border: 1px solid gray; padding: 0; border-radius: 5px; padding-bottom: 5px;">
+    <div style="border-radius:5px; padding:5px; padding-top:0; overflow:hidden;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'lightblue' : '#e8d7f0'}">
+      <div class="row">
+        <div class="col-auto" style="overflow: hidden; white-space: nowrap; position:relative; top:-10px; left:-5px; border-radius: 5px; padding-top:10px; padding-left:20px;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'blue' : 'purple'}">
+          <h5 style="color: white; margin-top:5px;">{{ weTrackTicket.title }}</h5>
+        </div>
+        <div class="col text-end">
+          by <b>{{ weTrackTicket.submitter }}</b>
+        </div>
       </div>
-      <div class="col text-end">
-        by <b>{{ weTrackTicket.submitter }}</b>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
-      </div>
-      <div class="col text-end">
-        created: {{ prettyCreationDate }}
+      <div class="row">
+        <div class="col">
+          <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
+        </div>
+        <div class="col text-end">
+          created: {{ prettyCreationDate }}
+        </div>
       </div>
     </div>
     <div class="row mt-2">
@@ -32,5 +35,4 @@
       </div>
     </ng-container>
   </div>
-  <hr>
 </ng-container>

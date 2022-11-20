@@ -43,11 +43,15 @@ export class WeTrackItemComponent implements OnInit {
   private getStatusColor(status: string): string {
     switch(status) {
       case WeTrackTicket.STATUS.PENDING:
-        return 'red';
+        return 'orange';
       case WeTrackTicket.STATUS.IN_PROGRESS:
         return 'yellow';
       case WeTrackTicket.STATUS.COMPLETE:
         return 'green';
+      case WeTrackTicket.STATUS.ASSIGNED:
+        return 'blue';
+      case WeTrackTicket.STATUS.CANCELLED:
+        return 'red';
       default:
         return 'yellow';
     }
