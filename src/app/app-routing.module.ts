@@ -6,13 +6,19 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
 import { OfficeInfoComponent } from './components/office-info/office-info.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
+import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
+import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'office-info', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'we-track', component: WeTrackComponent },
+  { path: 'we-track', component: WeTrackComponent, children: [
+    { path: '', component: WeTrackListComponent },
+    { path: 'new', component: WeTrackEditComponent },
+    { path: 'edit', component: WeTrackEditComponent },
+  ]},
 ];
 
 @NgModule({

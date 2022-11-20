@@ -4,13 +4,7 @@
       <h1>weTrack</h1>
       <h6>This is how weTrack our project.</h6>
       <p>(Please use this as much as you need, but don't be excessive. This is using a free database and there is a daily use limit.)</p>
-      <button type="button" class="btn btn-success" (click)="onGenTicket()">Generate</button>
-      <button type="button" class="btn btn-primary" (click)="onRefreshTickets()">Refresh</button>
-      <button type="button" class="btn btn-danger" (click)="onDeleteTicket()">Delete 0</button>
-      <hr>
-      <ng-container *ngFor="let ticket of tickets; let i = index">
-        <app-we-track-item [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(i)"></app-we-track-item>
-      </ng-container>
+      <router-outlet></router-outlet>
     </div>
   </div>
 </div>

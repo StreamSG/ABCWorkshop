@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { WeTrackTicket } from 'src/app/models/we-track-ticket.model';
 import { WeTrackService } from 'src/app/services/we-track.service';
 
@@ -24,7 +25,7 @@ export class WeTrackItemComponent implements OnInit {
     'white-space': 'nowrap',
   };
 
-  constructor(private weTrackService: WeTrackService) { }
+  constructor(private weTrackService: WeTrackService, private router: Router) { }
 
   ngOnInit(): void {
     this.statusColor = this.getStatusColor(this.weTrackTicket.status);
@@ -38,6 +39,11 @@ export class WeTrackItemComponent implements OnInit {
 
   public onDeleteTicket(): void {
     this.deleteThisTicket.next();
+  }
+
+  public onEditTicket(): void {
+    this.weTrackService.selectedTicket = this.weTrackTicketIndex;
+    this.router.navigate(['we-track','edit']);
   }
 
   private getStatusColor(status: string): string {

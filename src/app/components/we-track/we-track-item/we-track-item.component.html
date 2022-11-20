@@ -6,16 +6,21 @@
         <div class="col-auto" style="overflow: hidden; white-space: nowrap; position:relative; top:-10px; left:-5px; border-radius: 5px; padding-top:10px; padding-left:20px;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'blue' : 'purple'}">
           <h5 style="color: white; margin-top:5px;">{{ weTrackTicket.title }}</h5>
         </div>
-        <div class="col text-end">
-          by <b>{{ weTrackTicket.submitter }}</b>
+      </div>
+      <div class="row">
+        <div class="col">
+          {{ weTrackTicket.importance === 'low' ? '&darr;' : weTrackTicket.importance === 'medium' ? '~' : '&uarr;' }} {{ weTrackTicket.importance.charAt(0).toUpperCase() + weTrackTicket.importance.slice(1) }}
         </div>
-      </div> 
+        <div class="col text-end">
+          by: <b>{{ weTrackTicket.submitter }}</b>
+        </div>
+      </div>
       <div class="row">
         <div class="col">
           <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
         </div>
         <div class="col text-end">
-          created: {{ prettyCreationDate }}
+          on: {{ prettyCreationDate }}
         </div>
       </div>
     </div>
@@ -29,7 +34,7 @@
     <ng-container *ngIf="isActive">
       <div class="row">
         <div class="col text-end">
-          <button class="btn btn-primary">Edit</button>
+          <button class="btn btn-primary" (click)="onEditTicket()">Edit</button>
           <button class="btn btn-danger" (click)="onDeleteTicket()">Delete</button>
         </div>
       </div>

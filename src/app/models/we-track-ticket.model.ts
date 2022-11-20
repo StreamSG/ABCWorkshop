@@ -2,7 +2,7 @@ export class WeTrackTicket {
 
   // Should this just be an interface?
   
-  static TYPE = {
+  public static TYPE = {
     FEATURE: 'feature',
     ISSUE: 'issue',
   };
@@ -32,8 +32,9 @@ export class WeTrackTicket {
     
     // Optional parameters
     public assignee = '',
-    public creationDate = new Date(),
     public status = WeTrackTicket.STATUS.PENDING,
+    public creationDate = new Date(),
+    public comments: {name: string, comment: string}[] = [],
   ) {}
 
 }

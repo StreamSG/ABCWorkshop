@@ -8,12 +8,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HelpComponent } from './components/help/help.component';
 import { OfficeInfoComponent } from './components/office-info/office-info.component';
 import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
 import { WeTrackItemComponent } from './components/we-track/we-track-item/we-track-item.component';
+import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
+import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import { WeTrackItemComponent } from './components/we-track/we-track-item/we-tra
     OfficeInfoComponent,
     TouchNGoComponent,
     WeTrackComponent,
-    WeTrackItemComponent
+    WeTrackItemComponent,
+    WeTrackListComponent,
+    WeTrackEditComponent
   ],
   imports: [
     BrowserModule,

@@ -19,6 +19,7 @@ export class WeTrackService {
   private tickets: WeTrackTicket[] = []; // master list of all tickets
   private loadingTickets = false; 
   private loadTicketPromise: Promise<WeTrackTicket[]>;
+  public selectedTicket: number = -1;
 
   constructor(private http: HttpClient) { }
 
