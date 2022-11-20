@@ -14,7 +14,7 @@ export class WeTrackComponent implements OnInit {
   constructor(private weTrackService: WeTrackService) { }
 
   ngOnInit(): void {
-    // this.onRefreshTickets();
+    this.onRefreshTickets();
   }
   
   // ngAfterViewInit(): void {
