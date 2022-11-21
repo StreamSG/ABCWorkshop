@@ -112,4 +112,92 @@ export class WeTrackService {
       });
     });
   }
+
+  // private databaseUrl: string = 'https://atlas-boot-camp-default-rtdb.firebaseio.com/we-track.json';
+  // private loading: boolean = false;
+  // private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  // private httpSubscription: Subscription;
+  // private isSuccessfullyCompleted: boolean = false;
+  // private apiResults: WeTrackTicket[] = [];
+
+  // constructor(private httpClient: HttpClient) {}
+
+  // /**
+  //  * @description - Method to update loading and loadingChanged statuses
+  //  * @returns {void} - updates global variables
+  //  */
+  // public resetData(): void {
+  //   this.updateLoading(false);
+  //   this.isSuccessfullyCompleted = false;
+  //   this.apiResults = [];
+  //   this.cancelRequest();
+  // }
+
+  // /**
+  //  * @description - Method to cancel subscription
+  //  * @returns {void} - updates global variables
+  //  */
+  // private cancelRequest(): void {
+  //   if (this.httpSubscription) {
+  //     if (!this.httpSubscription.closed) {
+  //       this.httpSubscription.unsubscribe();
+  //     }
+  //   }
+  // }
+
+  // /**
+  //  * @description - Method to update loading and loadingChanged statuses
+  //  * @param {boolean} loading - current value of loading for serivce
+  //  * @returns {void}
+  //  */
+  // private updateLoading(loading: boolean): void {
+  //   this.loading = loading;
+  //   this.loadingChanged.next(this.loading);
+  // }
+
+  // /**
+  //  * @description - Method to update loading and loadingChanged statuses
+  //  * @returns {Observable<boolean>} update loading status
+  //  */
+  // public getLoading(): Observable<boolean> {
+  //   return this.loadingChanged.asObservable();
+  // }
+
+  // /**
+  //  * @description - Method to update loading and loadingChanged statuses
+  //  * @returns {boolean}  update status
+  //  */
+  // public hasSuccessfullyCompleted(): boolean {
+  //   return this.isSuccessfullyCompleted;
+  // }
+
+  // /**
+  //  * @description - returns results for weTrack service
+  //  * @returns {WeTrackTicket[]} returns ticket array
+  //  */
+  // public getResults(): WeTrackTicket[] {
+  //   return this.apiResults;
+  // }
+
+  // /**
+  //  * @description Call firebase server to get weTrack tickets
+  //  * @returns {void}
+  //  */
+  // public call(): void {
+  //   if (!this.loading) {
+  //     this.updateLoading(true);
+  //     this.httpSubscription = this.httpClient.get<WeTrackTicket[]>(this.databaseUrl).subscribe(
+  //       (response: any) => {
+  //         this.apiResults = response;
+  //         this.updateLoading(false);
+  //         this.isSuccessfullyCompleted = true;
+  //       },
+  //       (error: any) => {
+  //         console.log(error, error.error)
+  //         this.isSuccessfullyCompleted = false;
+  //         this.updateLoading(false);
+  //       }
+  //     );
+  //   }
+  // }
 }
