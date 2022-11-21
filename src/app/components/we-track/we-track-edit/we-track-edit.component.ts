@@ -21,7 +21,7 @@ export class WeTrackEditComponent implements OnInit {
     'submitter': new FormControl('', Validators.required),
     'description': new FormControl('', Validators.required),
 
-    'isAssigned': new FormControl(true), // checkbox to show nested forms
+    'isAssigned': new FormControl(false), // checkbox to show nested forms
       'assigned': new FormControl(),
       'status': new FormControl('pending'),
   });

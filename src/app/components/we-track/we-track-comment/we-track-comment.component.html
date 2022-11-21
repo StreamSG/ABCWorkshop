@@ -1,7 +1,15 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      {{ comment.name }}: {{ comment.comment }}
+      <b>{{ comment.name }}</b><span class="time-since">{{ timeSinceComment }}</span> <div class="dots-btn-wrapper" [id]="'dropdownBtn'+1" data-bs-toggle="dropdown" aria-expanded="false"><div class="dots-btn"><div class="dots-btn-inner">...</div></div></div>
+      <ul class="dropdown-menu" aria-labelledby="dropdownBtn1">
+        <li><a class="dropdown-item" (click)="onDeleteComment()">Delete</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col">
+      {{ comment.comment }}
     </div>
   </div>
 </div>

@@ -71,12 +71,22 @@ export class WeTrackItemComponent implements OnInit {
     if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
     let updatedTicketPayload = {...this.weTrackTicket};
     if(!Array.isArray(updatedTicketPayload.comments) || updatedTicketPayload.comments.length === 0) {
-      updatedTicketPayload.comments = [{name: this.commentName, comment: this.commentText}];
+      updatedTicketPayload.comments = [{name: this.commentName, comment: this.commentText, date: new Date()}];
     }
     else {
-      updatedTicketPayload.comments.push({name: this.commentName, comment: this.commentText});
+      updatedTicketPayload.comments.push({name: this.commentName, comment: this.commentText, date: new Date()});
     }
     this.commentText = '';
+
+    this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
+      .then(() => {
+        this.weTrackTicket = updatedTicketPayload;
+      });
+  }
+
+  public deleteComment(index: number): void {
+    let updatedTicketPayload = {...this.weTrackTicket};
+    updatedTicketPayload.comments.splice(index, 1);
 
     this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
       .then(() => {

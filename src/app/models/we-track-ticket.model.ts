@@ -5,6 +5,7 @@ export class WeTrackTicket {
   public static TYPE = {
     FEATURE: 'feature',
     ISSUE: 'issue',
+    IDEA: 'idea',
   };
 
   public static STATUS = {
@@ -34,7 +35,13 @@ export class WeTrackTicket {
     public assignee = '',
     public status = WeTrackTicket.STATUS.PENDING,
     public creationDate = new Date(),
-    public comments: {name: string, comment: string}[] = [],
+    public comments: Comment[] = [],
+    public tags: string[] = [],
   ) {}
+}
 
+export interface Comment {
+  name: string,
+  comment: string,
+  date: Date,
 }
