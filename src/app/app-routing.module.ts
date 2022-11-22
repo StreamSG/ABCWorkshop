@@ -8,11 +8,15 @@ import { OfficeInfoComponent } from './components/office-info/office-info.compon
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
+import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
+  // Mini-projects
   { path: 'office-info', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
+  { path: 'qc-timer', component: QcTimerComponent },
+
   { path: 'help', component: HelpComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },

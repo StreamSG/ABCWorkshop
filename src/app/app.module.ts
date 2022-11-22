@@ -17,6 +17,7 @@ import { WeTrackItemComponent } from './components/we-track/we-track-item/we-tra
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { WeTrackCommentComponent } from './components/we-track/we-track-comment/we-track-comment.component';
+import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { WeTrackCommentComponent } from './components/we-track/we-track-comment/
     WeTrackItemComponent,
     WeTrackListComponent,
     WeTrackEditComponent,
-    WeTrackCommentComponent
+    WeTrackCommentComponent,
+    QcTimerComponent
   ],
   imports: [
     BrowserModule,
