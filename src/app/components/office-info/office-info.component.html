@@ -1,21 +1,27 @@
 <!-- display office info for current job -->
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="alert alert-primary">
-                Office Info for current job:<br><br> <!-- use binding to add data to items below -->
-                WireCenter: 456123<br>
-                WireCenter Name: Capitol<br>
-                Address: 1234 Some Rd. <a href="#">map</a><br>
-                Tel Number: 123-456-7890  <a href="tel:1234567890">Click to Call</a><br>
-                C.O. Tech Details:<br>
-                Assigned tech on duty: Mary Smith<br>
-                Cell number: 890-567-1234 <a href="tel:8905671234">Click to Call</a><br>
-                <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
-                <div>Initiate Touch N Go session: <button type="button" btn-primary (click)="openTouch()">Touch n Go</button><br></div>
+  <div class="row">
+      <div class="col-12">
+          <div class="alert alert-primary" *ngFor = "let office of officeInfo">
+            Office Info for current job:<br><br>
+            Wire Center: {{office.wirecenterNumber}}<br>
+            Wire Center Name: {{office.wirecenterName}}<br>
+            Wire Center Address: {{office.wirecenterAddress}} <a href="{{office.wirecenterMapLink}}">map it</a><br>
+            Wire Center Tel Number: {{office.wirecenterTelephoneNumber}} <a href={{office.wirecenterTelephoneNumberLink}}>Click to Call</a><br>
+            <hr>
+            C.O. Tech Details:<br><br>
+            Assigned tech on duty: {{office.wirecenterTechOnDutyFirstName}} {{office.wirecenterTechOnDutyLastName}}<br>
+            Assigned tech cell number: {{office.wirecenterTechOnDutyCellphoneNumber}} <a href={{office.wirecenterTechOnDutyCellphoneNumberLink}}>Click to Call</a><br>
+            <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
+            <div class="col text-center">Click to initiate Touch N Go session:<br><br>
+              <div class="text-center">
+                <button type="button" class="btn btn-primary" (click)="openTouch()">Touch n Go</button><br>
+              </div>
+              
             </div>
         </div>
-    </div>
+      </div>
+  </div>
 </div>
 <!-- Display Touch n Go when session is created-->
 <app-touch-n-go *ngIf="tngActive == true"></app-touch-n-go>
