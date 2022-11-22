@@ -1,0 +1,4 @@
+<h2 [ngClass]="{'black-text': blackText, 'blue-text': blueText, 'red-text': redText}">{{headerText}}</h2>
+<ng-container *ngIf="subHeader">
+  <h6 [ngClass]="{'text-muted': textMuted, 'black-text': blackText, 'blue-text': blueText, 'red-text': redText}">{{subHeader}}</h6>
+</ng-container>

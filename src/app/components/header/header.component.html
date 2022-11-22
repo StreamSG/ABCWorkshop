@@ -12,21 +12,13 @@
     </button>
     <div class="collapse navbar-collapse" id="navContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Pages
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="office-info">Office Info</a></li>
-            <li><a class="dropdown-item" routerLink="ticket-generator">Ticket Generator</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="help">Help</a>
-        </li>
+        <ng-container *ngFor="let route of navRoutes">
+          <li class="nav-item">
+            <ng-container *ngIf="route?.path !== ''">
+              <a [href]="route?.path" class="nav-link">{{route?.data?.['title']}}</a>
+            </ng-container>
+          </li>
+        </ng-container>
       </ul>
     </div>
   </div>

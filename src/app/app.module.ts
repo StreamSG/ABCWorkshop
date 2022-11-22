@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeaderComponent } from './components/header/header.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { HelpComponent } from './components/help/help.component';
 import { OfficeInfoComponent } from './components/office-info/office-info.component';
 import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component';
+import { HelpViewComponent } from './views/help-view/help-view.component';
+import { H2Component } from './components/h2/h2.component';
+import { ListGroupComponent } from './components/list-group/list-group.component';
+import { SoiViewComponent } from './views/soi-view/soi-view.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +24,11 @@ import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component'
     TicketGeneratorComponent,
     HelpComponent,
     OfficeInfoComponent,
-    TouchNGoComponent
+    TouchNGoComponent,
+    HelpViewComponent,
+    H2Component,
+    ListGroupComponent,
+    SoiViewComponent,
   ],
   imports: [
     BrowserModule,

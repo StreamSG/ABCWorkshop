@@ -1,0 +1,16 @@
+<ng-container *ngIf="learningPaths">
+  <ng-container *ngFor="let path of learningPaths">
+    <ul class="list-group px-4">
+      <li class="list-group-item">
+        <h4>{{path?.codeLanguage}}</h4>
+        <ng-container *ngFor="let links of path?.tutorialLinks">
+          <div class="align-items-end">
+            <ul class="list-group-flush">
+              <a [href]="links?.url" class="list-group-item list-group-item-action">{{links?.urlName}}</a>
+            </ul>
+          </div>
+        </ng-container>
+      </li>
+    </ul>
+  </ng-container>
+</ng-container>

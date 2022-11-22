@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header text-center"><h1>Learning the Atlas Way</h1></div>
+        <div class="row">
+          <div class="col-sm-12 col-lg-6">
+            <div class="card-body">
+              <h5>What is Atlas BootCamp?</h5>
+              <p>The Atlas BootCamp exists to guide motivated individuals toward becoming competent website developers. By following this program you will be able to build an impressive resume and portfolio.</p>
+              <h5>Where to Start</h5>
+              <p>To become a developer, you must first learn to think like a developer. Your first step is to take this bucket and mop, and begin cleaning my kitchen floor.</p>
+              <p>When you're finished, you'll need to have a basic understanding of HTML, CSS, and JavaScript. A lot of helpful guides can be found on YouTube, but you'll need to purchase a few Udemy courses. Don't pay full price, they often go on sale for around 80% off. Here are a few resources to get started:</p>
+            </div>
+          </div>
+          <ng-container *ngIf="learningPaths && learningPaths?.length > 0">
+            <div class="col-sm-12 col-lg-6 py-3">
+              <app-list-group [learningPaths]="learningPaths"></app-list-group>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
