@@ -4,14 +4,14 @@
       <div class="col-12">
           <div class="alert alert-primary" *ngFor = "let office of officeInfo">
             Office Info for current job:<br><br>
-            Wire Center: {{office.wirecenterNumber}}<br>
-            Wire Center Name: {{office.wirecenterName}}<br>
-            Wire Center Address: {{office.wirecenterAddress}} <a href="{{office.wirecenterMapLink}}">map it</a><br>
-            Wire Center Tel Number: {{office.wirecenterTelephoneNumber}} <a href={{office.wirecenterTelephoneNumberLink}}>Click to Call</a><br>
+            Wire Center: {{office?.wirecenterNumber}}<br>
+            Wire Center Name: {{office?.wirecenterName}}<br>
+            Wire Center Address: {{office?.wirecenterAddress}} <a href="{{office?.wirecenterMapLink}}">map it</a><br>
+            Wire Center Tel Number: {{office?.wirecenterTelephoneNumber}} <a href={{office?.wirecenterTelephoneNumberLink}}>Click to Call</a><br>
             <hr>
             C.O. Tech Details:<br><br>
-            Assigned tech on duty: {{office.wirecenterTechOnDutyFirstName}} {{office.wirecenterTechOnDutyLastName}}<br>
-            Assigned tech cell number: {{office.wirecenterTechOnDutyCellphoneNumber}} <a href={{office.wirecenterTechOnDutyCellphoneNumberLink}}>Click to Call</a><br>
+            Assigned tech on duty: {{office?.wirecenterTechOnDutyFirstName}} {{office?.wirecenterTechOnDutyLastName}}<br>
+            Assigned tech cell number: {{office?.wirecenterTechOnDutyCellphoneNumber}} <a href={{office?.wirecenterTechOnDutyCellphoneNumberLink}}>Click to Call</a><br>
             <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
             <div class="col text-center">Click to initiate Touch N Go session:<br><br>
               <div class="text-center">
