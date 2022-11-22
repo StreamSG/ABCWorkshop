@@ -1,8 +1,10 @@
-<button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
-<button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate</button>
-<button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh</button>
-<!-- <button type="button" class="btn btn-danger" (click)="onDeleteTicket()">Delete 0</button> -->
-<hr>
-<ng-container *ngFor="let ticket of tickets; let i = index">
-  <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(i)"></app-we-track-item>
-</ng-container>
+<div class="mb-5 pb-5"> <!-- Just making a little space at the bottom, we can look at a footer -->
+  <button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
+  <button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate</button>
+  <button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh</button>
+  <!-- <button type="button" class="btn btn-danger" (click)="onDeleteTicket()">Delete 0</button> -->
+  <hr>
+  <ng-container *ngFor="let ticket of tickets; let i = index">
+    <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(i)"></app-we-track-item>
+  </ng-container>
+</div>

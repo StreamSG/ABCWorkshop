@@ -66,17 +66,31 @@ export class WeTrackEditComponent implements OnInit {
 
     const title = this.weTrackForm.get('title');
     const type = this.weTrackForm.get('type');
+    const description = this.weTrackForm.get('description');
     const importance = this.weTrackForm.get('importance');
     const submitter = this.weTrackForm.get('submitter');
-    const description = this.weTrackForm.get('description');
 
-    let tempTicket = new WeTrackTicket(
-      title && title.value ? title.value : '',
-      type && type.value ? type.value : '',
-      description && description.value ? description.value : '',
-      importance && importance.value ? importance.value : '',
-      submitter && submitter.value ? submitter.value : '',
-    );
+    let tempTicket;
+
+    if(this.isEditing) {
+      tempTicket = {...this.weTrackService.getTicket(this.weTrackService.selectedTicket)} // createcopy selected ticket to prevent seting tempTicket as a pointer which will make changes to selected ticket in the service file
+
+      // patch all of the edited changes if we're editing an existing ticket.
+      tempTicket.title = title && title.value ? title.value : '';
+      tempTicket.type = type && type.value ? type.value : '';
+      tempTicket.description = description && description.value ? description.value : '';
+      tempTicket.importance = importance && importance.value ? importance.value : '';
+      tempTicket.submitter = submitter && submitter.value ? submitter.value : '';
+    }
+    else {
+      tempTicket = new WeTrackTicket(
+        title && title.value ? title.value : '',
+        type && type.value ? type.value : '',
+        description && description.value ? description.value : '',
+        importance && importance.value ? importance.value : '',
+        submitter && submitter.value ? submitter.value : '',
+      );
+    }
 
     if(this.weTrackForm.get('isAssigned')?.value) {
       const assigned = this.weTrackForm.get('assigned');

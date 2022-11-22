@@ -93,4 +93,8 @@ export class WeTrackItemComponent implements OnInit {
         this.weTrackTicket = updatedTicketPayload;
       });
   }
+
+  public stopPropogation(event: Event): void {
+    event.stopPropagation();
+  }
 }

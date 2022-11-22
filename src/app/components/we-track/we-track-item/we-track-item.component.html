@@ -6,6 +6,13 @@
         <div class="col-auto" style="overflow: hidden; white-space: nowrap; position:relative; top:-10px; left:-5px; border-radius: 5px; padding-top:10px; padding-left:20px;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'blue' : weTrackTicket.type === 'issue' ? 'purple' : 'green'}">
           <h5 style="color: white; margin-top:5px;">{{ weTrackTicket.title }}</h5>
         </div>
+        <div class="col text-end">
+          <div class="dots-btn-wrapper" [id]="'dropdownBtn'+1" data-bs-toggle="dropdown" aria-expanded="false" (click)="stopPropogation($event)"><div class="dots-btn"><div class="dots-btn-inner">...</div></div></div>
+          <ul class="dropdown-menu" aria-labelledby="dropdownBtn1">
+            <li><a class="dropdown-item" (click)="onEditTicket()">Edit</a></li>
+            <li><a class="dropdown-item">Delete</a></li>
+          </ul>
+        </div>
       </div>
       <div class="row">
         <div class="col">
@@ -38,10 +45,10 @@
       <ng-container *ngIf="isActive">
         <div class="row">
           <div class="col">
-            <button class="btn btn-primary" (click)="onEditTicket()">Edit</button>
           </div>
           <div class="col text-end">
-            <button class="btn btn-danger" (click)="onDeleteTicket()" disabled>Delete</button>
+            <!-- <button class="btn btn-primary" (click)="onEditTicket()">Edit</button> -->
+            <!-- <button class="btn btn-danger" (click)="onDeleteTicket()" disabled>Delete</button> -->
           </div>
         </div>
       </ng-container>
@@ -53,7 +60,7 @@
         </div>
       </div>
       <div class="row mt-2">
-        <div class="col">
+        <div class="col" [ngStyle]="weTrackTicket.comments && weTrackTicket.comments.length > 0 ? {} : {'color': '#999'}">
           Comments ({{ weTrackTicket.comments ? weTrackTicket.comments.length : 0 }})
         </div>
       </div>
