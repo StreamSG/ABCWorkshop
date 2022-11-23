@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   selector: 'app-flow-co',
   standalone: true,
   template: `
-  <h2>CO Tech</h2>
-  Status: {{ task }}`,
+  <h2 class="right">CO Tech</h2>
+  <p  class="p-right">Status: {{ task }}</p>`,
   styleUrls: ['./flow-co.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
