@@ -10,11 +10,11 @@ import { TouchNGoService } from 'src/app/shared/touch-n-go.service';
 export class OfficeInfoComponent implements OnInit {
   tngActive: boolean = false;
 
-  officeInfo = [
+  public officeInfo: any = [
     {wirecenterNumber: '456123',
     wirecenterName: 'Capitol',
     wirecenterAddress: '1234 Some Rd.',
-    wirecenterMapLink: '#',
+    wirecenterMapLink: '/office-info',
     wirecenterTelephoneNumber: '123-456-7890',
     wirecenterTelephoneNumberLink: 'tel:1234567890',
     wirecenterTechOnDutyFirstName: 'Mary',
