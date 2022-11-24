@@ -13,15 +13,14 @@ import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   // Mini-projects
-  { path: 'office-info', component: OfficeInfoComponent },
+  { path: 'touch-n-go', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'qc-timer', component: QcTimerComponent },
-
   { path: 'help', component: HelpComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },
-    { path: 'edit', component: WeTrackEditComponent },
+    { path: 'edit', component: WeTrackEditComponent }
   ]},
 ];
 

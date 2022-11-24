@@ -184,7 +184,7 @@ export class SeededPLEGenerator extends SeededRandomNumber {
     'Don\'t Get Shocked', 'Cleaver? I Hardly Know \'er!', 'Working Without Tools',
     'What\'s the deal with all that fiber?', 'Getting the most out of every second',
     'On the Clock, Off the Record', 'Time Micro-management', 'Drop it like it\'s a hot wire',
-    'Staring Into the Known', 'Finding Your Innter Technican', 'Clean Climbing',
+    'Staring Into the Known', 'Finding Your Inner Technican', 'Clean Climbing',
     'Maintaining a Balance Between Work and More Work', 'If you can read this, you\'re to close',
     'Jep and Step: The Rise and Fall of the Modern Technican', 'Service no Sync',
     'Did you hear about Pluto? That\'s messed up, right?', 'Gasses You Should and Shouldn\'t Breathe',

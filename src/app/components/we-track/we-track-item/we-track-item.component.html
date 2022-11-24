@@ -1,22 +1,20 @@
 <ng-container *ngIf="weTrackTicket">
   <!-- THE INLINE STYLES ARE TEMPORARY. I WANT TO MAKE IT LOOK GOOD AND THEN I'LL STYLE APPROPRIATELY LATER -->
-  <div class="container mb-3" style="border: 1px solid gray; padding: 0; border-radius: 5px; padding-bottom: 5px;">
-    <div style="border-radius:5px; padding:5px; padding-top:0; overflow:hidden; cursor:pointer;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'lightblue' : weTrackTicket.type === 'issue' ? '#e8d7f0' : '#deffcd' }" (click)="onActivateTicketItem()">
+  <div class="container mb-3 item-wrapper">
+    <div [ngClass]="'item-header item-header-'+weTrackTicket.type" (click)="onActivateTicketItem()">
       <div class="row">
-        <div class="col-auto" style="overflow: hidden; white-space: nowrap; position:relative; top:-10px; left:-5px; border-radius: 5px; padding-top:10px; padding-left:20px;" [ngStyle]="{'background-color': weTrackTicket.type === 'feature' ? 'blue' : weTrackTicket.type === 'issue' ? 'purple' : 'green'}">
-          <h5 style="color: white; margin-top:5px;">{{ weTrackTicket.title }}</h5>
+        <div class="col-auto" [ngClass]="'item-header-title item-header-title-' + weTrackTicket.type">
+          <h5 class="mt-2">{{ weTrackTicket.title }}</h5>
         </div>
         <div class="col text-end">
-          <div class="dots-btn-wrapper" [id]="'dropdownBtn'+1" data-bs-toggle="dropdown" aria-expanded="false" (click)="stopPropogation($event)"><div class="dots-btn"><div class="dots-btn-inner">...</div></div></div>
-          <ul class="dropdown-menu" aria-labelledby="dropdownBtn1">
-            <li><a class="dropdown-item" (click)="onEditTicket()">Edit</a></li>
-            <li><a class="dropdown-item">Delete</a></li>
-          </ul>
+          <app-universal-dropdown-dots 
+            [dropdownContents]="[{dropdownText: 'Edit', callbackFunction: callbackOnEditTicket}, {dropdownText: 'Delete (disabled)', callbackFunction: callbackOnEditTicket}]">
+          </app-universal-dropdown-dots>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <span [ngClass]="['dot', 'dot-' + statusColor]"></span> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
+          <div [ngClass]="['dot', 'dot-' + statusColor]"></div> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
         </div>
         <div class="col text-end">
           created: {{ prettyCreationDate }}
@@ -42,16 +40,6 @@
       </ng-container>
     </div>
     <div class="container mt-2">
-      <ng-container *ngIf="isActive">
-        <div class="row">
-          <div class="col">
-          </div>
-          <div class="col text-end">
-            <!-- <button class="btn btn-primary" (click)="onEditTicket()">Edit</button> -->
-            <!-- <button class="btn btn-danger" (click)="onDeleteTicket()" disabled>Delete</button> -->
-          </div>
-        </div>
-      </ng-container>
       <div class="row mt-2">
         <div class="col">
           <div [ngStyle]="!isActive ? ellipsesStyleWrap : {}">

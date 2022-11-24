@@ -22,7 +22,6 @@
             <option value="issue">Issue</option>
             <option value="idea">Idea</option>
           </select>
-          <!-- <input type="text" id="type" class="form-control" formControlName="type"> -->
         </div>
         <div class="form-group">
           <label for="importance">Importance</label>
@@ -32,7 +31,6 @@
             <option value="high">High</option>
             <option value="urgent">Urgent</option>
           </select>
-          <!-- <input type="text" id="importance" class="form-control" formControlName="importance"> -->
         </div>
         <div class="form-group">
           <label for="submitter">Submitter</label>
@@ -49,7 +47,7 @@
         <ng-container *ngIf="weTrackForm.get('isAssigned')?.value">
           <div class="form-group">
             <label for="assigned">Assigned To</label>
-            <input type="text" id="assigned" class="form-control" formControlName="assigned">
+            <input type="text" id="assigned" class="form-control" formControlName="assignee">
           </div>
           <div class="form-group">
             <label for="status">Ticket Status</label>
@@ -62,7 +60,7 @@
             </select>
           </div>
         </ng-container>
-        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid || (weTrackForm.get('isAssigned')?.value && !weTrackForm.get('assigned')?.value)">{{ isEditing ? 'Update' : 'Submit' }}</button>
+        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid || (weTrackForm.get('isAssigned')?.value && !weTrackForm.get('assignee')?.value)">{{ isEditing ? 'Update' : 'Submit' }}</button>
       </form>
     </div>
   </div>

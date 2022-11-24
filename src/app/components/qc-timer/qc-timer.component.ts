@@ -6,9 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./qc-timer.component.scss']
 })
 export class QcTimerComponent implements OnInit {
-
-  public timerLength = 60;
-  public countdownTimer = ''+this.timerLength;
+  public timerLength: number = 60; // Used to calculate end time. Defaulted to one minute. Could be changed to an input, but no current plans to do so. 
+  public countdownTimer: string = ''+this.timerLength; // Initialized to whatever above value is. Value changes as time passes.
 
   constructor() { }
 

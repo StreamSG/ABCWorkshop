@@ -1,15 +1,13 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <b>{{ comment.name }}</b><span class="time-since">{{ timeSinceComment }}</span> <div class="dots-btn-wrapper" [id]="'dropdownBtn'+1" data-bs-toggle="dropdown" aria-expanded="false"><div class="dots-btn"><div class="dots-btn-inner">...</div></div></div>
-      <ul class="dropdown-menu" aria-labelledby="dropdownBtn1">
-        <li><a class="dropdown-item" (click)="onDeleteComment()">Delete</a></li>
-      </ul>
+      <b>{{ comment && comment.name ? comment.name : '' }}</b><span class="time-since">{{ timeSinceComment }}</span>
+      <app-universal-dropdown-dots [dropdownContents]="[{dropdownText: 'Delete', callbackFunction: callbackOnDeleteComment}]"></app-universal-dropdown-dots>
     </div>
   </div>
   <div class="row mb-2">
     <div class="col">
-      {{ comment.comment }}
+      {{ comment && comment.comment ? comment.comment : '' }}
     </div>
   </div>
 </div>

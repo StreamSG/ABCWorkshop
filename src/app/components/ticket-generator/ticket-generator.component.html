@@ -14,11 +14,11 @@
       <ng-container *ngIf="seededBan">
         <div class="alert alert-primary">
           <h5>Address:</h5>
-          <p>{{ customerData.address }}</p>
+          <p>{{ customerData && customerData.address ? customerData.address : '' }}</p>
           <h5>Phone:</h5>
-          <p>{{ customerData.phone }}</p>
+          <p>{{ customerData && customerData.phone ? customerData.phone : '' }}</p>
           <h5>Circuit ID:</h5>
-          <p>{{ customerData.circuitID }}</p>
+          <p>{{ customerData && customerData.circuitID ? customerData.circuitID : '' }}</p>
         </div>
       </ng-container>
     </div>

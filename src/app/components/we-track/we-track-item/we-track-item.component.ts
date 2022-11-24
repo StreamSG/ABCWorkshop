@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { WeTrackTicket } from 'src/app/models/we-track-ticket.model';
 import { WeTrackService } from 'src/app/services/we-track.service';
 
@@ -9,44 +10,52 @@ import { WeTrackService } from 'src/app/services/we-track.service';
   styleUrls: ['./we-track-item.component.scss']
 })
 export class WeTrackItemComponent implements OnInit {
-
+  // Both variables received from we-track-list for ticket data as well as index selection when the user wants to edit
   @Input() weTrackTicketIndex: number;
   @Input() weTrackTicket: WeTrackTicket;
+  // Emission to we-track-list when the user wants to delete this ticket from the database.
+  @Output() deleteThisTicket: EventEmitter<void> = new EventEmitter<void>(); // An alternative to this would be to have the ticket delete itself from the database. However, this would require all of the places that use the master ticket array to subscribe to the service in order to be notified when the master list changes. -Micah
 
-  @Output() deleteThisTicket = new EventEmitter<void>();
+  public isActive: boolean = false; // When the ticket is open in the list, showing the full description and all data
+  public statusColor: string = ''; // For use with the stylized dot class next to the ticket status. See global style sheet for class info
+  public prettyCreationDate: string = ''; // Shows creation date in MM-DD-YYYY format
 
-  public isActive = false;
-  public statusColor: string = '';
-  public prettyCreationDate: string = '';
+  public commentName: string = ''; // Form data from commenter name (may be replaced if we move to login-based interaction)
+  public commentText: string = ''; // Form data for comment text
 
-  public commentName: string = '';
-  public commentText: string = '';
-
-  public ellipsesStyleWrap = {
-    'text-overflow': 'ellipsis',
+  public ellipsesStyleWrap: object = { // for ngStyle use on the description, to hide overflow when the ticket is collapsed. 
+    'text-overflow': 'ellipsis', // Where should this go? Entirely in the HTML? Maybe create a class? -Micah
     'overflow' : 'hidden',
     'white-space': 'nowrap',
   };
-
+  
+  // Functions passed as callback functions
+  
   constructor(private weTrackService: WeTrackService, private router: Router) { }
-
+  
   ngOnInit(): void {
-    this.statusColor = this.getStatusColor(this.weTrackTicket.status);
-    let tempPrettyDate = new Date(this.weTrackTicket.creationDate).toISOString().slice(0,10);
+    this.statusColor = this.getStatusColor(this.weTrackTicket.status); // Calculate status color for "dot-" class. See global style sheet for dot info
+    let tempPrettyDate = new Date(this.weTrackTicket.creationDate).toISOString().slice(0,10); // Convert Date string to MM-DD-YYY
     this.prettyCreationDate = tempPrettyDate.slice(5,10) + '-' + tempPrettyDate.slice(0,4);
+  }
+
+  /**
+   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
+   */
+  public callbackOnEditTicket: Function = (): void => {
+    this.weTrackService.selectedTicket = this.weTrackTicketIndex;
+    this.router.navigate(['we-track','edit']);
+  };
+
+  /**
+   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
+   */
+  public onDeleteTicket: Function = (): void => {
+    this.deleteThisTicket.next();
   }
 
   public onActivateTicketItem(): void {
     this.isActive = !this.isActive;
-  }
-
-  public onDeleteTicket(): void {
-    this.deleteThisTicket.next();
-  }
-
-  public onEditTicket(): void {
-    this.weTrackService.selectedTicket = this.weTrackTicketIndex;
-    this.router.navigate(['we-track','edit']);
   }
 
   private getStatusColor(status: string): string {

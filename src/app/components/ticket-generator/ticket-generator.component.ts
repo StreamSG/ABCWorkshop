@@ -50,7 +50,7 @@ export class TicketGeneratorComponent implements OnInit {
    */
   public onRandomBan(): void {
     this.banForm.patchValue({
-      'ban': ''+(Math.floor(Math.random()*2.99*Math.pow(10,15))+Math.pow(10,15)) // generate a random ban between 100-000-000-000-000 and 399-999-999-999-999
+      'ban': ''+(Math.floor(Math.random()*2.99*Math.pow(10,14))+Math.pow(10,14)) // generate a random ban between 100-000-000-000-000 and 399-999-999-999-999
     });
   }
 
