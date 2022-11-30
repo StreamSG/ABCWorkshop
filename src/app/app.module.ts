@@ -19,6 +19,8 @@ import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-tra
 import { WeTrackCommentComponent } from './components/we-track/we-track-comment/we-track-comment.component';
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 import { UniversalDropdownDotsComponent } from './components/universal/universal-dropdown-dots/universal-dropdown-dots.component';
+import { UniversalTicketTypeComponent } from './components/universal/universal-ticket-type/universal-ticket-type.component';
+import { UniversalFullScreenModalComponent } from './components/universal/universal-full-screen-modal/universal-full-screen-modal.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { UniversalDropdownDotsComponent } from './components/universal/universal
     WeTrackEditComponent,
     WeTrackCommentComponent,
     QcTimerComponent,
-    UniversalDropdownDotsComponent
+    UniversalDropdownDotsComponent,
+    UniversalTicketTypeComponent,
+    UniversalFullScreenModalComponent
   ],
   imports: [
     BrowserModule,

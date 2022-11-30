@@ -1,0 +1,29 @@
+.modal-backdrop {
+  position: fixed;
+  top: -10vh;
+  height: 120vh;
+  left: -10vw;
+  width: 120vw;
+  z-index: 10000;
+  background-color: rgba(255,255,255,0);
+  cursor: default;
+
+  &-dim {
+    background-color: rgba(0,0,0,0.5);
+  }
+}
+
+.modal-content {
+  width: 40vmax;
+  // height: 30vmax;
+  position: absolute;
+  left: 50%;
+  // top: 50%; 
+  margin-left: -20vmax;
+  // margin-top: -15vmax;
+  background-color: white;
+  border-radius: 1vmax;
+  z-index: 10001;
+  cursor: default;
+  padding: 20px;
+}

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { WeTrackTicket } from 'src/app/models/we-track-ticket.model';
 import { WeTrackService } from 'src/app/services/we-track.service';
+import { FullScreenModalClosingPayload } from '../../universal/universal-full-screen-modal/universal-full-screen-modal.component';
 
 @Component({
   selector: 'app-we-track-item',
@@ -29,14 +30,14 @@ export class WeTrackItemComponent implements OnInit {
     'white-space': 'nowrap',
   };
   
-  // Functions passed as callback functions
-  
   constructor(private weTrackService: WeTrackService, private router: Router) { }
   
   ngOnInit(): void {
     this.statusColor = this.getStatusColor(this.weTrackTicket.status); // Calculate status color for "dot-" class. See global style sheet for dot info
     let tempPrettyDate = new Date(this.weTrackTicket.creationDate).toISOString().slice(0,10); // Convert Date string to MM-DD-YYY
     this.prettyCreationDate = tempPrettyDate.slice(5,10) + '-' + tempPrettyDate.slice(0,4);
+    this.prettyCreationDate = `${tempPrettyDate.slice(5,10)}-${tempPrettyDate.slice(0,4)}`;
+
   }
 
   /**
@@ -50,14 +51,39 @@ export class WeTrackItemComponent implements OnInit {
   /**
    * @description Is passed to uni dropdown component, so must be created as an anonymous function.
    */
-  public onDeleteTicket: Function = (): void => {
-    this.deleteThisTicket.next();
+  public callbackOnDeleteTicket: Function = (): void => {
+    // currently disabled to prevent people deleting tickets, until warning modal can be created.
+    // this.deleteThisTicket.next();
   }
 
-  public onActivateTicketItem(): void {
-    this.isActive = !this.isActive;
+  /**
+   * @description Is passed to uni dropdown content, so must be created as anonymous function.
+   */
+  public callbackOnPrintData: Function = (): void => {
+    console.log(this.weTrackTicket);
   }
 
+  /**
+   * @description For use when the user clicks on the ticket header. Opens up the ticket view to show full ticket details. However, will not open if the user clicks a button within the ticket.
+   * @param event The $event of the click. Used to identify if the user clicks on a button within the ticket, in which case it should not be opened.
+   */
+  public onActivateTicketItem(event: any): void {
+    let foundBtnClass = false;
+    for(let className of event.target.classList) {
+      if(className.toLowerCase().indexOf('btn') !== -1 || className.toLowerCase().indexOf('dropdown') !== -1) {
+        foundBtnClass = true;
+        break;
+      }
+    }
+    if(!foundBtnClass) {
+      this.isActive = !this.isActive;
+    }
+
+  }
+
+  /**
+   * @description Returns the class color for the status of a ticket, based on the status within the ticket. I tried moving this into 
+   */
   private getStatusColor(status: string): string {
     switch(status) {
       case WeTrackTicket.STATUS.PENDING:
@@ -103,7 +129,7 @@ export class WeTrackItemComponent implements OnInit {
       });
   }
 
-  public stopPropogation(event: Event): void {
+  public stopPropagation(event: Event): void {
     event.stopPropagation();
   }
 }

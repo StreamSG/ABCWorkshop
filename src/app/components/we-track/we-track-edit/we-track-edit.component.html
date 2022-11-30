@@ -40,27 +40,56 @@
           <label for="description">Description</label>
           <input type="text" id="description" class="form-control" formControlName="description">
         </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" value="" id="isAssigned" formControlName="isAssigned">
-          <label class="form-check-label" for="isAssigned">Is assigned</label>
+        <div formGroupName="isAssignedGroup">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="isAssigned" formControlName="isAssigned">
+            <label class="form-check-label" for="isAssigned">Is assigned</label>
+            <div *ngIf="!weTrackForm.get('isAssignedGroup.isAssigned')?.value" class="subtext">(default to unassigned and pending)</div>
+          </div>
+          <ng-container *ngIf="weTrackForm.get('isAssignedGroup.isAssigned')?.value">
+            <div class="form-group">
+              <label for="assigned">Assigned To</label>
+              <input type="text" id="assigned" class="form-control" formControlName="assignee">
+            </div>
+            <div class="form-group">
+              <label for="status">Ticket Status</label>
+              <select formControlName="status" name="status" id="status" class="form-select">
+                <option value="pending">Pending</option>
+                <option value="assigned">Assigned</option>
+                <option value="in-progress">In Progress</option>
+                <option value="complete">Complete</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </ng-container>
         </div>
-        <ng-container *ngIf="weTrackForm.get('isAssigned')?.value">
-          <div class="form-group">
-            <label for="assigned">Assigned To</label>
-            <input type="text" id="assigned" class="form-control" formControlName="assignee">
+        <div formGroupName="customCreationGroup">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="isCustomCreation" formControlName="isCustomCreation">
+            <label class="form-check-label" for="isCustomCreation">Custom Created Date</label>
+            <div *ngIf="!weTrackForm.get('customCreationGroup.isCustomCreation')?.value" class="subtext">(default to today)</div>
           </div>
-          <div class="form-group">
-            <label for="status">Ticket Status</label>
-            <select formControlName="status" name="status" id="status" class="form-select">
-              <option value="pending">Pending</option>
-              <option value="assigned">Assigned</option>
-              <option value="in-progress">In Progress</option>
-              <option value="complete">Complete</option>
-              <option value="cancelled">Cancelled</option>
-            </select>
+          <ng-container *ngIf="weTrackForm.get('customCreationGroup.isCustomCreation')?.value">
+            <div class="form-group">
+              <label for="customCreationDate">Ticket Creation Date</label>
+              <input type="date" id="customCreationDate" class="form-control" formControlName="customCreationDate">
+            </div>
+          </ng-container>
+        </div>
+        <div formGroupName="customEditGroup">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" value="" id="isCustomEdit" formControlName="isCustomEdit">
+            <label class="form-check-label" for="isCustomEdit">Custom Edited Date</label>
+            <div *ngIf="!weTrackForm.get('customEditGroup.isCustomEdit')?.value" class="subtext"> (default to today)</div>
           </div>
-        </ng-container>
-        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid || (weTrackForm.get('isAssigned')?.value && !weTrackForm.get('assignee')?.value)">{{ isEditing ? 'Update' : 'Submit' }}</button>
+          <ng-container *ngIf="weTrackForm.get('customEditGroup.isCustomEdit')?.value">
+            <div class="form-group">
+              <label for="customEditDate">Ticket Last Edit Date</label>
+              <input type="date" id="customEditDate" class="form-control" formControlName="customEditDate">
+            </div>
+          </ng-container>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid">{{ isEditing ? 'Update' : 'Submit' }}</button> 
       </form>
     </div>
   </div>

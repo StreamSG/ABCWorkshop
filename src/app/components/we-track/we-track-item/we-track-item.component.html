@@ -1,14 +1,13 @@
 <ng-container *ngIf="weTrackTicket">
-  <!-- THE INLINE STYLES ARE TEMPORARY. I WANT TO MAKE IT LOOK GOOD AND THEN I'LL STYLE APPROPRIATELY LATER -->
   <div class="container mb-3 item-wrapper">
-    <div [ngClass]="'item-header item-header-'+weTrackTicket.type" (click)="onActivateTicketItem()">
+    <div [ngClass]="'item-header item-header-'+ weTrackTicket.type" (click)="onActivateTicketItem($event)">
       <div class="row">
         <div class="col-auto" [ngClass]="'item-header-title item-header-title-' + weTrackTicket.type">
           <h5 class="mt-2">{{ weTrackTicket.title }}</h5>
         </div>
         <div class="col text-end">
           <app-universal-dropdown-dots 
-            [dropdownContents]="[{dropdownText: 'Edit', callbackFunction: callbackOnEditTicket}, {dropdownText: 'Delete (disabled)', callbackFunction: callbackOnEditTicket}]">
+            [dropdownContents]="[{dropdownText: 'Edit', callbackFunction: callbackOnEditTicket}, {dropdownText: 'Delete (disabled)', callbackFunction: callbackOnDeleteTicket}, {dropdownText: 'Print Data', callbackFunction: callbackOnPrintData}]">
           </app-universal-dropdown-dots>
         </div>
       </div>
@@ -31,7 +30,7 @@
         </div>
         <div class="row">
           <div class="col">
-            {{ weTrackTicket.type === 'feature' ? '&And; ' : weTrackTicket.type === 'issue' ? '&xotime; ' : '&odot; ' }}{{ weTrackTicket.type.charAt(0).toUpperCase() + weTrackTicket.type.slice(1) }}
+            <app-universal-ticket-type [ticketType]="weTrackTicket && weTrackTicket.type ? weTrackTicket.type : ''"></app-universal-ticket-type> {{ weTrackTicket.type.charAt(0).toUpperCase() + weTrackTicket.type.slice(1) }}
           </div>
           <div class="col text-end">
             <span [ngStyle]="{'font-style' : weTrackTicket.assignee === '' ? 'italic' : '' }">{{ weTrackTicket.assignee === '' ? 'Unassigned' : 'for: ' }}</span><b>{{ weTrackTicket.assignee }}</b>
@@ -68,8 +67,8 @@
           </div>
           <div class="row">
             <div class="col-md-2">
-                <div class="form-group">
-                  <input type="text" title="name" class="form-control" [(ngModel)]="commentName">
+              <div class="form-group">
+                <input type="text" title="name" class="form-control" [(ngModel)]="commentName">
               </div>
             </div>
             <div class="col-md-8">
@@ -86,3 +85,4 @@
     </div>
   </div>
 </ng-container>
+<!-- WILL BE MOVED TO FUTURE FEATURE <app-universal-full-screen-modal [showModal]="showDeleteTicketWarning" [modalOptions]="{dimBackground: true, areYouSure: {headerText: 'Are you sure?', mainText: 'Would you really like to delete the \'' + weTrackTicket.title + '\' ticket?'}}" (closeModal)="onCloseDeleteTicketWarning($event)"></app-universal-full-screen-modal> -->

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-universal-dropdown-dots',
@@ -14,8 +14,14 @@ export class UniversalDropdownDotsComponent implements OnInit {
     callbackFunction: Function
   }[];
 
+  public expandDropdown = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public stopPropagation(event: Event): void {
+    event.stopPropagation();
   }
 }
