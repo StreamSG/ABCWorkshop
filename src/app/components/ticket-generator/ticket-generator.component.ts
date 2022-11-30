@@ -28,8 +28,8 @@ export class TicketGeneratorComponent implements OnInit {
     this.banForm = new FormGroup({
       'ban': new FormControl(null, [
         Validators.required, 
-        Validators.minLength(9), 
-        Validators.maxLength(9), 
+        Validators.minLength(15), 
+        Validators.maxLength(15), 
         Validators.pattern(/^[0-9]+$/m) // Only allow numbers
       ]),
     });
@@ -37,9 +37,9 @@ export class TicketGeneratorComponent implements OnInit {
     this.trainingForm = new FormGroup({
       'uuid': new FormControl(null, [
         Validators.required, 
-        Validators.minLength(6), 
-        Validators.maxLength(6), 
-        Validators.pattern(/[a-z]+[a-z]+[0-9]+[0-9]+[0-9]+[a-z0-9]/) // only allow 2 letters, 3 numbers, and then a letter OR number
+        Validators.minLength(7), 
+        Validators.maxLength(7), 
+        Validators.pattern(/[a-z]+[a-z]+[0-9]+[0-9]+[0-9]+[a-z0-9]+[0-9]/) // only allow 2 letters, 3 numbers, and then a letter OR number, and then finally another number
       ]), 
     });
   }
@@ -50,7 +50,7 @@ export class TicketGeneratorComponent implements OnInit {
    */
   public onRandomBan(): void {
     this.banForm.patchValue({
-      'ban': ''+(Math.floor(Math.random()*224000000)+100000000) // generate a random ban between 100-000-000 and 323-999-999
+      'ban': ''+(Math.floor(Math.random()*2.99*Math.pow(10,14))+Math.pow(10,14)) // generate a random ban between 100-000-000-000-000 and 399-999-999-999-999
     });
   }
 
@@ -84,6 +84,7 @@ export class TicketGeneratorComponent implements OnInit {
 
     const lastChar = Math.floor(Math.random()*36)+97;
     genID += lastChar > 122 ? lastChar-123 : String.fromCharCode(lastChar); // if the ascii code is past z, return the ascii code as a number (0-9). Otherwise convert ascii code to letter
+    genID += Math.floor(Math.random()*10);
 
     this.trainingForm.patchValue({
       'uuid': genID,

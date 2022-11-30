@@ -1,0 +1,6 @@
+<div class="dots-btn-wrapper" [id]="'dropdownBtn'" data-bs-toggle="dropdown" aria-expanded="false"><div class="dots-btn"><div class="dots-btn-inner">...</div></div></div>
+<ul class="dropdown-menu" aria-labelledby="dropdownBtn">
+  <ng-container *ngFor="let dropdownElem of dropdownContents">
+    <li><a class="dropdown-item" (click)="dropdownElem.callbackFunction()">{{ dropdownElem.dropdownText }}</a></li>
+  </ng-container>
+</ul>

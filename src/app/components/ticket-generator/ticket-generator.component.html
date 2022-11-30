@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h4>Generate customer info from a BAN</h4>
+      <h4>Generate customer info from a 15 digit BAN</h4>
       <form (ngSubmit)="onBanFormSubmit()" [formGroup]="banForm">
         <div class="form-group">
           <label for="ban">BAN:</label>
@@ -14,11 +14,11 @@
       <ng-container *ngIf="seededBan">
         <div class="alert alert-primary">
           <h5>Address:</h5>
-          <p>{{ customerData?.address }}</p>
+          <p>{{ customerData && customerData.address ? customerData.address : '' }}</p>
           <h5>Phone:</h5>
-          <p>{{ customerData.phone }}</p>
+          <p>{{ customerData && customerData.phone ? customerData.phone : '' }}</p>
           <h5>Circuit ID:</h5>
-          <p>{{ customerData.circuitID }}</p>
+          <p>{{ customerData && customerData.circuitID ? customerData.circuitID : '' }}</p>
         </div>
       </ng-container>
     </div>
@@ -34,6 +34,7 @@
         <button type="button" class="btn btn-primary" (click)="onRandomUUID()">Random</button>
         <button type="submit" class="btn btn-success" [disabled]="!(trainingForm && trainingForm.valid)">Generate</button>
       </form>
+      <p>(UUIDs must be two letters, three numbers, a letter OR number, and finally an extra number on the end. Example: mw123a4)</p>
       <p>(This information is completely generated, none of the following information is based on any real employee information.)</p>
       <ng-container *ngIf="seededTraining">
         <div class="alert alert-success">

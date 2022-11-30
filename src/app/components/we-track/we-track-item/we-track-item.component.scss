@@ -1,0 +1,51 @@
+.item-wrapper {
+  border: 1px solid gray; 
+  padding: 0; 
+  border-radius: 5px; 
+  padding-bottom: 5px;
+}
+
+.item-header {
+  border-radius: 5px; 
+  padding: 5px; 
+  padding-top: 0; 
+  overflow: hidden; 
+  cursor: pointer;
+
+  &-feature {
+    background-color: lightblue;
+  }
+
+  &-issue {
+    background-color: #e8d7f0;
+  }
+
+  &-idea {
+    background-color: #deffcd;
+  }
+}
+
+.item-header-title {
+  overflow: hidden; 
+  white-space: nowrap; 
+  position:relative; 
+  top:-10px; 
+  left:-5px; 
+  border-radius: 5px; 
+  padding-top:10px; 
+  padding-left:20px;
+  color: white;
+  
+  &-feature {
+    background-color: blue;
+  }
+
+  &-issue {
+    background-color: purple;
+  }
+
+  &-idea {
+    background-color: green;
+  }
+}
+

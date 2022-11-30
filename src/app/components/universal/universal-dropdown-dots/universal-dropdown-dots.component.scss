@@ -1,0 +1,23 @@
+.dots-btn-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  margin-left:15px;
+}
+.dots-btn {
+  width: 21px;
+  height: 15px;
+  border: 1px solid rgb(185, 185, 185);
+  border-radius: 2px;
+  background-color: rgb(245, 245, 245);
+  position: relative;
+  top: 6px;
+  text-align:left;
+}
+
+.dots-btn-inner {
+  position:relative;
+  display:inline-block;
+  top: -10px;
+  left: 3px;
+  color: rgb(172, 172, 172);
+}

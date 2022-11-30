@@ -1,0 +1,88 @@
+<ng-container *ngIf="weTrackTicket">
+  <!-- THE INLINE STYLES ARE TEMPORARY. I WANT TO MAKE IT LOOK GOOD AND THEN I'LL STYLE APPROPRIATELY LATER -->
+  <div class="container mb-3 item-wrapper">
+    <div [ngClass]="'item-header item-header-'+weTrackTicket.type" (click)="onActivateTicketItem()">
+      <div class="row">
+        <div class="col-auto" [ngClass]="'item-header-title item-header-title-' + weTrackTicket.type">
+          <h5 class="mt-2">{{ weTrackTicket.title }}</h5>
+        </div>
+        <div class="col text-end">
+          <app-universal-dropdown-dots 
+            [dropdownContents]="[{dropdownText: 'Edit', callbackFunction: callbackOnEditTicket}, {dropdownText: 'Delete (disabled)', callbackFunction: callbackOnEditTicket}]">
+          </app-universal-dropdown-dots>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div [ngClass]="['dot', 'dot-' + statusColor]"></div> {{ weTrackTicket.status.charAt(0).toUpperCase() + weTrackTicket.status.slice(1) }}
+        </div>
+        <div class="col text-end">
+          created: {{ prettyCreationDate }}
+        </div>
+      </div>
+      <ng-container *ngIf="isActive">
+        <div class="row">
+          <div class="col">
+            <span [ngStyle]="weTrackTicket.importance === 'urgent' ? {'font-weight' : 'bold'} : {}">{{ weTrackTicket.importance === 'low' ? '&darr;' : weTrackTicket.importance === 'medium' ? '~' : '&uarr;' }}</span> {{ weTrackTicket.importance.charAt(0).toUpperCase() + weTrackTicket.importance.slice(1) }}
+          </div>
+          <div class="col text-end">
+            by: <b>{{ weTrackTicket.submitter }}</b>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            {{ weTrackTicket.type === 'feature' ? '&And; ' : weTrackTicket.type === 'issue' ? '&xotime; ' : '&odot; ' }}{{ weTrackTicket.type.charAt(0).toUpperCase() + weTrackTicket.type.slice(1) }}
+          </div>
+          <div class="col text-end">
+            <span [ngStyle]="{'font-style' : weTrackTicket.assignee === '' ? 'italic' : '' }">{{ weTrackTicket.assignee === '' ? 'Unassigned' : 'for: ' }}</span><b>{{ weTrackTicket.assignee }}</b>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="container mt-2">
+      <div class="row mt-2">
+        <div class="col">
+          <div [ngStyle]="!isActive ? ellipsesStyleWrap : {}">
+            {{ weTrackTicket.description }} 
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col" [ngStyle]="weTrackTicket.comments && weTrackTicket.comments.length > 0 ? {} : {'color': '#999'}">
+          Comments ({{ weTrackTicket.comments ? weTrackTicket.comments.length : 0 }})
+        </div>
+      </div>
+      <ng-container *ngIf="isActive">
+        <hr>
+        <ng-container *ngFor="let comment of weTrackTicket.comments; let i = index">
+          <app-we-track-comment [comment]="comment" (deleteSelf)="deleteComment(i)"></app-we-track-comment>
+        </ng-container>
+        <div class="">
+          <div class="row">
+            <div class="col-md-2">
+              <label for="name">Name:</label>
+            </div>
+            <div class="col-md-10">
+              <label for="name">Comment:</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                  <input type="text" title="name" class="form-control" [(ngModel)]="commentName">
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <input type="text" title="comment" class="form-control" [(ngModel)]="commentText" (keyup.enter)="onSubmitComment()">
+              </div>
+            </div>
+            <div class="col-md-2 text-end" style="padding-top: auto; padding-bottom: 0;">
+              <div type="button" class="btn btn-primary" (click)="onSubmitComment()">Comment</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
