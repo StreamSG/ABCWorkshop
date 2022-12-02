@@ -1,9 +1,36 @@
 <div class="mb-5 pb-5">
-  <button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
-  <button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate</button>
-  <button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh</button>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
+      &nbsp;
+      <button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate Dummy Ticket</button>
+    </div>
+    <div class="col text-end">
+      <span>Sorting: {{ selectedSorting }}</span>
+      <app-universal-dropdown-dots [dropdownContents]="sortingDropdownOptions" (optionClicked)="sortTicketsByOption($event)"></app-universal-dropdown-dots>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh List</button>
+      &nbsp;
+      <button type="button" class="btn btn-warning" (click)="'Your method goes here'">TBD</button>
+    </div>
+    <div class="col text-center">
+      
+    </div>
+    <div class="col text-end">
+      <span>Order: </span>
+      <button type="button" class="btn btn-primary btn-sm" (click)="sortOrder = -sortOrder; sortTickets();">{{ sortOrder === 1 ? 'Asc&nbsp;&nbsp;&nbsp;&uarr;' : 'Desc &darr;' }}</button>
+    </div>
+  </div>
   <hr>
-  <ng-container *ngFor="let ticket of tickets; let i = index">
+  <ng-container *ngIf="currentlyLoadingTickets">
+    <div class="text-center mt-5">
+      <h4>Loading. . .</h4>
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let ticket of orderedTickets; let i = index">
     <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(i)"></app-we-track-item>
   </ng-container>
 </div>

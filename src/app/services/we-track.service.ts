@@ -30,6 +30,10 @@ export class WeTrackService {
     return this.tickets.slice();
   }
 
+  public isLoadingTickets(): boolean {
+    return this.loadingTickets;
+  }
+
   public getTicket(index: number): WeTrackTicket {
     return this.tickets[index];
   }
@@ -47,7 +51,7 @@ export class WeTrackService {
     this.loadTicketPromise = new Promise( (resolve, reject) => { // store the promise to be returned
       this.http.get<WeTrackTicket[]>(this.databaseUrl).subscribe({ // subscribe to the response from the server
         next: (response) => {
-          // on a positive responsse, store the ticket data and resolve the promise
+          // on a positive response, store the ticket data and resolve the promise
           this.tickets = response ? response : [];
           resolve(this.getTickets());
         },
@@ -111,6 +115,73 @@ export class WeTrackService {
         }
       });
     });
+  }
+
+  public getSortableValueFromTicket(ticket: number | WeTrackTicket, ticketVariable: string): number {
+    if(!ticket) {
+      console.error('Error parsing ticket');
+    }
+    let ticketToUse: WeTrackTicket = typeof ticket === 'number' ? this.tickets[ticket] : ticket;
+
+    switch(ticketVariable) {
+      case 'creationDate':
+        return new Date(ticketToUse.creationDate).getTime();
+      case 'editDate':
+        return new Date(ticketToUse.editDate).getTime();
+      case 'type':
+        switch(ticketToUse.type) {
+          case WeTrackTicket.STATIC_DATA.TYPE.FEATURE: 
+            return 1;
+          case WeTrackTicket.STATIC_DATA.TYPE.ISSUE: 
+            return 2;
+          case WeTrackTicket.STATIC_DATA.TYPE.IDEA: 
+            return 3;
+        }
+        console.error('Unrecognized ticket type: ', ticketToUse, ticketToUse.type);
+        return 0;
+      case 'importance': 
+        switch(ticketToUse.importance) {
+          case WeTrackTicket.STATIC_DATA.PRIORITY.LOW:
+            return 1;
+          case WeTrackTicket.STATIC_DATA.PRIORITY.MEDIUM:
+            return 2;
+          case WeTrackTicket.STATIC_DATA.PRIORITY.HIGH:
+            return 3;
+          case WeTrackTicket.STATIC_DATA.PRIORITY.URGENT:
+            return 4; 
+        }
+        console.error('Unrecognized ticket priority: ', ticketToUse, ticketToUse.importance);
+        return 0;
+      case 'status':
+        switch(ticketToUse.status) {
+          case WeTrackTicket.STATIC_DATA.STATUS.PENDING:
+            return 1;
+          case WeTrackTicket.STATIC_DATA.STATUS.ASSIGNED:
+            return 2;
+          case WeTrackTicket.STATIC_DATA.STATUS.IN_PROGRESS:
+            return 3;
+          case WeTrackTicket.STATIC_DATA.STATUS.COMPLETE:
+            return 4;
+          case WeTrackTicket.STATIC_DATA.STATUS.CANCELLED:
+            return 5;
+        }
+        console.error('Unrecognized ticket status: ', ticketToUse, ticketToUse.status);
+        return 0;
+      default:
+        console.error('Unrecognized ticket variable: ', ticketVariable);
+        return 0;
+    }
+  }
+
+  public getIndexOfTicket(ticket: WeTrackTicket): number {
+    for(let i = 0; i < this.tickets.length; i++) {
+      if(this.tickets[i] == ticket) {
+        return i;
+      }
+    }
+    console.error('No matching ticket found:');
+    console.error(ticket);
+    return 0;
   }
 
   // private databaseUrl: string = 'https://atlas-boot-camp-default-rtdb.firebaseio.com/we-track.json';

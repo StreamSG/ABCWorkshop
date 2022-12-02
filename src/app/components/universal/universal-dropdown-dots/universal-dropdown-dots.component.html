@@ -6,7 +6,7 @@
   </div>
   <ul class="dropdown-menu" aria-labelledby="dropdownBtn">
     <ng-container *ngFor="let dropdownElem of dropdownContents">
-      <li><a class="dropdown-item" (click)="dropdownElem.callbackFunction()">{{ dropdownElem.dropdownText }}</a></li>
+      <li><a class="dropdown-item" (click)="onOptionClicked(dropdownElem)">{{ dropdownElem }}</a></li>
     </ng-container>
   </ul>
 </div>

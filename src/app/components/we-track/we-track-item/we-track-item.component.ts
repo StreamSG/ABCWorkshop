@@ -16,7 +16,7 @@ export class WeTrackItemComponent implements OnInit {
   @Input() weTrackTicket: WeTrackTicket;
   // Emission to we-track-list when the user wants to delete this ticket from the database.
   @Output() deleteThisTicket: EventEmitter<void> = new EventEmitter<void>(); // An alternative to this would be to have the ticket delete itself from the database. However, this would require all of the places that use the master ticket array to subscribe to the service in order to be notified when the master list changes. -Micah
-
+  
   public isActive: boolean = false; // When the ticket is open in the list, showing the full description and all data
   public statusColor: string = ''; // For use with the stylized dot class next to the ticket status. See global style sheet for class info
   public prettyCreationDate: string = ''; // Shows creation date in MM-DD-YYYY format
@@ -29,6 +29,13 @@ export class WeTrackItemComponent implements OnInit {
     'overflow' : 'hidden',
     'white-space': 'nowrap',
   };
+
+  public readonly staticTicketDropdownOptions = {
+    EDIT: 'Edit',
+    DELETE: 'Delete (only if you mean it!)',
+    PRINT_DATA: 'Print Data',
+  }
+  public ticketDropdownOptions = [this.staticTicketDropdownOptions.EDIT, this.staticTicketDropdownOptions.DELETE, this.staticTicketDropdownOptions.PRINT_DATA];
   
   constructor(private weTrackService: WeTrackService, private router: Router) { }
   
@@ -39,28 +46,23 @@ export class WeTrackItemComponent implements OnInit {
     this.prettyCreationDate = `${tempPrettyDate.slice(5,10)}-${tempPrettyDate.slice(0,4)}`;
 
   }
-
-  /**
-   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
-   */
-  public callbackOnEditTicket: Function = (): void => {
-    this.weTrackService.selectedTicket = this.weTrackTicketIndex;
-    this.router.navigate(['we-track','edit']);
-  };
-
-  /**
-   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
-   */
-  public callbackOnDeleteTicket: Function = (): void => {
-    // currently disabled to prevent people deleting tickets, until warning modal can be created.
-    // this.deleteThisTicket.next();
-  }
-
-  /**
-   * @description Is passed to uni dropdown content, so must be created as anonymous function.
-   */
-  public callbackOnPrintData: Function = (): void => {
-    console.log(this.weTrackTicket);
+  
+  public onTicketDropdownOptionsClicked(optionClicked: string): void {
+    switch(optionClicked) {
+      case this.staticTicketDropdownOptions.EDIT:
+        this.weTrackService.selectedTicket = this.weTrackService.getIndexOfTicket(this.weTrackTicket);
+        this.router.navigate(['we-track','edit']);
+        break;
+      case this.staticTicketDropdownOptions.DELETE:
+        this.deleteThisTicket.next(); // Sometimes disabled if I'm worried about people deleting stuff.
+        break;
+      case this.staticTicketDropdownOptions.PRINT_DATA:
+        console.log(this.weTrackTicket);
+        break;
+      default:
+        console.error('Error parsing response from dropdown selection: ' + optionClicked);
+        break;
+    }
   }
 
   /**

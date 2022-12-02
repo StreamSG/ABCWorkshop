@@ -6,8 +6,7 @@
           <h5 class="mt-2">{{ weTrackTicket.title }}</h5>
         </div>
         <div class="col text-end">
-          <app-universal-dropdown-dots 
-            [dropdownContents]="[{dropdownText: 'Edit', callbackFunction: callbackOnEditTicket}, {dropdownText: 'Delete (disabled)', callbackFunction: callbackOnDeleteTicket}, {dropdownText: 'Print Data', callbackFunction: callbackOnPrintData}]">
+          <app-universal-dropdown-dots [dropdownContents]="ticketDropdownOptions" (optionClicked)="onTicketDropdownOptionsClicked($event)">
           </app-universal-dropdown-dots>
         </div>
       </div>

@@ -20,6 +20,9 @@ export class WeTrackTicket {
       MEDIUM: 'medium',
       HIGH: 'high',
       URGENT: 'urgent',
+    },
+    TAGS: {
+      
     }
   }
   

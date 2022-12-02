@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-universal-dropdown-dots',
@@ -9,16 +9,18 @@ export class UniversalDropdownDotsComponent implements OnInit {
   /**
    * @description Pass in an array of objects containing the dropdown text and callback function to be triggered when the dropdown list item is clicked.
    */
-  @Input() dropdownContents: {
-    dropdownText: string,
-    callbackFunction: Function
-  }[];
+  @Input() dropdownContents: string[];
+  @Output() optionClicked = new EventEmitter<string>();
 
   public expandDropdown = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public onOptionClicked(option: string): void {
+    this.optionClicked.next(option);
   }
 
   public stopPropagation(event: Event): void {
