@@ -1,15 +1,14 @@
 <div class="container">
+  <button type="button" class="btn btn-secondary mb-1" (click)="onGoBack()">&lt; Back</button>&nbsp;
   <div class="row">
-    <div class="col">
-      <div class="d-flex">
-        <!-- I am never happy with puttin a back button... Any ideas? -->
-        <button type="button" class="btn btn-secondary" (click)="onGoBack()">&lt; Back</button>&nbsp;
+    <div class="col text-center">
+      <div>
         <h4>{{ isEditing ? 'Update' : 'Create a new' }} weTrack ticket:</h4>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col mx-auto">
       <form (ngSubmit)="onFormSubmit()" [formGroup]="weTrackForm">
         <div class="form-group">
           <label for="title">Title</label>
@@ -53,7 +52,7 @@
             </div>
             <div class="form-group">
               <label for="status">Ticket Status</label>
-              <select formControlName="status" name="status" id="status" class="form-select">
+              <select formControlName="status" name="status" id="status" class="form-select mb-3">
                 <option value="pending">Pending</option>
                 <option value="assigned">Assigned</option>
                 <option value="in-progress">In Progress</option>
@@ -72,7 +71,7 @@
           <ng-container *ngIf="weTrackForm.get('customCreationGroup.isCustomCreation')?.value">
             <div class="form-group">
               <label for="customCreationDate">Ticket Creation Date</label>
-              <input type="date" id="customCreationDate" class="form-control" formControlName="customCreationDate">
+              <input type="date" id="customCreationDate" class="form-control mb-3" formControlName="customCreationDate">
             </div>
           </ng-container>
         </div>
@@ -85,11 +84,13 @@
           <ng-container *ngIf="weTrackForm.get('customEditGroup.isCustomEdit')?.value">
             <div class="form-group">
               <label for="customEditDate">Ticket Last Edit Date</label>
-              <input type="date" id="customEditDate" class="form-control" formControlName="customEditDate">
+              <input type="date" id="customEditDate" class="form-control mb-3" formControlName="customEditDate">
             </div>
           </ng-container>
         </div>
-        <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid">{{ isEditing ? 'Update' : 'Submit' }}</button> 
+        <div class="col text-center">
+          <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid">{{ isEditing ? 'Update' : 'Submit' }}</button> 
+        </div>
       </form>
     </div>
   </div>
