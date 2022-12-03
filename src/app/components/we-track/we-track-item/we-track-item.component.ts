@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { WeTrackTicket } from 'src/app/models/we-track-ticket.model';
 import { WeTrackService } from 'src/app/services/we-track.service';
-import { FullScreenModalClosingPayload } from '../../universal/universal-full-screen-modal/universal-full-screen-modal.component';
 
 @Component({
   selector: 'app-we-track-item',

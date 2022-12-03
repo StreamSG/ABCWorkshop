@@ -21,6 +21,7 @@ import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 import { UniversalDropdownDotsComponent } from './components/universal/universal-dropdown-dots/universal-dropdown-dots.component';
 import { UniversalTicketTypeComponent } from './components/universal/universal-ticket-type/universal-ticket-type.component';
 import { UniversalFullScreenModalComponent } from './components/universal/universal-full-screen-modal/universal-full-screen-modal.component';
+import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { UniversalFullScreenModalComponent } from './components/universal/univer
     QcTimerComponent,
     UniversalDropdownDotsComponent,
     UniversalTicketTypeComponent,
-    UniversalFullScreenModalComponent
+    UniversalFullScreenModalComponent,
+    UniversalDropdownInputFieldComponent
   ],
   imports: [
     BrowserModule,
