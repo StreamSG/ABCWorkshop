@@ -123,7 +123,7 @@ export class WeTrackService {
     for(let i = 0; i < updatedTicketPayload.length; i++) { // loop through all tickets
       const curTicket = updatedTicketPayload[i];
       if(curTicket == ticketToDelete) { // If the ticket to delete matches the currently checked ticket
-        updatedTicketPayload.slice(i,1); // Remove the ticket from the payload to send to the database
+        updatedTicketPayload.splice(i,1); // Remove the ticket from the payload to send to the database
         indexOfTicket = i; // log that a matching ticket was found, to later delete from master array
         break; // Stop looking for ticket matches since one was found
       }
