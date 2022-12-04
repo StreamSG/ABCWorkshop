@@ -13,9 +13,9 @@ export class WeTrackListComponent implements OnInit {
   public tickets: WeTrackTicket[] = []; // Defaults to empty, will be populated in ngOnInit
   public orderedTickets: WeTrackTicket[] = this.tickets.slice(); // A copy of the default ticket list (will be initialized as empty)
 
-  public sortOrder = 1; // Should always be either 1 or -1. Changing to 1 or -1 will invert the sorting order of the orderedTickets array, as is used in the Array.sort() method
+  public sortOrder: number = 1; // Should always be either 1 or -1. Changing to 1 or -1 will invert the sorting order of the orderedTickets array, as is used in the Array.sort() method
 
-  public showFilters = true; // Originally used to allow the user to hide the ticket filters. Now useful for re-initializing the filter lists
+  public showFilters: boolean = true; // Originally used to allow the user to hide the ticket filters. Now useful for re-initializing the filter lists
   public ticketFilters: {[key: string]: string} = { // Each filter type and the default state 
     'submitter': 'All',
     'assignee': 'All',
@@ -23,11 +23,11 @@ export class WeTrackListComponent implements OnInit {
     'type': 'All',
     'status': 'All'
   };
-  public numberOfActiveFilters = 0; // For displaying how many filters are actively used, default 0 filters
+  public numberOfActiveFilters: number = 0; // For displaying how many filters are actively used, default 0 filters
 
-  public selected: string;
+  public selected: string; // Initialized in ngOnInit
   
-  public readonly staticSortingDropdownOptions = { // static names for each of the sorting options
+  public readonly staticSortingDropdownOptions: {DATE: string, EDIT_DATE: string, STATUS: string, PRIORITY: string, TICKET_TYPE: string, SUBMITTER: string, ASSIGNEE: string} = { // static names for each of the sorting options
     DATE: 'Date',
     EDIT_DATE: 'Edit Date',
     STATUS: 'Completion Status',
@@ -39,7 +39,7 @@ export class WeTrackListComponent implements OnInit {
   
   public sortingDropdownOptions: string[] = Object.values(this.staticSortingDropdownOptions); // An array of all sorting options, as pulled from the static array so that everything always matches.
   public selectedSorting: string = this.staticSortingDropdownOptions.DATE; // Default sorting start, set to date.
-  public currentlyLoadingTickets = true; // For hiding the main list in the DOM and instead showing a loading indicator. By default, nothing is loaded, so loading = true
+  public currentlyLoadingTickets: boolean = true; // For hiding the main list in the DOM and instead showing a loading indicator. By default, nothing is loaded, so loading = true
 
   constructor(private weTrackService: WeTrackService, private router: Router) { }
 

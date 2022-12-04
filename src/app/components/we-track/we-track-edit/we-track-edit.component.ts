@@ -153,7 +153,12 @@ export class WeTrackEditComponent implements OnInit {
     this.router.navigate(['we-track']);
   }
 
-  // Custom form validators:
+  /**
+   * @description Intended to be used as a custom formControl Validator. Will ignore subFieldNames depending on if checkboxName is checked.
+   * @param {string} checkboxName The name of the checkbox as it appears in the formControl
+   * @param {string[]} subFieldNames An array of all of the inputs grouped with the checkbox, which are ignored if the box is unchecked.
+   * @returns {ValidatorFn}
+   */
   private optionalCheckboxGroup(checkboxName: string, subFieldNames: string[]): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       

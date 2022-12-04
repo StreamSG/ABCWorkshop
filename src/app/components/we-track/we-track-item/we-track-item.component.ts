@@ -29,12 +29,12 @@ export class WeTrackItemComponent implements OnInit {
     'white-space': 'nowrap',
   };
 
-  public readonly staticTicketDropdownOptions = {
+  public readonly staticTicketDropdownOptions: {EDIT: string, DELETE: string, PRINT_DATA: string} = {
     EDIT: 'Edit',
     DELETE: 'Delete (only if you mean it!)',
     PRINT_DATA: 'Print Data',
   }
-  public ticketDropdownOptions = [this.staticTicketDropdownOptions.EDIT, this.staticTicketDropdownOptions.DELETE, this.staticTicketDropdownOptions.PRINT_DATA];
+  public ticketDropdownOptions: string[] = Object.values(this.staticTicketDropdownOptions);
   
   constructor(private weTrackService: WeTrackService, private router: Router) { }
   
@@ -43,9 +43,12 @@ export class WeTrackItemComponent implements OnInit {
     let tempPrettyDate = new Date(this.weTrackTicket.creationDate).toISOString().slice(0,10); // Convert Date string to MM-DD-YYY
     this.prettyCreationDate = tempPrettyDate.slice(5,10) + '-' + tempPrettyDate.slice(0,4);
     this.prettyCreationDate = `${tempPrettyDate.slice(5,10)}-${tempPrettyDate.slice(0,4)}`;
-
   }
   
+  /**
+   * @description When the user selects an option from the general dropdown for teh ticket, will search through possible matching options and execute code based on what was clicked.
+   * @param {string} optionClicked The option clicked, from the array 
+   */
   public onTicketDropdownOptionsClicked(optionClicked: string): void {
     switch(optionClicked) {
       case this.staticTicketDropdownOptions.EDIT:
@@ -69,17 +72,23 @@ export class WeTrackItemComponent implements OnInit {
    * @param event The $event of the click. Used to identify if the user clicks on a button within the ticket, in which case it should not be opened.
    */
   public onActivateTicketItem(event: any): void {
-    let foundBtnClass = false;
-    for(let className of event.target.classList) {
-      if(className.toLowerCase().indexOf('btn') !== -1 || className.toLowerCase().indexOf('dropdown') !== -1) {
-        foundBtnClass = true;
-        break;
+    if(event && event.target && event.target.classList) { // Verify everything exists to get around :any. Struggling with types to get Typescript to cooperate and allow me to access this data.
+      let foundBtnClass = false;
+      const classList = event.target.classList;
+      for(let className of classList) {
+        if(className.toLowerCase().indexOf('btn') !== -1 || className.toLowerCase().indexOf('dropdown') !== -1) {
+          foundBtnClass = true;
+          break;
+        }
+      }
+      if(!foundBtnClass) {
+        this.isActive = !this.isActive;
       }
     }
-    if(!foundBtnClass) {
-      this.isActive = !this.isActive;
+    else {
+      console.error('Unable to access necessary values of event in order to determine if it is of the type ot be ignored.');
+      console.error(event);
     }
-
   }
 
   /**
@@ -102,6 +111,9 @@ export class WeTrackItemComponent implements OnInit {
     }
   }
 
+  /**
+   * @description When the user clicks comment, will prepare the comment, add it to the current ticket, and attempt to send it to the database.
+   */
   public onSubmitComment(): void {
     
     if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
@@ -120,6 +132,10 @@ export class WeTrackItemComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Will remove the comment from the ticket, and attempt to send the updated data to the database.
+   * @param {number} index The index of the comment, as given by the ngFor loop
+   */
   public deleteComment(index: number): void {
     let updatedTicketPayload = {...this.weTrackTicket};
     updatedTicketPayload.comments.splice(index, 1);

@@ -9,13 +9,13 @@ import { Comment } from 'src/app/models/we-track-ticket.model';
 })
 export class WeTrackCommentComponent implements OnInit {
   @Input() comment: Comment; // Comment data passed down from we-track-item component
-  @Output() deleteSelf = new EventEmitter<void>(); // Emits to we-track-item to delete this comment
+  @Output() deleteSelf: EventEmitter<void> = new EventEmitter<void>(); // Emits to we-track-item to delete this comment
   
   public timeSinceComment: string = ' - '; // Stylized time to display since the comment was posted
-  public readonly staticCommentDropdownOptions = {
+  public readonly staticCommentDropdownOptions: {DELETE: string}= {
     DELETE: 'Delete'
   }
-  public commentDropdownOptions = [this.staticCommentDropdownOptions.DELETE];
+  public commentDropdownOptions: string[] = [this.staticCommentDropdownOptions.DELETE];
 
   constructor() { }
 
@@ -27,8 +27,11 @@ export class WeTrackCommentComponent implements OnInit {
     this.timeSinceComment += this.createFancyTimeBetween(typeof this.comment.date === 'string' ? new Date(this.comment.date) : this.comment.date);
   }
 
+  /**
+   * @description When the user selects an option from the comment list, compares to the static list of options, and executes code based off of that option. Currently only deletes.
+   */
   public onCommentOptionClicked(optionClicked: string): void {
-    switch(optionClicked) {
+    switch(optionClicked) { // Look for a matching option from the static list staticCommentDropdownOptions.
       case this.staticCommentDropdownOptions.DELETE:
         this.deleteSelf.next();
         break;

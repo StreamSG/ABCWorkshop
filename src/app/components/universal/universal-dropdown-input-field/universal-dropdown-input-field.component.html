@@ -1,4 +1,4 @@
-<div class="ml-2 mr-2" style="margin-left:20px;">
+<div class="margin-left-20">
   <div class="row">
     <div class="col text-start">
       <label for="uni-dropwdown">{{ labelTitle }}</label>
@@ -7,8 +7,12 @@
   <div class="row">
     <div class="col text-start">
       <select class="form-select" id="uni-dropdown" (change)="onValueChanged()" [(ngModel)]="formValue">
-        <ng-container *ngFor="let dropdownOption of dropdownOptions; let i = index;">
-          <option [value]="i">{{ dropdownOption }}</option>
+        <ng-container *ngIf="dropdownOptions">
+          <ng-container *ngFor="let dropdownOption of dropdownOptions; let i = index;">
+            <ng-container *ngIf="dropdownOption">
+              <option [value]="i">{{ dropdownOption }}</option>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </select>
     </div>

@@ -28,10 +28,19 @@ export class WeTrackService {
     return this.tickets.slice();
   }
 
+  /**
+   * @description Getter for the loadingTickets variable
+   * @returns {boolean} loadingTickets value
+   */
   public isLoadingTickets(): boolean {
     return this.loadingTickets;
   }
 
+  /**
+   * @description Returns the ticket at the given index
+   * @param {number} index of the ticket you'd like to access
+   * @returns {WeTrackTicket} The ticket at give selected index
+   */
   public getTicket(index: number): WeTrackTicket {
     return this.tickets[index];
   }

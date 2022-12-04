@@ -47,7 +47,7 @@
       </div>
       <div class="row mt-2">
         <div class="col" [ngStyle]="weTrackTicket.comments && weTrackTicket.comments.length > 0 ? {} : {'color': '#999'}">
-          Comments ({{ weTrackTicket.comments ? weTrackTicket.comments.length : 0 }}) <span *ngIf="weTrackTicket.comments && weTrackTicket.comments.length > 0" class="last-commenter"> - Last by {{ weTrackTicket.comments[weTrackTicket.comments.length - 1].name }}</span>
+          Comments ({{ weTrackTicket?.comments ? weTrackTicket.comments.length : 0 }}) <span *ngIf="weTrackTicket?.comments && weTrackTicket.comments.length > 0" class="last-commenter"> - Last by {{ weTrackTicket.comments[weTrackTicket.comments.length - 1].name }}</span>
         </div>
       </div>
       <ng-container *ngIf="isActive">

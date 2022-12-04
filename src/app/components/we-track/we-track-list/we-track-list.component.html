@@ -37,7 +37,11 @@
       <h4>Loading. . .</h4>
     </div>
   </ng-container>
-  <ng-container *ngFor="let ticket of orderedTickets; let i = index">
-    <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(ticket)"></app-we-track-item>
+  <ng-container *ngIf="orderedTickets">
+    <ng-container *ngFor="let ticket of orderedTickets; let i = index">
+      <ng-container *ngIf="ticket">
+        <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(ticket)"></app-we-track-item>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </div>

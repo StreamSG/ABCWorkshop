@@ -16,11 +16,19 @@ export class UniversalDropdownInputFieldComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.onValueChanged();
+    // this.onValueChanged();
   }
   
-  onValueChanged() {
-    this.selectedOption.next(this.dropdownOptions[this.formValue]);
+  /**
+   * @description Bound to (changed) event, will emit the selected value up to parent component.
+   */
+  public onValueChanged(): void {
+    if(this.dropdownOptions && Array.isArray(this.dropdownOptions) && this.formValue && this.dropdownOptions[this.formValue]) {
+      this.selectedOption.next(this.dropdownOptions[this.formValue]);
+    }
+    else {
+      console.error('Error loading dropdownOptions and/or formValue');
+    }
   }
 
 }

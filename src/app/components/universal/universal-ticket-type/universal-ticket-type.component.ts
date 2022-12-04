@@ -22,16 +22,23 @@ export class UniversalTicketTypeComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.determineTypeSymbol();
+  }
+    
+  ngAfterViewInit(): void { // After the view is rendered, insert the html entity code into the DOM
+    this.ticketTypeElement.nativeElement.innerHTML = this.typeSymbol;
+  }
+
+  /**
+   * @description Will compare ticketType variable to various static WeTrackTicket types to determine the correct symbol to use.
+   */
+  private determineTypeSymbol(): void {
     this.typeSymbol = this.ticketType ? ( // Match each ticket type to the list of symbols in ticketTypeSymbols
       this.ticketType === WeTrackTicket.STATIC_DATA.TYPE.FEATURE ? UniversalTicketTypeComponent.ticketTypeSymbols.FEATURE :
       this.ticketType === WeTrackTicket.STATIC_DATA.TYPE.ISSUE ? UniversalTicketTypeComponent.ticketTypeSymbols.ISSUE :
       this.ticketType === WeTrackTicket.STATIC_DATA.TYPE.IDEA ? UniversalTicketTypeComponent.ticketTypeSymbols.IDEA : 
       UniversalTicketTypeComponent.ticketTypeSymbols.UNKNOWN
     ) : UniversalTicketTypeComponent.ticketTypeSymbols.UNKNOWN; // If ticketType isn't truthy, default to unknown symbol
-  }
-    
-  ngAfterViewInit(): void { // After the view is rendered, insert the html entity code into the DOM
-    this.ticketTypeElement.nativeElement.innerHTML = this.typeSymbol;
   }
 
 }

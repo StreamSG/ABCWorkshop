@@ -1,26 +1,31 @@
 <!-- display office info for current job -->
-<div class="container" *ngIf="tngActive == false">
-  <div class="row">
-    <div class="col-12 alert alert-primary">
-      <ng-container *ngFor = "let office of officeInfo">
-        Office Info for current job:<br><br>
-        Wire Center: {{office?.wirecenterNumber}}<br>
-        Wire Center Name: {{office?.wirecenterName}}<br>
-        Wire Center Address: {{office?.wirecenterAddress}} <a href="{{office?.wirecenterMapLink}}">map it</a><br>
-        Wire Center Tel Number: {{office?.wirecenterTelephoneNumber}} <a href={{office?.wirecenterTelephoneNumberLink}}>Click to Call</a><br>
-        <hr>
-        C.O. Tech Details:<br><br>
-        Assigned tech on duty: {{office?.wirecenterTechOnDutyFirstName}} {{office?.wirecenterTechOnDutyLastName}}<br>
-        Assigned tech cell number: {{office?.wirecenterTechOnDutyCellphoneNumber}} <a href={{office?.wirecenterTechOnDutyCellphoneNumberLink}}>Click to Call</a><br>
-        <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
-        <div class="col text-center">Click to initiate Touch N Go session:<br><br>
-          <div class="text-center">
-            <button type="button" class="btn btn-primary" (click)="openTouch()">Touch n Go</button><br>
+<ng-container *ngIf="tngActive === false">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 alert alert-primary">
+        <ng-container *ngFor = "let office of officeInfo">
+          <h3>Office Info for current job:</h3>
+          <p>Wire Center: {{office?.wirecenterNumber}}
+          <p>Wire Center Name: {{office?.wirecenterName}}</p>
+          <p>Wire Center Address: {{office?.wirecenterAddress}} <a href="{{office?.wirecenterMapLink}}">map it</a></p>
+          <p>Wire Center Tel Number: {{office?.wirecenterTelephoneNumber}} <a href={{office?.wirecenterTelephoneNumberLink}}>Click to Call</a></p>
+          <hr>
+          <h4>C.O. Tech Details:</h4>
+          <p>Assigned tech on duty: {{office?.wirecenterTechOnDutyFirstName}} {{office?.wirecenterTechOnDutyLastName}}</p>
+          <p>Assigned tech cell number: {{office?.wirecenterTechOnDutyCellphoneNumber}} <a href={{office?.wirecenterTechOnDutyCellphoneNumberLink}}>Click to Call</a></p>
+          <!-- touch n go button will open new screen and setup http session between inside and outside techs -->
+          <div class="col text-center">
+            <span>Click to initiate Touch N Go session:</span>
+            <div class="text-center">
+              <button type="button" class="btn btn-primary" (click)="openTouch()">Touch n Go</button>
+            </div>
           </div>
-        </div>
-      </ng-container>
+        </ng-container>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>
 <!-- Display Touch n Go when session is created-->
-<app-touch-n-go *ngIf="tngActive == true"></app-touch-n-go>
+<ng-container *ngIf="tngActive == true">
+  <app-touch-n-go></app-touch-n-go>
+</ng-container>

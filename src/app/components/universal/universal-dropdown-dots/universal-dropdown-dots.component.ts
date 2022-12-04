@@ -10,20 +10,19 @@ export class UniversalDropdownDotsComponent implements OnInit {
    * @description Pass in an array of objects containing the dropdown text and callback function to be triggered when the dropdown list item is clicked.
    */
   @Input() dropdownContents: string[];
-  @Output() optionClicked = new EventEmitter<string>();
+  @Output() optionClicked: EventEmitter<string> = new EventEmitter<string>();
 
-  public expandDropdown = false;
+  public expandDropdown: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  /**
+   * @description When an option from dropdownContents is selected, will emit the string exactly as it appears in the array.
+   * @param {string} option Selected option as passed from the ngFor
+   */
   public onOptionClicked(option: string): void {
     this.optionClicked.next(option);
-  }
-
-  public stopPropagation(event: Event): void {
-    event.stopPropagation();
   }
 }

@@ -43,9 +43,9 @@
           <div class="form-check">
             <input type="checkbox" class="form-check-input" value="" id="isAssigned" formControlName="isAssigned">
             <label class="form-check-label" for="isAssigned">Is assigned</label>
-            <div *ngIf="!weTrackForm.get('isAssignedGroup.isAssigned')?.value" class="subtext">(default to unassigned and pending)</div>
+            <div *ngIf="!weTrackForm?.get('isAssignedGroup.isAssigned')?.value" class="subtext">(default to unassigned and pending)</div>
           </div>
-          <ng-container *ngIf="weTrackForm.get('isAssignedGroup.isAssigned')?.value">
+          <ng-container *ngIf="weTrackForm?.get('isAssignedGroup.isAssigned')?.value">
             <div class="form-group">
               <label for="assigned">Assigned To</label>
               <input type="text" id="assigned" class="form-control" formControlName="assignee">
@@ -66,9 +66,9 @@
           <div class="form-check">
             <input type="checkbox" class="form-check-input" value="" id="isCustomCreation" formControlName="isCustomCreation">
             <label class="form-check-label" for="isCustomCreation">Custom Created Date</label>
-            <div *ngIf="!weTrackForm.get('customCreationGroup.isCustomCreation')?.value" class="subtext">(default to today)</div>
+            <div *ngIf="!weTrackForm?.get('customCreationGroup.isCustomCreation')?.value" class="subtext">(default to today)</div>
           </div>
-          <ng-container *ngIf="weTrackForm.get('customCreationGroup.isCustomCreation')?.value">
+          <ng-container *ngIf="weTrackForm?.get('customCreationGroup.isCustomCreation')?.value">
             <div class="form-group">
               <label for="customCreationDate">Ticket Creation Date</label>
               <input type="date" id="customCreationDate" class="form-control mb-3" formControlName="customCreationDate">
@@ -79,9 +79,9 @@
           <div class="form-check">
             <input type="checkbox" class="form-check-input" value="" id="isCustomEdit" formControlName="isCustomEdit">
             <label class="form-check-label" for="isCustomEdit">Custom Edited Date</label>
-            <div *ngIf="!weTrackForm.get('customEditGroup.isCustomEdit')?.value" class="subtext"> (default to today)</div>
+            <div *ngIf="!weTrackForm?.get('customEditGroup.isCustomEdit')?.value" class="subtext"> (default to today)</div>
           </div>
-          <ng-container *ngIf="weTrackForm.get('customEditGroup.isCustomEdit')?.value">
+          <ng-container *ngIf="weTrackForm?.get('customEditGroup.isCustomEdit')?.value">
             <div class="form-group">
               <label for="customEditDate">Ticket Last Edit Date</label>
               <input type="date" id="customEditDate" class="form-control mb-3" formControlName="customEditDate">
@@ -89,7 +89,7 @@
           </ng-container>
         </div>
         <div class="col text-center">
-          <button type="submit" class="btn btn-success" [disabled]="!weTrackForm.valid">{{ isEditing ? 'Update' : 'Submit' }}</button> 
+          <button type="submit" class="btn btn-success" [disabled]="!weTrackForm?.valid">{{ isEditing ? 'Update' : 'Submit' }}</button> 
         </div>
       </form>
     </div>
