@@ -13,7 +13,7 @@ export class WeTrackListComponent implements OnInit {
   public tickets: WeTrackTicket[] = []; // Defaults to empty, will be populated in ngOnInit
   public orderedTickets: WeTrackTicket[] = this.tickets.slice(); // A copy of the default ticket list (will be initialized as empty)
 
-  public sortOrder: number = 1; // Should always be either 1 or -1. Changing to 1 or -1 will invert the sorting order of the orderedTickets array, as is used in the Array.sort() method
+  public sortOrder: number = -1; // Should always be either 1 or -1. Changing to 1 or -1 will invert the sorting order of the orderedTickets array, as is used in the Array.sort() method
 
   public showFilters: boolean = true; // Originally used to allow the user to hide the ticket filters. Now useful for re-initializing the filter lists
   public ticketFilters: {[key: string]: string} = { // Each filter type and the default state 
