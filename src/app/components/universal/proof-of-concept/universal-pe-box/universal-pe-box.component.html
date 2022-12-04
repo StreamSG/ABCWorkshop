@@ -1,0 +1,10 @@
+<div class="main-container">
+  <ng-container *ngFor="let ray of rays; let i = index;">
+    <div class="stripe" [ngStyle]="{'transform': 'rotate(-'+ray+'deg)'}" [ngClass]="'gradient'+(i%2)"></div>
+  </ng-container>
+  <div class="corner-circle">i</div>
+  <div class="text-box">
+    <h5 class="mb-3">Are you Interested in a<br>Project Expert refresher?</h5>
+    <p>Take the 3 minute overview now</p>
+  </div>
+</div>
