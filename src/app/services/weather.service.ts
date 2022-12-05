@@ -30,8 +30,9 @@ export class WeatherService {
   public async loadWeatherAlerts(): Promise<WeatherAlert[]> {
 
     const currentLocation: {lat:number, long: number} = await this.getCurrentCoordinates();
-    
-    if(this.weatherDataLoaded // If we have run a test in the pass
+    // console.log('Got current location successfully');
+
+    if (this.weatherDataLoaded // If we have run a test in the pass
       && this.distanceBetweenCurAndLastLocation(currentLocation) < this.maxDistanceForNewCheck // And the user hasn't traveled far enough
       && new Date().getTime() - this.lastWeatherCheckTime < this.timeBetweenChecks && this.loadedWeatherData) { // And the user has checked recently
 
@@ -41,10 +42,20 @@ export class WeatherService {
     this.weatherDataLoaded = false;
     
     // This is the suggested rxjs way to handle observables with async await. More info here: https://rxjs.dev/deprecations/to-promise
-    const res = await firstValueFrom(this.http.get(`${this.weatherApiUrl}${currentLocation.lat}${this.urlComma}${currentLocation.long}${this.urlEnding}`)); // don't handle error here. Promise will auto reject and will allow for handling at the receipt of errored data. 
-    console.log('response from weather: ');
+    const res = await firstValueFrom(this.http.get<WeatherResponse>(`${this.weatherApiUrl}${currentLocation.lat}%2C${currentLocation.long}&limit=500`)); // don't handle error here. Promise will auto reject and will allow for handling at the receipt of errored data. 
+    // console.log('response from weather:');
     console.log(res);
+
+    if(res && res.features && res.features && Array.isArray(res.features) && res.features) {
+      if(res.features.length === 0) {
+        return []; // no alerts!
+      }
+      
+    }
+
     // Parse weather data response
+
+
 
     return [{}];
   }
@@ -69,4 +80,12 @@ export class WeatherService {
 
 export interface WeatherAlert {
 
+}
+
+export interface WeatherResponse {
+  features: {
+    properties: {
+      [key: string]: string
+    }
+  }[]
 }
