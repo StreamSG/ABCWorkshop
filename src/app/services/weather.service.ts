@@ -46,18 +46,25 @@ export class WeatherService {
     // console.log('response from weather:');
     console.log(res);
 
-    if(res && res.features && res.features && Array.isArray(res.features) && res.features) {
-      if(res.features.length === 0) {
+    if (res && res.features && res.features && Array.isArray(res.features) && res.features) {
+      if (res.features.length === 0) {
         return []; // no alerts!
       }
-      
+      // Parse weather data response
+      for (let data of res.features) {
+        if (data && data.properties) {
+          console.log(data);
+        }
+      }
+    }
+    else {
+      // throw ()
     }
 
-    // Parse weather data response
 
 
 
-    return [{}];
+    return [];
   }
 
   private async getCurrentCoordinates(): Promise<{lat: number, long: number}> {
@@ -78,14 +85,34 @@ export class WeatherService {
   }
 }
 
-export interface WeatherAlert {
+export enum WeatherStatus { 'Actual', 'Exercise', 'System', 'Test', 'Draft' }
+export enum WeatherMessageType { 'Alert', 'Update', 'Cancel', 'Ack', 'Error' }
+export enum WeatherCategory { 'Met', 'Geo', 'Safety', 'Security', 'Rescue', 'Fire', 'Health', 'Env', 'Transport', 'Infra', 'CBRNE', 'Other' }
+export enum WeatherSeverity { 'Extreme', 'Severe', 'Moderate', 'Minor', 'Unknown' }
+export enum WeatherCertainty { 'Observed', 'Likely', 'Possible', 'Unlikely', 'Unknown' }
+export enum WeatherUrgency { 'Immediate', 'Expected', 'Future', 'Past', 'Unknown' }
+export enum WeatherRecommendedResponse { 'Shelter', 'Evacuate', 'Prepare', 'Execute', 'Avoid', 'Monitor', 'Assess', 'AllClear', 'None' }
 
+export interface WeatherAlert {
+  sent: string, // time the warning was sent
+  onset: string | null, // expecting event beginning time (nullable)
+  expires: string, // expiration time of the warning
+  ends: string | null, // expected end time of the event (nullable)
+  status: WeatherStatus,
+  messageType: WeatherMessageType,
+  category: WeatherCategory,
+  severity: WeatherSeverity,
+  certainty: WeatherCertainty,
+  urgency: WeatherUrgency,
+  event: string, // A description of the vent, such as 'Wind Advisory'
+  headline: string | null, // The headline for the event (nullable)
+  description: string, // The text describing the subject event 
+  instruction: string | null, // Recommended action (nullable)
+  response: WeatherRecommendedResponse
 }
 
 export interface WeatherResponse {
   features: {
-    properties: {
-      [key: string]: string
-    }
+    properties: WeatherAlert
   }[]
 }
