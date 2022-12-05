@@ -11,6 +11,8 @@ export class HomepageComponent implements OnInit {
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+    // Use this format to handle the weather data. The .then() will receive a variable, here I called it res but you can call it whatever you want
+    // That variable will be WeatherAlert[]. So you can loop through that an analyze it.
     this.weatherService.loadWeatherAlerts()
       .then(res => {
         console.log('got weather data');
