@@ -95,7 +95,6 @@ export class WeatherService {
       );
     });
   }
-
   private milesBetweenCurAndLastLocation(curLocation: {lat:number, long:number}): number {
     const distanceInLatLongUnits = Math.sqrt( Math.pow(curLocation.lat - this.lastCheckLocation.lat, 2) + Math.pow(curLocation.long - this.lastCheckLocation.long, 2) ); // Distance formula
     return distanceInLatLongUnits * 5400 / 90; // Formula to convert lat/long units to miles THIS IS WRONG

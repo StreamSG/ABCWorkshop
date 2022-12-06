@@ -1,24 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/">Atlas BootCamp</a>
-    <button class="navbar-toggler" 
-      type="button" 
-      data-bs-toggle="collapse" 
-      data-bs-target="#navContent" 
-      aria-controls="navContent" 
-      aria-expanded="false" 
+    <a class="navbar-brand" href="#">
+      <img src="../../../assets/att-logo-white.png" width="70" height="30" alt="Logo" >
+    </a>
+    <button class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navContent"
+      aria-controls="navContent"
+      aria-expanded="false"
       aria-label="navigation toggle">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
+        </li>>
+        <li>
           <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Mini-projects</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" routerLink="touch-n-go">Touch 'n' Go</a></li>
             <li><a class="dropdown-item" routerLink="ticket-generator">Ticket Generator</a></li>
             <li><a class="dropdown-item" routerLink="qc-timer">QC Timer</a></li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="Home">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="about">About</a>

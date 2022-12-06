@@ -12,6 +12,7 @@ import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
+  { path: 'home', component: HomepageComponent },
   // Mini-projects
   { path: 'touch-n-go', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
