@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnChanges,SimpleChanges } fr
 @Component({
   selector: 'app-flow-wt',
   template: `
-  <div class="co-float-left text-center">
+  <div class="wt-float-left text-center">
     <h2>Wire Tech</h2>
     <p>Status: {{ task }}</p>
     <button class="btn btn-info"
