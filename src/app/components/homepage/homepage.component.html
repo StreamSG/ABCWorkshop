@@ -21,13 +21,36 @@
 <div class="container">
   <div class="row mb-5">
     <div class="col text-center">
-      <div class="card">
+      <div class="card pt-3">
         <h3>Works well with others.</h3>
         <hr>
         <h5>Be safe!</h5>
       </div>
     </div>
   </div>
+  <p>This all looks better in mobile mode.</p>
+  <ng-container *ngIf="weatherAlerts && weatherAlerts.length > 0">
+    <div class="row mb-5">
+      <div class="col">
+        <div class="card p-2">
+          <h5>Weather Alerts:</h5>
+          <ng-container *ngFor="let alert of weatherAlerts">
+            <!-- this should really be a component, just putting as test placeholder for now! -->
+            <div class="card mb-1 p-2">
+              <div class="text-center">
+                <span><b>{{ alert.event ? alert.event : 'Alert!' }}</b></span>
+              </div>
+              <hr class="mt-1 mb-1">
+              <span>Status: {{ alert.status ? alert.status : 'Unknown' }}</span>
+              <span>Severity: {{ alert.severity ? alert.severity : 'Unknown' }}</span>
+              <span>Urgency: {{ alert.urgency ? alert.urgency : 'Unknown' }}</span>
+              <span>Message: {{ alert.messageType ? alert.messageType : 'Unknown' }}</span>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </ng-container>
   <div class="row mb-4">
     <div class="col text-center">
       &larr;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from 'src/app/services/weather.service';
+import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-homepage',
@@ -7,6 +7,8 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+
+  public weatherAlerts: WeatherAlert[];
 
   constructor(private weatherService: WeatherService) { }
 
@@ -17,12 +19,11 @@ export class HomepageComponent implements OnInit {
       .then(res => {
         console.log('got weather data');
         console.log(res);
+        this.weatherAlerts = res;
       })
       .catch(err => {
         console.log('failed to get weather data');
         console.error(err);
       });
-      
   }
-
 }
