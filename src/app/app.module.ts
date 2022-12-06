@@ -35,7 +35,7 @@ import { UniversalDropdownDotsComponent } from './components/universal/universal
     WeTrackEditComponent,
     WeTrackCommentComponent,
     QcTimerComponent,
-    UniversalDropdownDotsComponent
+    UniversalDropdownDotsComponent,
   ],
   imports: [
     BrowserModule,
