@@ -1,0 +1,39 @@
+<ng-container *ngIf="showModal">
+  <div class="modal-backdrop" style="overflow:hidden;">
+    <ng-container *ngIf="modalOptions">
+      <div 
+        class="modal-backdrop" 
+        [ngClass]="{ 'modal-backdrop-dim' : modalOptions.dimBackground ? true : false }" 
+        (click)="stopPropagation($event); onCloseModal({closeType: STATIC_DATA.CLOSING_TYPES.CANCEL})"   
+      >
+      
+      </div>
+    </ng-container>
+  </div>
+  <div [ngSwitch]="modalType" (click)="stopPropagation($event)" class="text-start">
+    <ng-container *ngSwitchCase="STATIC_DATA.MODAL_TYPES.ARE_YOU_SURE">
+      <div class="modal-content">
+        <div class="container">
+          <div class="row">
+            <div class="col mb-5">
+              <div class="text-center">
+                <h3>{{ modalOptions && modalOptions.areYouSure && modalOptions.areYouSure.headerText ? modalOptions.areYouSure.headerText : 'Are you sure?' }}</h3>
+              </div>
+              <hr>
+              <h6>{{ modalOptions && modalOptions.areYouSure && modalOptions.areYouSure.mainText ? modalOptions.areYouSure.mainText : 'Please confirm if you\'d like to complete that action.' }}</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6 text-center">
+              <button type="button" class="btn btn-success btn-lg">Yes</button>
+            </div>
+            <div class="col-6 text-center">
+              <button type="button" class="btn btn-danger btn-lg" (click)="onCloseModal({closeType: STATIC_DATA.CLOSING_TYPES.CANCEL})">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <!-- <ng-container *ngSwitchCase="STATIC_DATA.MODAL_TYPES.ARE_YOU_SURE"></ng-container> -->
+  </div>
+</ng-container>

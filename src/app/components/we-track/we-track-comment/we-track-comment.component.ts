@@ -9,8 +9,13 @@ import { Comment } from 'src/app/models/we-track-ticket.model';
 })
 export class WeTrackCommentComponent implements OnInit {
   @Input() comment: Comment; // Comment data passed down from we-track-item component
-  @Output() deleteSelf = new EventEmitter<void>(); // Emits to we-track-item to delete this comment
+  @Output() deleteSelf: EventEmitter<void> = new EventEmitter<void>(); // Emits to we-track-item to delete this comment
+  
   public timeSinceComment: string = ' - '; // Stylized time to display since the comment was posted
+  public readonly staticCommentDropdownOptions: {DELETE: string}= {
+    DELETE: 'Delete'
+  }
+  public commentDropdownOptions: string[] = [this.staticCommentDropdownOptions.DELETE];
 
   constructor() { }
 
@@ -21,12 +26,19 @@ export class WeTrackCommentComponent implements OnInit {
       new Date(); // default to today if comment or comment.date doesn't exist
     this.timeSinceComment += this.createFancyTimeBetween(typeof this.comment.date === 'string' ? new Date(this.comment.date) : this.comment.date);
   }
-  
+
   /**
-   * @description Emits the "deleteSelf" event. Must be anonymous as it is passed into universal component
+   * @description When the user selects an option from the comment list, compares to the static list of options, and executes code based off of that option. Currently only deletes.
    */
-  public callbackOnDeleteComment: Function = (): void => {
-    this.deleteSelf.next();
+  public onCommentOptionClicked(optionClicked: string): void {
+    switch(optionClicked) { // Look for a matching option from the static list staticCommentDropdownOptions.
+      case this.staticCommentDropdownOptions.DELETE:
+        this.deleteSelf.next();
+        break;
+      default:
+        console.error('Error parsing dropdown option selection: ' + optionClicked);
+        break;
+    }
   }
 
   // Could this method be moved into a service file or a model? Don't see anywhere obvious -Micah
