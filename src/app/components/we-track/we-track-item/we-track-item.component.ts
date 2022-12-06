@@ -15,7 +15,7 @@ export class WeTrackItemComponent implements OnInit {
   @Input() weTrackTicket: WeTrackTicket;
   // Emission to we-track-list when the user wants to delete this ticket from the database.
   @Output() deleteThisTicket: EventEmitter<void> = new EventEmitter<void>(); // An alternative to this would be to have the ticket delete itself from the database. However, this would require all of the places that use the master ticket array to subscribe to the service in order to be notified when the master list changes. -Micah
-
+  
   public isActive: boolean = false; // When the ticket is open in the list, showing the full description and all data
   public statusColor: string = ''; // For use with the stylized dot class next to the ticket status. See global style sheet for class info
   public prettyCreationDate: string = ''; // Shows creation date in MM-DD-YYYY format
@@ -28,8 +28,13 @@ export class WeTrackItemComponent implements OnInit {
     'overflow' : 'hidden',
     'white-space': 'nowrap',
   };
-  
-  // Functions passed as callback functions
+
+  public readonly staticTicketDropdownOptions: {EDIT: string, DELETE: string, PRINT_DATA: string} = {
+    EDIT: 'Edit',
+    DELETE: 'Delete (only if you mean it!)',
+    PRINT_DATA: 'Print Data',
+  }
+  public ticketDropdownOptions: string[] = Object.values(this.staticTicketDropdownOptions);
   
   constructor(private weTrackService: WeTrackService, private router: Router) { }
   
@@ -37,27 +42,58 @@ export class WeTrackItemComponent implements OnInit {
     this.statusColor = this.getStatusColor(this.weTrackTicket.status); // Calculate status color for "dot-" class. See global style sheet for dot info
     let tempPrettyDate = new Date(this.weTrackTicket.creationDate).toISOString().slice(0,10); // Convert Date string to MM-DD-YYY
     this.prettyCreationDate = tempPrettyDate.slice(5,10) + '-' + tempPrettyDate.slice(0,4);
+    this.prettyCreationDate = `${tempPrettyDate.slice(5,10)}-${tempPrettyDate.slice(0,4)}`;
+  }
+  
+  /**
+   * @description When the user selects an option from the general dropdown for teh ticket, will search through possible matching options and execute code based on what was clicked.
+   * @param {string} optionClicked The option clicked, from the array 
+   */
+  public onTicketDropdownOptionsClicked(optionClicked: string): void {
+    switch(optionClicked) {
+      case this.staticTicketDropdownOptions.EDIT:
+        this.weTrackService.selectedTicket = this.weTrackService.getIndexOfTicket(this.weTrackTicket);
+        this.router.navigate(['we-track','edit']);
+        break;
+      case this.staticTicketDropdownOptions.DELETE:
+        this.deleteThisTicket.next(); // Sometimes disabled if I'm worried about people deleting stuff.
+        break;
+      case this.staticTicketDropdownOptions.PRINT_DATA:
+        console.log(this.weTrackTicket);
+        break;
+      default:
+        console.error('Error parsing response from dropdown selection: ' + optionClicked);
+        break;
+    }
   }
 
   /**
-   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
+   * @description For use when the user clicks on the ticket header. Opens up the ticket view to show full ticket details. However, will not open if the user clicks a button within the ticket.
+   * @param event The $event of the click. Used to identify if the user clicks on a button within the ticket, in which case it should not be opened.
    */
-  public callbackOnEditTicket: Function = (): void => {
-    this.weTrackService.selectedTicket = this.weTrackTicketIndex;
-    this.router.navigate(['we-track','edit']);
-  };
+  public onActivateTicketItem(event: any): void {
+    if(event && event.target && event.target.classList) { // Verify everything exists to get around :any. Struggling with types to get Typescript to cooperate and allow me to access this data.
+      let foundBtnClass = false;
+      const classList = event.target.classList;
+      for(let className of classList) {
+        if(className.toLowerCase().indexOf('btn') !== -1 || className.toLowerCase().indexOf('dropdown') !== -1) {
+          foundBtnClass = true;
+          break;
+        }
+      }
+      if(!foundBtnClass) {
+        this.isActive = !this.isActive;
+      }
+    }
+    else {
+      console.error('Unable to access necessary values of event in order to determine if it is of the type ot be ignored.');
+      console.error(event);
+    }
+  }
 
   /**
-   * @description Is passed to uni dropdown component, so must be created as an anonymous function.
+   * @description Returns the class color for the status of a ticket, based on the status within the ticket. I tried moving this into 
    */
-  public onDeleteTicket: Function = (): void => {
-    this.deleteThisTicket.next();
-  }
-
-  public onActivateTicketItem(): void {
-    this.isActive = !this.isActive;
-  }
-
   private getStatusColor(status: string): string {
     switch(status) {
       case WeTrackTicket.STATUS.PENDING:
@@ -75,6 +111,9 @@ export class WeTrackItemComponent implements OnInit {
     }
   }
 
+  /**
+   * @description When the user clicks comment, will prepare the comment, add it to the current ticket, and attempt to send it to the database.
+   */
   public onSubmitComment(): void {
     
     if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
@@ -93,6 +132,10 @@ export class WeTrackItemComponent implements OnInit {
       });
   }
 
+  /**
+   * @description Will remove the comment from the ticket, and attempt to send the updated data to the database.
+   * @param {number} index The index of the comment, as given by the ngFor loop
+   */
   public deleteComment(index: number): void {
     let updatedTicketPayload = {...this.weTrackTicket};
     updatedTicketPayload.comments.splice(index, 1);
@@ -103,7 +146,7 @@ export class WeTrackItemComponent implements OnInit {
       });
   }
 
-  public stopPropogation(event: Event): void {
+  public stopPropagation(event: Event): void {
     event.stopPropagation();
   }
 }

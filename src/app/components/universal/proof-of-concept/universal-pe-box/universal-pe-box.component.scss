@@ -1,0 +1,45 @@
+.main-container {
+  overflow: hidden; 
+  position: relative;
+  width: 375px; 
+  height: 150px; 
+  border-radius: 10px; 
+  background-color: black; 
+}
+.stripe {
+  transform-origin: top right;
+  position: absolute; 
+  top: 0px; 
+  right: 0px; 
+  width: 800px;
+  height: 150px; 
+}
+.corner-circle {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  border-radius: 50%;
+  width: 85px;
+  height: 85px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: linear-gradient(to bottom left, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.8));
+  color: #0c56b5;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px; // same as div height (and a little bigger to slide down some)
+  font-size: 45px;
+}
+.gradient0 {
+  //background-image: linear-gradient(to right, #55d, #22a);
+  background-color: #1562be;
+}
+.gradient1 {
+  //background-image: linear-gradient(to right, #33b, #008);
+  background-color: #0c57b4;
+}
+.text-box {
+  color: white;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
