@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="row">
     <div class="col">
       <h1>Welcome to Atlas BootCamp</h1>
@@ -16,4 +16,53 @@
     <span style="border-bottom: 1px dotted blue;">
       are</span></span>&nbsp;project.
 </p>
-
+<p>Ok, I'm over the silly aspect of this, we can cut it now. -Micah</p>
+-->
+<div class="container">
+  <div class="row mb-5">
+    <div class="col text-center">
+      <div class="card">
+        <h3>Works well with others.</h3>
+        <hr>
+        <h5>Be safe!</h5>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col text-center">
+      &larr;
+    </div>
+    <div class="col text-center">
+      <div class="card">
+        Today
+      </div>
+    </div>
+    <div class="col text-center">
+      &rarr;
+    </div>
+  </div>
+  <div class="row mb-2">
+    <div class="col text-start">
+      <h4><b>Your Stuff (LMNO_USA_TECH)</b></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ng-container *ngFor="let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper']; let i = index">
+        <div class="card mb-2" style="overflow:hidden;">
+          <div class="row">
+            <div class="col-3 text-center pt-3" style="background-color:#444; color: white;">
+              <p>JOB</p>
+              <p>{{ i+1 }}</p>
+            </div>
+            <div class="col-9">
+              <p>ID: {{ (i+1)*220123456789%99999 }}</p> <!-- just a stupid way to generate a randomish number -->
+              <h5>{{ job }}</h5>
+              <p>Appt: {{ ['8-10', '12-4', '8-8', '9-2', '8-4:30'][i] }}</p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
