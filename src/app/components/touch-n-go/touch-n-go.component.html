@@ -1,13 +1,13 @@
 <!-- Wire Tech Display -->
 <div class="container">
     <div class="row">
-        <div class="col-12">
+        <div class="col">
             <div class="alert alert-secondary">
-                <h3>Wire Tech Display</h3><br>
-                <div>
-                    Request Sync Check: <button type="button" btn-primary (click)="checkSync()">Check Sync</button><br><br>
-                    Request Tone on Pair: <button type="button" btn-secondary (click)="checkTone()">Place Tone</button><br><br>
-                    Request Short on pair: <button type="button" btn-warning (click)="checkShort()">Place Short</button><br><br>
+                <h3 class="text-center">Wire Tech Display</h3><br>
+                <div class="text-center"> <!-- If you're reading this, please put these in divs with margins or whatever so we don't have to use <br>. Love, Micah -->
+                    Request Sync Check: <button type="button" class="btn btn-primary" (click)="checkSync()">Check Sync</button><br><br>
+                    Request Tone on Pair: <button type="button" class="btn btn-secondary" (click)="checkTone()">Place Tone</button><br><br>
+                    Request Short on pair: <button type="button" class="btn btn-warning" (click)="checkShort()">Place Short</button><br><br>
                 </div>
                 <ng-container #display></ng-container>
             </div>

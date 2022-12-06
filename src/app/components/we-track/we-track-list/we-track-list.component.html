@@ -1,9 +1,47 @@
 <div class="mb-5 pb-5">
-  <button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
-  <button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate</button>
-  <button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh</button>
+  <div class="row">
+    <div class="col">
+      <button type="button" class="btn btn-success" (click)="onNewTicket()">New Ticket</button>
+      &nbsp;
+      <button type="button" class="btn btn-secondary" (click)="onRefreshTickets()">Refresh List</button>
+      <!-- <button type="button" class="btn btn-primary" (click)="onGenTicket()">Generate Dummy Ticket</button> Only left in for debug purposes, deleted from final product -->
+    </div>
+    <div class="col text-end">
+      <span>Sorting: {{ selectedSorting }}</span>
+      <app-universal-dropdown-dots [dropdownContents]="sortingDropdownOptions" (optionClicked)="onSortTicketsByOption($event)"></app-universal-dropdown-dots>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col">
+      <button type="button" class="btn btn-warning" (click)="onClearFilters()">Clear Filters {{ numberOfActiveFilters > 0 ? '('+numberOfActiveFilters+')' : '' }}</button>
+    </div>
+    <div class="col text-end">
+      <span>Order: </span>
+      <button type="button" class="btn btn-primary btn-sm" (click)="sortOrder = -sortOrder; sortTickets();">{{ sortOrder === 1 ? 'Asc&nbsp;&nbsp;&nbsp;&uarr;' : 'Desc &darr;' }}</button>
+    </div>
+  </div>
+  <ng-container *ngIf="showFilters">
+    <div class="row mt-2">
+      <div class="col d-flex">
+        <app-universal-dropdown-input-field labelTitle="Completion Status" [dropdownOptions]="['All', 'Pending', 'Assigned', 'In-Progress', 'Complete', 'Cancelled']" (selectedOption)="updateFilter('status', $event)"></app-universal-dropdown-input-field>
+        <app-universal-dropdown-input-field labelTitle="Importance" [dropdownOptions]="['All', 'Low', 'Medium', 'High', 'Urgent']" (selectedOption)="updateFilter('importance', $event)"></app-universal-dropdown-input-field>
+        <app-universal-dropdown-input-field labelTitle="Ticket Type" [dropdownOptions]="['All', 'Feature', 'Issue', 'Idea']" (selectedOption)="updateFilter('type', $event)"></app-universal-dropdown-input-field>
+        <app-universal-dropdown-input-field labelTitle="Submitter" [dropdownOptions]="['All', 'Aaron', 'Kerry', 'Micah', 'Raul', 'Tyler']" (selectedOption)="updateFilter('submitter', $event)"></app-universal-dropdown-input-field>
+        <app-universal-dropdown-input-field labelTitle="Assignee" [dropdownOptions]="['All', 'Unassigned', 'Aaron', 'Kerry', 'Micah', 'Raul', 'Tyler']" (selectedOption)="updateFilter('assignee', $event)"></app-universal-dropdown-input-field>
+      </div>
+    </div>
+  </ng-container>
   <hr>
-  <ng-container *ngFor="let ticket of tickets; let i = index">
-    <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(i)"></app-we-track-item>
+  <ng-container *ngIf="currentlyLoadingTickets">
+    <div class="text-center mt-5">
+      <h4>Loading. . .</h4>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="orderedTickets">
+    <ng-container *ngFor="let ticket of orderedTickets; let i = index">
+      <ng-container *ngIf="ticket">
+        <app-we-track-item [weTrackTicketIndex]="i" [weTrackTicket]="ticket" (deleteThisTicket)="deleteTicket(ticket)"></app-we-track-item>
+      </ng-container>
+    </ng-container>
   </ng-container>
 </div>

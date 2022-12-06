@@ -20,6 +20,10 @@ import { WeTrackCommentComponent } from './components/we-track/we-track-comment/
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 import { UniversalDropdownDotsComponent } from './components/universal/universal-dropdown-dots/universal-dropdown-dots.component';
 import { AboutPageComponent } from './components/help/about-page/about-page.component';
+import { UniversalTicketTypeComponent } from './components/universal/universal-ticket-type/universal-ticket-type.component';
+import { UniversalFullScreenModalComponent } from './components/universal/universal-full-screen-modal/universal-full-screen-modal.component';
+import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
+import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,10 @@ import { AboutPageComponent } from './components/help/about-page/about-page.comp
     QcTimerComponent,
     UniversalDropdownDotsComponent,
     AboutPageComponent,
+    UniversalTicketTypeComponent,
+    UniversalFullScreenModalComponent,
+    UniversalDropdownInputFieldComponent,
+    UniversalPeBoxComponent
   ],
   imports: [
     BrowserModule,
