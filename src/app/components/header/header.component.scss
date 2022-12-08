@@ -1,9 +1,7 @@
-.navbar {
-    position: relative;
-}
 .navbar-brand {
     position: absolute;
     left: 50%;
     margin-left: -35px !important;  /* 50% of your logo width */
+    top: 10px;
     display: block;
 }

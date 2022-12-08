@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  public weatherAlerts: WeatherAlert[];
+
+  constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
+
   }
 
 }

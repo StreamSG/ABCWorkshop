@@ -24,6 +24,7 @@ import { UniversalTicketTypeComponent } from './components/universal/universal-t
 import { UniversalFullScreenModalComponent } from './components/universal/universal-full-screen-modal/universal-full-screen-modal.component';
 import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
 import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
+import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { UniversalPeBoxComponent } from './components/universal/proof-of-concept
     UniversalTicketTypeComponent,
     UniversalFullScreenModalComponent,
     UniversalDropdownInputFieldComponent,
-    UniversalPeBoxComponent
+    UniversalPeBoxComponent,
+    WeatherAlertComponent,
   ],
   imports: [
     BrowserModule,

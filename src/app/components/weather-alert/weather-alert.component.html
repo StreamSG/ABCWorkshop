@@ -1,0 +1,4 @@
+<ngb-toast [delay]=5000  header="Testing" [autohide]=false 
+    *ngFor="let alert of weatherAlerts">Status: {{ alert.status ? alert.status : 'Unknown' }}
+    Severity: {{ alert.severity ? alert.severity : 'Unknown' }}
+    Headline: {{ alert.headline ? alert.headline : 'Unknown' }}</ngb-toast>
