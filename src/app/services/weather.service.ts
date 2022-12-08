@@ -58,17 +58,17 @@ export class WeatherService {
         onset: data.properties.onset ? data.properties.onset : null,
         expires: data.properties.expires ? data.properties.expires : '',
         ends: data.properties.ends ? data.properties.ends : null,
-        status: data.properties.status ? data.properties.status : WeatherStatus.RESPONSE_ERROR,
-        messageType: data.properties.messageType ? data.properties.messageType : WeatherMessageType.RESPONSE_ERROR,
-        category: data.properties.category ? data.properties.category : WeatherCategory.RESPONSE_ERROR,
-        severity: data.properties.severity ? data.properties.severity : WeatherSeverity.RESPONSE_ERROR,
-        certainty: data.properties.certainty ? data.properties.certainty : WeatherCertainty.RESPONSE_ERROR,
-        urgency: data.properties.urgency ? data.properties.urgency : WeatherUrgency.RESPONSE_ERROR,
+        status: data.properties.status ? data.properties.status : '',
+        messageType: data.properties.messageType ? data.properties.messageType : '',
+        category: data.properties.category ? data.properties.category : '',
+        severity: data.properties.severity ? data.properties.severity : '',
+        certainty: data.properties.certainty ? data.properties.certainty : '',
+        urgency: data.properties.urgency ? data.properties.urgency : '',
         event: data.properties.event ? data.properties.event : '',
         headline: data.properties.headline ? data.properties.headline : null,
         description: data.properties.description ? data.properties.description : '',
         instruction: data.properties.instruction ? data.properties.instruction : null,
-        response: data.properties.response ? data.properties.response : WeatherRecommendedResponse.RESPONSE_ERROR,
+        response: data.properties.response ? data.properties.response : '',
       };
       this.loadedWeatherAlerts.push(tempAlert); // Add generated alert to the master array
     }
@@ -150,52 +150,52 @@ export enum WeatherRecommendedResponse { 'Shelter', 'Evacuate', 'Prepare', 'Exec
 /**
  * @description The important weather alert data as pulled from the weather.gov api. All of the variable names here match the variable names used in the api.
  * @param {string} sent Time the warning was sent
- * @param {string | null} onset expecting event beginning time (nullable)
+ * @param {string} onset expecting event beginning time (nullable)
  * @param {string} expires expiration time of the warning
- * @param {string | null} ends expected end time of the event (nullable)
- * @param {WeatherStatus} status For normal weather expect Actual, may only want to access when that is the case
- * @param {WeatherMessageType} messageType The code denoting the type of the event message
- * @param {WeatherCategory} category The code denoting the category of the event
- * @param {WeatherSeverity} severity How severe the weather event is
- * @param {WeatherCertainty} certainty How certain the weather event is
- * @param {WeatherUrgency} urgency How urgent the weather event is
+ * @param {string} ends expected end time of the event (nullable)
+ * @param {string} status For normal weather expect Actual, may only want to access when that is the case
+ * @param {string} messageType The code denoting the type of the event message
+ * @param {string} category The code denoting the category of the event
+ * @param {string} severity How severe the weather event is
+ * @param {string} certainty How certain the weather event is
+ * @param {string} urgency How urgent the weather event is
  * @param {string} event A description of the event, such as 'Wind Advisory'
- * @param {string | null} headline The headline for the event (nullable)
+ * @param {string} headline The headline for the event (nullable)
  * @param {string} description The text describing the subject event 
- * @param {string | null} instruction Recommended action (nullable)
+ * @param {string} instruction Recommended action (nullable)
  * @param {WeatherRecommendedResponse} response Specific type of recommended response
  */
 export interface WeatherAlert {
   /** @param {string} sent Time the warning was sent */
   sent: string,
-  /** @param {string | null} onset expecting event beginning time (nullable) */
-  onset: string | null,
+  /** @param {string} onset expecting event beginning time (nullable) */
+  onset: string,
   /** @param {string} expires expiration time of the warning */
   expires: string, 
-  /** @param {string | null} ends expected end time of the event (nullable) */
-  ends: string | null,
-  /** @param {WeatherStatus} status For normal weather expect Actual, may only want to access when that is the case */
-  status: WeatherStatus,
-  /** @param {WeatherMessageType} messageType The code denoting the type of the event message */
-  messageType: WeatherMessageType, 
-  /** @param {WeatherCategory} category The code denoting the category of the event */
-  category: WeatherCategory,
-  /** @param {WeatherSeverity} severity How severe the weather event is */
-  severity: WeatherSeverity,
-  /** @param {WeatherCategory} category The code denoting the category of the event */
-  certainty: WeatherCertainty,
-  /** @param {WeatherUrgency} urgency How urgent the weather event is */
-  urgency: WeatherUrgency,
+  /** @param {string} ends expected end time of the event (nullable) */
+  ends: string,
+  /** @param {string} status For normal weather expect Actual, may only want to access when that is the case */
+  status: string,
+  /** @param {string} messageType The code denoting the type of the event message */
+  messageType: string, 
+  /** @param {string} category The code denoting the category of the event */
+  category: string,
+  /** @param {string} severity How severe the weather event is */
+  severity: string,
+  /** @param {string} category The code denoting the category of the event */
+  certainty: string,
+  /** @param {string} urgency How urgent the weather event is */
+  urgency: string,
   /** @param {string} event A description of the event, such as 'Wind Advisory' */
   event: string, 
-  /** @param {string | null} headline The headline for the event (nullable) */
-  headline: string | null,
+  /** @param {string} headline The headline for the event (nullable) */
+  headline: string,
   /** @param {string} description The text describing the subject event  */
   description: string, 
-  /** @param {string | null} instruction Recommended action (nullable) */
-  instruction: string | null,
-  /** @param {WeatherRecommendedResponse} response Specific type of recommended response */
-  response: WeatherRecommendedResponse
+  /** @param {string} instruction Recommended action (nullable) */
+  instruction: string,
+  /** @param {string} response Specific type of recommended response */
+  response: string
 }
 
 /**

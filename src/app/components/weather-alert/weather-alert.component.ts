@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -8,20 +8,22 @@ import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
 })
 export class WeatherAlertComponent implements OnInit {
 
+  @Input() alert: WeatherAlert[];
+
+  public techAlerts: any;
+
   public weatherAlerts: WeatherAlert[];
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.weatherService.loadWeatherAlerts()
-    .then(res => {
-      console.log('got weather data');
-      console.log(res);
-      this.weatherAlerts = res;
-    })
-    .catch(err => {
-      console.log('failed to get weather data');
-      console.error(err);
-    });
+  // this.filterArray();
+  // console.log(this.alert.filter(severity => {
+
+  // }))
 }
+
+  // filterArray() {
+  //   this.techAlerts = this.alert.slice(0, 3)
+  // }
   }
