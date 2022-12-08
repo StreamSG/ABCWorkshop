@@ -73,6 +73,8 @@ export class WeatherService {
       this.loadedWeatherAlerts.push(tempAlert); // Add generated alert to the master array
     }
 
+
+
     return this.loadedWeatherAlerts; // Finally, return the new array of alerts ( may be [] )
   }
 
@@ -102,12 +104,46 @@ export class WeatherService {
 }
 
 // These are the enums for the api response variables with set possible values. Each enum has a RESPONSE_ERROR state in case the data received is falsy.
+/** 
+ * @description Potential weather status variables given by the API 
+ * @values Actual, Exercise, System, Test, Draft, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherStatus { 'Actual', 'Exercise', 'System', 'Test', 'Draft', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather message type variables given by the API 
+ * @values Alert, Update, Cancel, Ack, Error, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherMessageType { 'Alert', 'Update', 'Cancel', 'Ack', 'Error', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather category variables given by the API 
+ * @values Met, Geo, Safety, Security, Rescue, Fire, Health, Env, Transport, Infra, CBRNE, Other, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherCategory { 'Met', 'Geo', 'Safety', 'Security', 'Rescue', 'Fire', 'Health', 'Env', 'Transport', 'Infra', 'CBRNE', 'Other', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather severity variables given by the API 
+ * @values Extreme, Severe, Moderate, Minor, Unknown, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherSeverity { 'Extreme', 'Severe', 'Moderate', 'Minor', 'Unknown', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather certainty variables given by the API 
+ * @values Observed, Likely, Possible, Unlikely, Unknown, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherCertainty { 'Observed', 'Likely', 'Possible', 'Unlikely', 'Unknown', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather urgency variables given by the API 
+ * @values Immediate, Expected, Future, Past, Unknown, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherUrgency { 'Immediate', 'Expected', 'Future', 'Past', 'Unknown', 'RESPONSE_ERROR' }
+
+/** 
+ * @description Potential weather recommended response variables given by the API 
+ * @values Shelter, Evacuate, Prepare, Execute, Avoid, Monitor, Assess, AllClear, None, RESPONSE_ERROR (assigned by WeatherService file in the event of an API response error)
+*/
 export enum WeatherRecommendedResponse { 'Shelter', 'Evacuate', 'Prepare', 'Execute', 'Avoid', 'Monitor', 'Assess', 'AllClear', 'None', 'RESPONSE_ERROR' }
 
 // If we convert this to a model, you can just put this before the constructor
@@ -130,20 +166,35 @@ export enum WeatherRecommendedResponse { 'Shelter', 'Evacuate', 'Prepare', 'Exec
  * @param {WeatherRecommendedResponse} response Specific type of recommended response
  */
 export interface WeatherAlert {
+  /** @param {string} sent Time the warning was sent */
   sent: string,
+  /** @param {string | null} onset expecting event beginning time (nullable) */
   onset: string | null,
+  /** @param {string} expires expiration time of the warning */
   expires: string, 
+  /** @param {string | null} ends expected end time of the event (nullable) */
   ends: string | null,
+  /** @param {WeatherStatus} status For normal weather expect Actual, may only want to access when that is the case */
   status: WeatherStatus,
+  /** @param {WeatherMessageType} messageType The code denoting the type of the event message */
   messageType: WeatherMessageType, 
+  /** @param {WeatherCategory} category The code denoting the category of the event */
   category: WeatherCategory,
+  /** @param {WeatherSeverity} severity How severe the weather event is */
   severity: WeatherSeverity,
+  /** @param {WeatherCategory} category The code denoting the category of the event */
   certainty: WeatherCertainty,
+  /** @param {WeatherUrgency} urgency How urgent the weather event is */
   urgency: WeatherUrgency,
+  /** @param {string} event A description of the event, such as 'Wind Advisory' */
   event: string, 
+  /** @param {string | null} headline The headline for the event (nullable) */
   headline: string | null,
+  /** @param {string} description The text describing the subject event  */
   description: string, 
+  /** @param {string | null} instruction Recommended action (nullable) */
   instruction: string | null,
+  /** @param {WeatherRecommendedResponse} response Specific type of recommended response */
   response: WeatherRecommendedResponse
 }
 
