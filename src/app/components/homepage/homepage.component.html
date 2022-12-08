@@ -20,9 +20,16 @@
 -->
 
 <ng-container *ngIf="weatherAlerts && weatherAlerts.length > 0">
+
+<!-- <ng-container *ngFor="let alert of weatherAlerts"> -->
+<!-- <ng-container *ngIf="
+  alert?.messageType?.['Cancel']
+  || {alert?.messageType?.['Alert'] && {alert?.severity?.['Extreme'] || alert?.severity?.['Severe']))"> -->
+
   <div class="toast-container">
-  <ngb-toast [delay]=5000 [autohide]=false 
-*ngFor="let alert of weatherAlerts">
+  <ngb-toast [delay]=5000 [autohide]=false  
+*ngFor="let alert of weatherAlerts"
+>
 <ng-template ngbToastHeader>
   <div class="me-auto">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
@@ -30,11 +37,13 @@
     </svg> Weather Alert Test!
   </div>
 </ng-template>
-Status: {{ alert.status ? alert.status : 'Unknown' }} <br>
 Severity: {{ alert.severity ? alert.severity : 'Unknown' }} <br>
-Headline: {{ alert.headline ? alert.headline : 'Unknown' }}
+Headline: {{ alert.headline ? alert.headline : 'Unknown' }} <br>
+Description: {{ alert.description ? alert.headline : 'Unknown' }} 
 </ngb-toast></div>
 </ng-container>
+<!-- </ng-container> -->
+<!-- </ng-container> -->
 
 <div class="container">
   <div class="row mb-5">
@@ -47,10 +56,6 @@ Headline: {{ alert.headline ? alert.headline : 'Unknown' }}
     </div>
   </div>
   <p>This all looks better in mobile mode.</p>
-
-  <ng-container *ngIf="weatherAlerts">
-    
-  </ng-container>
 
   <!-- <ng-container *ngIf="weatherAlerts && weatherAlerts.length > 0">
     <div class="row mb-5">
