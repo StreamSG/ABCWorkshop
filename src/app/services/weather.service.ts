@@ -39,7 +39,7 @@ export class WeatherService {
     
     // This is the suggested rxjs way to handle observables with async await. More info here: https://rxjs.dev/deprecations/to-promise
     const res = await firstValueFrom(this.http.get<WeatherResponse>(
-      `${this.weatherApiUrl}?point=${currentLocation.lat}%2C${currentLocation.long}&limit=500`
+      `${this.weatherApiUrl}?point=43.0722%2C-89.4008&limit=500`
     )); // don't handle error here. Promise will auto reject and will allow for handling at the receipt of errored data. 
 
     if (!(res && res.features && res.features && Array.isArray(res.features) && res.features)) { // Truthy check
