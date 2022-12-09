@@ -41,7 +41,7 @@ export class WeatherService {
     const res = await firstValueFrom(this.http.get<WeatherResponse>(
       `${this.weatherApiUrl}?point=43.0722%2C-89.4008&limit=500`
     )); // don't handle error here. Promise will auto reject and will allow for handling at the receipt of errored data. 
-
+      console.log(res)
     if (!(res && res.features && res.features && Array.isArray(res.features) && res.features)) { // Truthy check
       console.error('Received unusable data from weather server')
       throw (res); // Will trigger .catch() case for the main loadWeatherAlerts promise

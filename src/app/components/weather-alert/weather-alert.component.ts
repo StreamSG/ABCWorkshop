@@ -12,21 +12,20 @@ export class WeatherAlertComponent implements OnInit {
 
   constructor(private weatherService: WeatherService) { }
 
+  // filter thru desc to return the WHAT
+
   ngOnInit(): void {
     this.viewedAlert = this.filterAndShowAlert();
-    console.log(this.viewedAlert)
+    console.log('viewedAlert', this.viewedAlert)
   }
 
   private filterAndShowAlert(): WeatherAlert {
-    let alertForTechView: WeatherAlert;
-    for (let alert of this.weatherAlerts) {
-      if (alert && alert.severity && alert.messageType && alert.onset && (alert.severity.includes('Severe') || alert.severity.includes('Moderate')) && !alert.messageType.includes('Cancel')) {
-        console.log(alert.description.split('*'))
-        console.log(new Date(alert.onset).getTime() < new Date().getTime())
-        alertForTechView = alert
+    const currentFilteredAlerts: WeatherAlert[] = this.weatherAlerts.filter(alert => {
+      if (alert && alert.sent && alert.description && alert.severity && alert.messageType && (alert.severity.includes('Severe') || alert.severity.includes('Extreme') || alert.severity.includes('Moderate')) && !alert.messageType.includes('Cancel')) {
+        return alert;
       }
-    }
-    return alertForTechView
+    });
+    return currentFilteredAlerts[0];
   }
 
 }
