@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
+
+import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-homepage',
@@ -8,22 +10,19 @@ import { WeatherAlert, WeatherService } from 'src/app/services/weather.service';
 })
 export class HomepageComponent implements OnInit {
 
-  public weatherAlerts: WeatherAlert[];
+  public weatherAlertResponse: WeatherAlertResponse;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    // Use this format to handle the weather data. The .then() will receive a variable, here I called it res but you can call it whatever you want
-    // That variable will be WeatherAlert[]. So you can loop through that an analyze it.
-    this.weatherService.loadWeatherAlerts()
-      .then(res => {
-        console.log('got weather data');
-        console.log(res);
-        this.weatherAlerts = res;
-      })
-      .catch(err => {
-        console.log('failed to get weather data');
-        console.error(err);
-      });
+    this.weatherService.call(43.0722,-89.4008); // hard coded to somewhere with several alerts
+    this.weatherService.getLoading().subscribe({
+      next: (loading) => {
+        if(!loading && this.weatherService.hasSuccessfullyCompleted()) {
+          console.log(this.weatherService.getResults());
+          this.weatherAlertResponse = this.weatherService.getResults();
+        }
+      }
+    });
   }
 }
