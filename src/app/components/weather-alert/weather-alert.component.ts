@@ -8,27 +8,17 @@ import {  WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather-alert.component.scss']
 })
 export class WeatherAlertComponent implements OnInit {
-  @Input() weatherAlerts: WeatherAlertInfo[];
-  public viewedAlert: WeatherAlertInfo;
+  @Input() weatherAlert: WeatherAlertInfo;
 
-  constructor(private weatherService: WeatherService) { }
-W
+  constructor() { }
+
   ngOnInit(): void {
-    // this.viewedAlert = this.filterAndShowAlert();
-    // console.log(this.viewedAlert)
-    // this.viewedAlert = this.weatherAlerts;
+
+    if (this.weatherAlert && this.weatherAlert.description && this.weatherAlert.description.indexOf('WHAT') > -1 && this.weatherAlert.description.indexOf('WHERE') && this.weatherAlert.description.indexOf('WHEN') && this.weatherAlert.description.indexOf('IMPACTS')) {
+      // this.weatherAlert.description = '';
+
+    }
   }
 
-  // private filterAndShowAlert(): WeatherAlert {
-  //   let alertForTechView: WeatherAlert;
-  //   for (let alert of this.weatherAlerts) {
-  //     if (alert && alert.severity && alert.messageType && alert.onset && (alert.severity.includes('Severe') || alert.severity.includes('Moderate')) && !alert.messageType.includes('Cancel')) {
-  //       console.log(alert.description.split('*'))
-  //       console.log(new Date(alert.onset).getTime() < new Date().getTime())
-  //       alertForTechView = alert
-  //     }
-  //   }
-  //   return alertForTechView
-  // }
 
 }

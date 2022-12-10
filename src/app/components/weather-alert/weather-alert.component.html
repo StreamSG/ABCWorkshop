@@ -1,27 +1,11 @@
-<!-- <div class="toast-container position-fixed top-30 w-100 ">
-  <ng-container *ngFor="let alert of weatherAlerts">
-    <div class="toast show pb-0" style="z-index: 2000;" role="alert" aria-live="assertive" aria-atomic="true">
-      <div class="toast-header">
-        <img src="..\..\assets\idkweather.png" class="rounded me-2" alt="...">
-        <strong class="me-auto">Atlas Weather Alert</strong>
-        <small class="text-muted">11 mins ago</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      </div>
-      <div class="toast-body">
-        Headline: {{ alert.headline ? alert.headline : 'Unknown' }} <br>
-        Severity: {{ alert.severity ? alert.severity : 'Unknown' }} <br>
-        Status: {{ alert.status ? alert.status : 'Unknown' }}
-      </div>
+<div class="toast-container position-absolute">
+  <div class="toast show position-fixed w-100" style="z-index: 2000;" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header">
+      <strong class="me-auto">{{weatherAlert?.event}}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-  </ng-container>
-</div> -->
-<div class="toast show pb-0 w-100" style="z-index: 2000;" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header">
-    <!-- <img src="..\..\assets\idkweather.png" class="rounded me-2" alt="..."> -->
-    <strong class="me-auto">{{viewedAlert?.event}}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-  <div class="toast-body">
-    <p>{{viewedAlert?.description}}</p>
+    <div class="toast-body">
+      <p>{{weatherAlert?.description}}</p>
+    </div>
   </div>
 </div>

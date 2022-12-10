@@ -1,26 +1,3 @@
-<!-- <div class="container">
-  <div class="row">
-    <div class="col">
-      <h1>Welcome to Atlas BootCamp</h1>
-      <h5>Made by some, and some for all.</h5>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-6">
-      <div class="alert alert-primary">This is an alert. This is not a test.</div>
-    </div>
-  </div>
-</div>
-<p style="margin-top:200px; color:lightgray">This is
-  <span style="border-bottom: 1px dotted blue;padding:1px">
-    <span style="border-bottom: 1px dotted blue;">
-      are</span></span>&nbsp;project.
-</p>
-<p>Ok, I'm over the silly aspect of this, we can cut it now. -Micah</p>
--->
-<ng-container *ngIf="weatherAlertResponse && weatherAlertResponse.weatherAlerts && weatherAlertResponse.weatherAlerts.length > 0">
-  <app-weather-alert [weatherAlerts]="weatherAlertResponse.weatherAlerts" ></app-weather-alert>
-</ng-container>
 <div class="container">
   <div class="row mb-5">
     <div class="col text-center">
@@ -31,29 +8,6 @@
       </div>
     </div>
   </div>
-
-  <!-- <ng-container *ngIf="weatherAlerts && weatherAlerts.length > 0">
-    <div class="row mb-5">
-      <div class="col">
-        <div class="card p-2">
-          <h5>Weather Alerts:</h5>
-          <ng-container *ngFor="let alert of weatherAlerts">
-            <!-- this should really be a component, just putting as test placeholder for now! -->
-            <!-- <div class="card mb-1 p-2">
-              <div class="text-center">
-                <span><b>{{ alert.event ? alert.event : 'Alert!' }}</b></span>
-              </div>
-              <hr class="mt-1 mb-1">
-              <span>Status: {{ alert.status ? alert.status : 'Unknown' }}</span>
-              <span>Severity: {{ alert.severity ? alert.severity : 'Unknown' }}</span>
-              <span>Urgency: {{ alert.urgency ? alert.urgency : 'Unknown' }}</span>
-              <span>Message: {{ alert.messageType ? alert.messageType : 'Unknown' }}</span>
-            </div>
-          </ng-container> -->
-        <!-- </div>
-      </div>
-    </div>
-  </ng-container> -->
   <div class="row mb-4">
     <div class="col text-center">
       &larr;
