@@ -1,3 +1,5 @@
+import { WeatherService } from '../services/weather.service';
+
 export class WeatherAlertResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
@@ -12,13 +14,13 @@ export class WeatherAlertResponse {
   // readonly severity: string;
   // readonly certainty: string;
   // readonly urgency: string;
-  // readonly event: string;
+  readonly event: string;
   // readonly headline: string;
-  // readonly description: string;
+  readonly description: string;
   // readonly instruction: string;
   // readonly response: string;
   readonly weatherAlerts: WeatherAlertInfo[];
-  
+
   constructor(apiResponse: any) {
     try {
       if (typeof apiResponse.title === 'string') { // How we can validate the response of an API we can't control
@@ -31,6 +33,7 @@ export class WeatherAlertResponse {
       if (this.flowStatus === 'SUCCESS') {
         let tempWeatherAlerts = this.parseApiData(apiResponse);
         this.weatherAlerts = this.filterDuplicateAlerts(tempWeatherAlerts);
+        this.description = Array.isArray(this.weatherAlerts) && this.weatherAlerts.length > 0 ? this.descriptionForToast(this.weatherAlerts) : 'Weather Alert Info Unknown';
       }
     } catch (e) {
       this.flowStatus = 'FAILURE';
@@ -67,7 +70,7 @@ export class WeatherAlertResponse {
   }
 
   private filterDuplicateAlerts(alerts: WeatherAlertInfo[]): WeatherAlertInfo[] {
-    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { return []; } // early exit in case alerts not truthy, an array, or empty 
+    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { return []; } // early exit in case alerts not truthy, an array, or empty
     // Sort the alerts by the time they were sent from oldest to newest
     alerts = alerts.sort((a, b) => a.sent > b.sent ? 1 : -1);
     let filteredAlerts = [];
@@ -92,6 +95,29 @@ export class WeatherAlertResponse {
   private shouldAlertBeShown(alert: WeatherAlertInfo): boolean {
     return alert && alert.severity && alert.messageType && alert.onset && (alert.severity.includes('Severe') || alert.severity.includes('Moderate')) && !alert.messageType.includes('Cancel');
   }
+
+  private descriptionForToast(weatherAlerts: WeatherAlertInfo[]): string {
+    let returnedDescription: string;
+    const weatherAlert: WeatherAlertInfo = weatherAlerts[0];
+    if (weatherAlert && weatherAlert.headline) {
+      returnedDescription = weatherAlert.headline;
+    } else if (weatherAlert && weatherAlert.description && weatherAlert.description.indexOf('WHAT') > -1 && weatherAlert.description.indexOf('WHEN') > -1) {
+      let tempDescriptionArray: string[] = weatherAlert.description.split('*');
+      // tempDescriptionArray.forEach((msg) => {
+      //   msg.trimStart();
+      //   returnedDescription = msg.slice(msg.indexOf('...') + 3);
+      // })
+      returnedDescription = tempDescriptionArray[1].slice(tempDescriptionArray[1].indexOf('...') + 3);
+    } else if (weatherAlert && weatherAlert.description) {
+      returnedDescription = weatherAlert.description;
+    } else if (weatherAlert && weatherAlert.event && weatherAlert.sent) {
+      // parse date weatherAlert.sent
+      returnedDescription = `${weatherAlert.event} issued at ${new Date(weatherAlert.sent)}`;
+    } else {
+      returnedDescription = 'Weather Alert Info Unknown';
+    }
+    return returnedDescription;
+  }
 }
 
 
@@ -110,7 +136,7 @@ export class WeatherAlertResponse {
  * @param {string} urgency How urgent the weather event is
  * @param {string} event A description of the event, such as 'Wind Advisory'
  * @param {string} headline The headline for the event (nullable)
- * @param {string} description The text describing the subject event 
+ * @param {string} description The text describing the subject event
  * @param {string} instruction Recommended action (nullable)
  * @param {WeatherRecommendedResponse} response Specific type of recommended response
  */
@@ -119,17 +145,17 @@ export class WeatherAlertResponse {
     public id: string,
     public sent: string,
     public onset: string,
-    public expires: string, 
+    public expires: string,
     public ends: string,
     public status: string,
-    public messageType: string, 
+    public messageType: string,
     public category: string,
     public severity: string,
     public certainty: string,
     public urgency: string,
-    public event: string, 
+    public event: string,
     public headline: string,
-    public description: string, 
+    public description: string,
     public instruction: string,
     public response: string
   ){}
