@@ -118,8 +118,28 @@ export class WeatherAlertResponse {
     }
     return returnedDescription;
   }
+  
+  /**
+     * @description - Takes in a description from the weather api, and parses out each block of data. The type of description, such as WHAT, WHERE, WHEN will be set as the to the output, and the corresponding text for each part will be set as the value. For example, an output may look like { 'WHAT': 'The weather is bad.', 'WHEN': 'Later tonight' }
+     * @param desc - The weather description from the api
+     * @returns {[key: string]: string} - Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text. 
+     */
+   private parseWeatherDescription(desc: string): {[key: string]: string} {
+    // let re: RegExp = /\*\s[A-Z\s]*\.{3}[^\*]*/g; // working on grabbing every piece, but kinda not worth it tbh
+    desc = desc.replace( /\n/g , ' '); // get rid of all new lines
+    desc = desc.replace( /\s{2,}/g , ' '); // replace any groupings of spaces with just 1 space
+    let mainParts: string[] = desc.split('*');
+    mainParts.splice(0,1); // get rid of the first element, as the description will start with '*' so the first element is empty
+    let output: {[key: string]: string} = {}; 
+    for (let part of mainParts) {
+      if (!part) {continue}; // ensure no elements are broke
+      let subParts: string[] = part.split('...'); // split each description into the type and text, such as 'WHAT' and 'The weather is bad.' respectively
+      if (!subParts || !Array.isArray(subParts) || subParts.length < 2 || !subParts[0] || !subParts[1]) { return; } // Ensure we have usable data
+      output[subParts[0].trim()] = subParts[1].trim(); // store the type as the key (such as WHAT) and the description as the value
+    }
+    return output;
+  }
 }
-
 
 /**
  * @description The important weather alert data as pulled from the weather.gov api. All of the variable names here match the variable names used in the api.
