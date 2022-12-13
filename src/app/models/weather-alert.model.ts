@@ -13,12 +13,12 @@ export class WeatherAlertResponse {
 
   constructor(apiResponse: any) {
     try {
-      if (typeof apiResponse.title === 'string') { // How we can validate the response of an API we can't control
+      if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
         this.flowStatus = 'SUCCESS';
         this.flowStatusMessage = apiResponse.title;
       } else {
         this.flowStatus = 'FAILURE';
-        this.flowStatusMessage = 'Unable to call API';
+        this.flowStatusMessage = 'Unable to parse api response';
       }
       if (this.flowStatus === 'SUCCESS') {
         const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(apiResponse);
@@ -33,7 +33,7 @@ export class WeatherAlertResponse {
       }
     } catch (e) {
       this.flowStatus = 'FAILURE';
-      this.flowStatusMessage = 'Unable to parse API response';
+      this.flowStatusMessage = 'Unable to call api';
     }
   }
 
