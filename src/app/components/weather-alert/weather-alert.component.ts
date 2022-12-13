@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { WeatherAlertInfo } from 'src/app/models/weather-alert.model';
+import { WeatherAlertInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import {  WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -9,7 +9,7 @@ import {  WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./weather-alert.component.scss']
 })
 export class WeatherAlertComponent implements OnInit {
-  @Input() weatherAlert: WeatherAlertInfo;
+  @Input() weatherAlert: WeatherAlertResponse;
   public showToast: boolean = true; // By default we want to show the toast, but will be changed if the user closes the toast or if new weather alert data is called from the API
 
   constructor(private weatherService: WeatherService) { }
@@ -20,7 +20,7 @@ export class WeatherAlertComponent implements OnInit {
 
     // only show WHEN and WHAT
 
-    if (this.weatherAlert && this.weatherAlert.description && this.weatherAlert.description.indexOf('WHAT') > -1 && this.weatherAlert.description.indexOf('WHERE') && this.weatherAlert.description.indexOf('WHEN') && this.weatherAlert.description.indexOf('IMPACTS')) {
+    if (this.weatherAlert && this.weatherAlert.activeAlertDescription && this.weatherAlert.activeAlertDescription.indexOf('WHAT') > -1 && this.weatherAlert.activeAlertDescription.indexOf('WHERE') && this.weatherAlert.activeAlertDescription.indexOf('WHEN') && this.weatherAlert.activeAlertDescription.indexOf('IMPACTS')) {
     }
   }
 
@@ -39,7 +39,7 @@ export class WeatherAlertComponent implements OnInit {
    */
   private subscribeToWeatherService(): void {
     this.weatherService.getLoading().subscribe({
-      next: (loading: boolean) => { 
+      next: (loading: boolean) => {
         if(!loading && this.weatherService.hasSuccessfullyCompleted()) {
           this.showToast = true; // whenever the call method finishes, we want to show the toast
         }

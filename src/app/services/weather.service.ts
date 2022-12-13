@@ -9,13 +9,13 @@ import { WeatherAlertResponse } from '../models/weather-alert.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  private serverURL: string = 'https://api.weather.gov/alerts';
+  private serverURL: string = 'https://api.weather.gov/alerts/active';
   private apiResults: WeatherAlertResponse = null;
   private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loading: boolean;
   private httpSubscription: Subscription;
   private isSuccessfullyCompleted: boolean = false;
- 
+
   constructor (private http: HttpClient) { }
 
   /**
@@ -41,15 +41,15 @@ export class WeatherService {
       }
     }
   }
- 
+
   /**
-   * @description - Returns the loadingChanged Subject as an Observable. Components should subscribe to this function, which should return the status of the API, and retrieve the API result when the loading has been updated from true to false. 
+   * @description - Returns the loadingChanged Subject as an Observable. Components should subscribe to this function, which should return the status of the API, and retrieve the API result when the loading has been updated from true to false.
    * @returns {Observable<boolean>} - The loadingChanged Subject as an Observable
    */
   public getLoading(): Observable<boolean> {
     return this.loadingChanged.asObservable();
   }
- 
+
   /**
    * @description - Updates the loadingChanged BehaviorSubject. This is called within the service's call() to update the status of the API. The loading variable is updated to true when the API is called, and updated to false when the response is retrieved.
    * @param {boolean} loading - The new value for loading
@@ -59,7 +59,7 @@ export class WeatherService {
     this.loading = loading;
     this.loadingChanged.next(this.loading);
   }
- 
+
   /**
    * @description - Returns the status of isSuccessfullyCompleted. This should be used in components to determine if an API should be called again.
    * @returns {boolean} - true if the API has successfully been called; false otherwise
@@ -67,7 +67,7 @@ export class WeatherService {
   public hasSuccessfullyCompleted(): boolean {
     return this.isSuccessfullyCompleted;
   }
- 
+
   /**
    * @description - Returns the WeatherAlert API result
    * @returns {WeatherAlert[]} - The API results for the weather.gov api call
@@ -86,11 +86,12 @@ export class WeatherService {
   // validate we're not already loading an API response and that we have the expected parameters
   if (!this.loading && lat && long) {
     this.updateLoading(true);
-    this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
+    this.httpSubscription = this.http.get(`${this.serverURL}?point=46%2C-92&limit=500`)
       .subscribe({
         next: (apiResponse: any) => {
-          // console.log(apiResponse); // TODO - remove, for testing purposes
+          console.log(apiResponse); // TODO - remove, for testing purposes
           this.apiResults = new WeatherAlertResponse(apiResponse);
+          console.log('api as new class -', this.apiResults)
           this.isSuccessfullyCompleted = true;
           this.updateLoading(false);
         },
