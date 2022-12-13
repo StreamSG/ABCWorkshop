@@ -19,6 +19,8 @@ export class HomepageComponent implements OnInit {
     { location: 'Santa Monica, CA', lat: 34.0195, long: -118.4912 },
     { location: 'Austin, TX', lat: 30.2672, long: -97.7431 },
     { location: 'Fort Lauderdale, FL', lat: 26.1224, long: -80.1373 },
+    { location: 'Dallas, TX', lat: 32.7767, long: -96.7970 },
+    { location: 'Rapid City, SD', lat: 44.0805, long: -103.2310 },
   ];
 
   constructor(private weatherService: WeatherService) { }

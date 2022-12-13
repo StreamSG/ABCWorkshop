@@ -9,7 +9,7 @@
     </div>
   </div>
   <!-- TODO - remove. Added a ton of top margin so you can still see the buttons when the toast is present (testing purposes) -->
-  <div class="container" style="margin-top:300px;">
+  <div class="container">
     <div class="row mb-3">
       <div class="col text-center">
         <div class="card pt-2 pb-2">
@@ -46,9 +46,9 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
+    <div class="col end-0">
       <ng-container *ngFor="let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper']; let i = index">
-        <div class="card mb-2" style="overflow:hidden;">
+        <div class="card end-0 mb-2" style="overflow:hidden;">
           <div class="row">
             <div class="col-3 text-center pt-3" style="background-color:#444; color: white;">
               <p>JOB</p>

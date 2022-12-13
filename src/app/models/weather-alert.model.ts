@@ -1,3 +1,5 @@
+import * as moment from "moment";
+
 export class WeatherAlertResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
@@ -7,6 +9,7 @@ export class WeatherAlertResponse {
   readonly activeAlertHeadline: string;
   readonly activeAlertId: string;
   readonly activeAlertInstruction: string;
+  readonly showAlertToast: boolean;
 
   constructor(apiResponse: any) {
     try {
@@ -19,22 +22,22 @@ export class WeatherAlertResponse {
       }
       if (this.flowStatus === 'SUCCESS') {
         const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(apiResponse);
-        console.log('returned array', tempAllActiveWeatherAlerts)
         this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
-        console.log('all active', this.allActiveWeatherAlerts)
         this.activeAlertDescription = this.descriptionForToast(this.allActiveWeatherAlerts);
         // the below variables are set to 0 index of array because that will be up-to-date active alert
         this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
         this.activeAlertHeadline = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].headline ? this.allActiveWeatherAlerts[0].headline : '';
         this.activeAlertId = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].id ? this.allActiveWeatherAlerts[0].id : '';
         this.activeAlertInstruction = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].instruction ? this.allActiveWeatherAlerts[0].instruction : '';
+        this.showAlertToast = Array.isArray(this.allActiveWeatherAlerts) && this.allActiveWeatherAlerts.length > 0;
       }
     } catch (e) {
-      console.log({e})
       this.flowStatus = 'FAILURE';
       this.flowStatusMessage = 'Unable to parse API response';
     }
   }
+
+  /* ***** Below is parsing that should be done on a backend but mocked here ***** */
 
   /**
    * @description - method to semi-mock backend parsing of National Weather Service Active Alerts API
@@ -46,7 +49,7 @@ export class WeatherAlertResponse {
     if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
       for (let apiAlert of apiResponse.features) {
         const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
-        let tempWeatherAlert: WeatherAlertInfo = {
+        const tempWeatherAlert: WeatherAlertInfo = {
           description: alertsToParse.description ? alertsToParse.description : '',
           event: alertsToParse.event ? alertsToParse.event : '',
           headline: alertsToParse.headline ? alertsToParse.headline : '',
@@ -62,7 +65,6 @@ export class WeatherAlertResponse {
   }
 
   private filterDuplicateAlerts(alerts: WeatherAlertInfo[]): WeatherAlertInfo[] {
-    console.log({alerts})
     if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { return []; } // early exit in case alerts not truthy, an array, or empty
     // Sort the alerts by the time they were sent from oldest to newest
     alerts = alerts.sort((a, b) => a.sent > b.sent ? 1 : -1);
@@ -90,28 +92,24 @@ export class WeatherAlertResponse {
   }
 
   /**
-   * @description - method to parse through description string and return value for ui consumption
+   * @description - method to parse through description string and return value for ui consumption, returning the headline is priority so as to limit the size of toast on ui. next is parsing through the description
    * @param {WeatherAlertInfo[]} allActiveWeatherAlerts - parsed active weather alert(s)
    * @returns {string} - parsed string to send to ui to show as active alert description
    */
   private descriptionForToast(allActiveWeatherAlerts: WeatherAlertInfo[]): string {
     let returnedDescription: string;
     if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0) {
-      const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert
+      const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
       if (weatherAlert && weatherAlert.headline) {
         returnedDescription = weatherAlert.headline;
       } else if (weatherAlert && weatherAlert.description && weatherAlert.description.indexOf('WHAT') > -1 && weatherAlert.description.indexOf('WHEN') > -1) {
-        let tempDescriptionArray: string[] = weatherAlert.description.split('*');
-        // tempDescriptionArray.forEach((msg) => {
-        //   msg.trimStart();
-        //   returnedDescription = msg.slice(msg.indexOf('...') + 3);
-        // })
+        const tempDescriptionArray: string[] = weatherAlert.description.split('*');
         returnedDescription = tempDescriptionArray[1].slice(tempDescriptionArray[1].indexOf('...') + 3);
       } else if (weatherAlert && weatherAlert.description) {
         returnedDescription = weatherAlert.description;
-      } else if (weatherAlert && weatherAlert.event && weatherAlert.sent) {
-        // parse date weatherAlert.sent
-        returnedDescription = `${weatherAlert.event} issued at ${new Date(weatherAlert.sent)}`;
+      } else if (weatherAlert && weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
+        const dateTimeForToast: string = moment(weatherAlert.sent).calendar(); // returns time formatted as 'Today at 9:48 AM'
+        returnedDescription = `${weatherAlert.severity} ${weatherAlert.event} issued at ${dateTimeForToast}`;
       } else {
         returnedDescription = 'Weather Alert Info Unknown';
       }
