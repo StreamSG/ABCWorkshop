@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
-import { SafeSubscriber } from 'rxjs/internal/Subscriber';
 
 import { WeatherAlertResponse } from './models/weather-alert.model';
 import { WeatherService } from './services/weather.service';
