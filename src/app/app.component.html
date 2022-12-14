@@ -1,4 +1,7 @@
 <app-header></app-header>
+<ng-container *ngIf="weatherAlertResponse?.showAlertToast">
+  <app-weather-alert [weatherAlert]="weatherAlertResponse" ></app-weather-alert>
+</ng-container>
 <div class="container mt-2">
   <router-outlet></router-outlet>
 </div>
