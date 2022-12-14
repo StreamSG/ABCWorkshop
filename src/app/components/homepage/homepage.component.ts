@@ -57,6 +57,7 @@ export class HomepageComponent implements OnInit {
           curLocation.long = pos.coords.longitude;
 
           if(!this.weatherService.hasSuccessfullyCompleted()) { // Check if the user has already called and gotten 
+            // TODO - move the call method into app.component.ts. May require a service file 
             this.weatherService.call(pos.coords.latitude, pos.coords.longitude);
           }
           break; // since 'Loading...' button was found, do not need to continue
