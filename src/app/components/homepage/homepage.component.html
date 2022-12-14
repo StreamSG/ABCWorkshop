@@ -50,7 +50,7 @@
       <ng-container *ngFor="let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper']; let i = index">
         <div class="card mb-2" style="overflow:hidden;">
           <div class="row">
-          <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job === 'Install' ? 'blue' : job === 'Repair' ? 'purple' : job === 'Helper' ? 'green' : 'black'}">
+            <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job === 'Install' ? 'blue' : job === 'Repair' ? 'purple' : job === 'Helper' ? 'green' : 'black'}">
               <p>JOB</p>
               <p>{{ i+1 }}</p>
             </div>
