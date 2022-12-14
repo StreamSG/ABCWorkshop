@@ -83,7 +83,7 @@ export class WeatherAlertResponse {
     let filteredAlerts: WeatherAlertInfo[] = [];
     let alertIdsThatHaveBeenAdded: string[] = [];
     for (let alert of alerts) { 
-      if (alertIdsThatHaveBeenAdded.indexOf( alert.id ) === -1) {
+      if (alert && alert.id && alertIdsThatHaveBeenAdded.indexOf( alert.id ) === -1) {
         alertIdsThatHaveBeenAdded.push( alert.id ); // Always add the newest 
         if (this.shouldAlertBeShown(alert)) {
           filteredAlerts.push( alert );
@@ -139,7 +139,6 @@ export class WeatherAlertResponse {
      * @returns - {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text. 
      */
    private parseWeatherDescription(desc: string): {[key: string]: string} {
-    // let re: RegExp = /\*\s[A-Z\s]*\.{3}[^\*]*/g; // working on grabbing every piece, but kinda not worth it tbh
     desc = desc.replace( /\n/g , ' '); // get rid of all new lines
     desc = desc.replace( /\s{2,}/g , ' '); // replace any groupings of spaces with just 1 space
     let mainParts: string[] = desc.split('*');
