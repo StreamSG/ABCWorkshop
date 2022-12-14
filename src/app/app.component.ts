@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { WeatherAlertResponse } from './models/weather-alert.model';
-import {WeatherService } from './services/weather.service';
+import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
