@@ -33,7 +33,7 @@ export class WeatherAlertResponse {
       }
     } catch (e) {
       this.flowStatus = 'FAILURE';
-      this.flowStatusMessage = 'Unable to call api';
+      this.flowStatusMessage = e;
     }
   }
 
