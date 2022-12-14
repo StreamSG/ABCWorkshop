@@ -39,7 +39,7 @@ export class HomepageComponent implements OnInit {
   public onChangeLocation(lat: number, long:number): void {
     this.weatherService.call(lat, long);
   }
-
+  
   /**
    * @description For use in ngOnInit, to load the user's current location, add the location to the current location button in the preselectedLocations array, and call the weather service API if it hasn't been already.
    * @returns {void}
