@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription, take, takeUntil } from 'rxjs';
-import { GeolocationService } from './geolocation.service';
+import { Subject, take, takeUntil } from 'rxjs';
 
+import { GeolocationService } from './geolocation.service';
 import { WeatherAlertResponse } from './models/weather-alert.model';
 import { WeatherService } from './services/weather.service';
 

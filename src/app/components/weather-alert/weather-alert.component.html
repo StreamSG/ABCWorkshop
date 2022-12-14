@@ -2,7 +2,7 @@
   <div class="toast position-fixed w-100" [ngClass]="{'show': showToast}" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <strong class="me-auto">{{weatherAlert?.activeAlertEvent}}</strong>
-      <button type="button" class="btn-close" aria-label="Close" (click)="onClickCloseToast()"></button> <!-- TODO - remove this note. Took this out and it still works: data-bs-dismiss="toast" -->
+      <button type="button" class="btn-close" aria-label="Close" (click)="onClickCloseToast()"></button>
     </div>
     <div class="toast-body">
       <p>{{weatherAlert?.activeAlertDescription}}</p>
