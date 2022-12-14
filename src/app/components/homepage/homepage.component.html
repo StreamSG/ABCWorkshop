@@ -8,7 +8,6 @@
       </div>
     </div>
   </div>
-  <!-- TODO - remove. Added a ton of top margin so you can still see the buttons when the toast is present (testing purposes) -->
   <div class="container">
     <div class="row mb-3">
       <div class="col text-center">
@@ -19,8 +18,8 @@
               <button 
                 type="button" 
                 class="btn btn-primary me-1 mb-1" 
-                [disabled]="curLocation.lat === 999 && curLocation.long === 999"
-                (click)="onChangeLocation(curLocation.lat, curLocation.long)">{{ curLocation.location }}</button>
+                [disabled]="curLocation?.lat === 999 && curLocation?.long === 999"
+                (click)="onChangeLocation(curLocation?.lat, curLocation?.long)">{{ curLocation?.location }}</button>
             </ng-container>
           </div> 
         </div>
@@ -48,7 +47,7 @@
   <div class="row">
     <div class="col end-0">
       <ng-container *ngFor="let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper']; let i = index">
-        <div class="card end-0 mb-2" style="overflow:hidden;">
+        <div class="card end-0 mb-2">
           <div class="row">
             <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job === 'Install' ? 'blue' : job === 'Repair' ? 'purple' : job === 'Helper' ? 'green' : 'black'}">
               <p>JOB</p>

@@ -46,22 +46,27 @@ export class WeatherAlertResponse {
    */
   private parseApiResponse(apiResponse: any): WeatherAlertInfo[] {
     const tempAllActiveWeatherAlertsArray: WeatherAlertInfo[] = [];
-    if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
-      for (let apiAlert of apiResponse.features) {
-        const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
-        const tempWeatherAlert: WeatherAlertInfo = {
-          description: alertsToParse.description ? alertsToParse.description : '',
-          event: alertsToParse.event ? alertsToParse.event : '',
-          headline: alertsToParse.headline ? alertsToParse.headline : '',
-          id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
-          instruction: alertsToParse.instruction ? alertsToParse.instruction : '',
-          sent: alertsToParse.sent ? alertsToParse.sent : '',
-          severity: alertsToParse.severity ? alertsToParse.severity : ''
+    try {
+      if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
+        for (let apiAlert of apiResponse.features) {
+          const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
+          const tempWeatherAlert: WeatherAlertInfo = {
+            description: alertsToParse.description ? alertsToParse.description : '',
+            event: alertsToParse.event ? alertsToParse.event : '',
+            headline: alertsToParse.headline ? alertsToParse.headline : '',
+            id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
+            instruction: alertsToParse.instruction ? alertsToParse.instruction : '',
+            sent: alertsToParse.sent ? alertsToParse.sent : '',
+            severity: alertsToParse.severity ? alertsToParse.severity : ''
+          }
+          tempAllActiveWeatherAlertsArray.push(tempWeatherAlert);
         }
-        tempAllActiveWeatherAlertsArray.push(tempWeatherAlert);
       }
+      return tempAllActiveWeatherAlertsArray;
+    } catch (error) {
+      console.log(error);
+      return tempAllActiveWeatherAlertsArray;
     }
-    return tempAllActiveWeatherAlertsArray;
   }
 
   private filterDuplicateAlerts(alerts: WeatherAlertInfo[]): WeatherAlertInfo[] {
@@ -97,25 +102,29 @@ export class WeatherAlertResponse {
    * @returns {string} - parsed string to send to ui to show as active alert description
    */
   private descriptionForToast(allActiveWeatherAlerts: WeatherAlertInfo[]): string {
-    let returnedDescription: string;
-    if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0) {
-      const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
-      if (weatherAlert && weatherAlert.headline) {
-        returnedDescription = weatherAlert.headline;
-      } else if (weatherAlert && weatherAlert.description && weatherAlert.description.indexOf('WHAT') > -1 && weatherAlert.description.indexOf('WHEN') > -1) {
-        const tempDescriptionArray: string[] = weatherAlert.description.split('*');
-        returnedDescription = tempDescriptionArray[1].slice(tempDescriptionArray[1].indexOf('...') + 3);
-      } else if (weatherAlert && weatherAlert.description) {
-        returnedDescription = weatherAlert.description;
-      } else if (weatherAlert && weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
-        const dateTimeForToast: string = moment(weatherAlert.sent).calendar(); // returns time formatted as 'Today at 9:48 AM'
-        returnedDescription = `${weatherAlert.severity} ${weatherAlert.event} issued at ${dateTimeForToast}`;
-      } else {
-        returnedDescription = 'Weather Alert Info Unknown';
+    let returnedDescription: string = '';
+    try {
+      if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0 && allActiveWeatherAlerts[0]) {
+        const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
+        if (weatherAlert.headline) {
+          returnedDescription = weatherAlert.headline;
+        } else if (weatherAlert.description && weatherAlert.description.indexOf('WHAT') > -1 && weatherAlert.description.indexOf('WHEN') > -1) {
+          const tempDescriptionArray: string[] = weatherAlert.description.split('*');
+          returnedDescription = tempDescriptionArray[1].slice(tempDescriptionArray[1].indexOf('...') + 3);
+        } else if (weatherAlert.description) {
+          returnedDescription = weatherAlert.description;
+        } else if (weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
+          const dateTimeForToast: string = moment(weatherAlert.sent).calendar(); // returns time formatted as 'Today at 9:48 AM'
+          returnedDescription = `${weatherAlert.severity} ${weatherAlert.event} issued at ${dateTimeForToast}`;
+        } else {
+          returnedDescription = 'Weather Alert Info Unknown';
+        }
       }
       return returnedDescription;
+    } catch (e) {
+      console.log(e);
+      return returnedDescription;
     }
-    return '';
   }
   
   /**

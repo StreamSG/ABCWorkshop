@@ -22,19 +22,19 @@ export class WeatherService {
    * @description - Resets the state of the service. This should be called in clearJobData service if this service is a job specific API.
    * @returns {void}
    */
- public resetData(): void {
-  this.apiResults = null;
-  this.loading = false;
-  this.loadingChanged.next(this.loading);
-  this.isSuccessfullyCompleted = false;
-  this.cancelRequest();
+  public resetData(): void {
+    this.apiResults = null;
+    this.loading = false;
+    this.loadingChanged.next(this.loading);
+    this.isSuccessfullyCompleted = false;
+    this.cancelRequest();
   }
 
   /**
    * @description - Cancels any ongoing API call.
    * @returns {void}
    */
-   private cancelRequest(): void {
+  private cancelRequest(): void {
     if (this.httpSubscription) {
       if (!this.httpSubscription.closed) {
         this.httpSubscription.unsubscribe();
@@ -82,26 +82,26 @@ export class WeatherService {
    * @param {number} long - The longitude of the location where you'd like to request weather alerts
    * @returns {void}
    */
- public call(lat: number, long: number): void {
+  public call(lat: number, long: number): void {
   // validate we're not already loading an API response and that we have the expected parameters
-  if (!this.loading && lat && long) {
-    this.updateLoading(true);
-    this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
-      .subscribe({
-        next: (apiResponse: any) => {
-          this.apiResults = new WeatherAlertResponse(apiResponse);
-          this.isSuccessfullyCompleted = true;
-          this.updateLoading(false);
-        },
-        error: (error: any) => {
-          this.apiResults = new WeatherAlertResponse(error.error);
-          console.error(error);
-          this.isSuccessfullyCompleted = false;
-          this.updateLoading(false);
-        }
-      });
+    if (!this.loading && lat && long) {
+      this.updateLoading(true);
+      this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
+        .subscribe({
+          next: (apiResponse: any) => {
+            this.apiResults = new WeatherAlertResponse(apiResponse);
+            this.isSuccessfullyCompleted = true;
+            this.updateLoading(false);
+          },
+          error: (error: any) => {
+            this.apiResults = new WeatherAlertResponse(error.error);
+            console.error(error);
+            this.isSuccessfullyCompleted = false;
+            this.updateLoading(false);
+          }
+        });
+      }
     }
-  }
 }
 
 
