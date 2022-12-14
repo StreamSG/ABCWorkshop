@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { WeatherAlertInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
-import {  WeatherService } from 'src/app/services/weather.service';
+import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-weather-alert',

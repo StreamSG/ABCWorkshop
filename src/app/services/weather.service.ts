@@ -9,7 +9,7 @@ import { WeatherAlertResponse } from '../models/weather-alert.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  private serverURL: string = 'https://api.weather.gov/alerts/active';
+  private serverURL: string = 'https://api.weather.gov/alerts';
   private apiResults: WeatherAlertResponse = null;
   private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loading: boolean;
@@ -86,12 +86,12 @@ export class WeatherService {
   // validate we're not already loading an API response and that we have the expected parameters
   if (!this.loading && lat && long) {
     this.updateLoading(true);
-    this.httpSubscription = this.http.get(`${this.serverURL}?point=46%2C-92&limit=500`)
+    this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
       .subscribe({
         next: (apiResponse: any) => {
           console.log(apiResponse); // TODO - remove, for testing purposes
           this.apiResults = new WeatherAlertResponse(apiResponse);
-          console.log('api as new class -', this.apiResults)
+          console.log('api as new class -', this.apiResults);
           this.isSuccessfullyCompleted = true;
           this.updateLoading(false);
         },

@@ -2,6 +2,7 @@
   <div class="row mb-5">
     <div class="col text-center">
       <div class="card pt-3">
+        <img src="../../../assets/banner.png" class="banner">
         <h3>Works well with others.</h3>
         <hr>
         <h5>Be safe!</h5>
@@ -9,20 +10,20 @@
     </div>
   </div>
   <!-- TODO - remove. Added a ton of top margin so you can still see the buttons when the toast is present (testing purposes) -->
-  <div class="container" style="margin-top:300px;">
+  <div class="container" style="margin-top:10px;">
     <div class="row mb-3">
       <div class="col text-center">
         <div class="card pt-2 pb-2">
           <h5>Change Location</h5>
           <div class="d-inline">
             <ng-container *ngFor="let curLocation of preselectedLocations">
-              <button 
-                type="button" 
-                class="btn btn-primary me-1 mb-1" 
+              <button
+                type="button"
+                class="btn btn-primary me-1 mb-1"
                 [disabled]="curLocation.lat === 999 && curLocation.long === 999"
                 (click)="onChangeLocation(curLocation.lat, curLocation.long)">{{ curLocation.location }}</button>
             </ng-container>
-          </div> 
+          </div>
         </div>
       </div>
     </div>

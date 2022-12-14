@@ -10,16 +10,17 @@ import { WeTrackListComponent } from './components/we-track/we-track-list/we-tra
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 import { AboutPageComponent } from './components/help/about-page/about-page.component';
+import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
-  { path: 'about', component: AboutPageComponent },
   // Mini-projects
   { path: 'touch-n-go', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'qc-timer', component: QcTimerComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'weatherAlert', component: WeatherViewComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },

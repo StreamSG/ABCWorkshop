@@ -1,44 +1,71 @@
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top bg-dark">
+<nav class="navbar navbar-light sticky-top bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="">
+    <a class="navbar-brand" href="#">
       <img src="../../../assets/att-logo-white.png" width="30" height="30" alt="Logo" >
     </a>
-    <button class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navContent"
-      aria-controls="navContent"
-      aria-expanded="false"
-      aria-label="navigation toggle">
+    <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-        </li>>
-        <li>
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Mini-projects</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="touch-n-go">Touch 'n' Go</a></li>
-            <li><a class="dropdown-item" routerLink="ticket-generator">Ticket Generator</a></li>
-            <li><a class="dropdown-item" routerLink="qc-timer">QC Timer</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="help">Help</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="we-track">weTrack</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="weatherAlert">Alerts</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="help">Help</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Map</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Prior Tickets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tools</a>
+          </li> <hr>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Timesheet</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">System Health <img class="float-end" src="../../assets/idkweather.png">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Safety</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
 
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Mini-projects
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" routerLink="we-track">weTrack</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" routerLink="touch-n-go">Touch 'n' Go</a></li>
+              <li><a class="dropdown-item" routerLink="ticket-generator">Ticket Generator</a></li>
+              <li><a class="dropdown-item" routerLink="qc-timer">QC Timer</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
 <!-- If you'd like to add something, check this resource: https://getbootstrap.com/docs/5.2/components/navbar/ -->
