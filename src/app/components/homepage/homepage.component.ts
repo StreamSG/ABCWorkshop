@@ -19,6 +19,8 @@ export class HomepageComponent implements OnInit {
     { location: 'Santa Monica, CA', lat: 34.0195, long: -118.4912 },
     { location: 'Austin, TX', lat: 30.2672, long: -97.7431 },
     { location: 'Fort Lauderdale, FL', lat: 26.1224, long: -80.1373 },
+    { location: 'Dallas, TX', lat: 32.7767, long: -96.7970 },
+    { location: 'Rapid City, SD', lat: 44.0805, long: -103.2310 },
   ];
 
   constructor(private weatherService: WeatherService) { }
@@ -37,7 +39,7 @@ export class HomepageComponent implements OnInit {
   public onChangeLocation(lat: number, long:number): void {
     this.weatherService.call(lat, long);
   }
-
+  
   /**
    * @description For use in ngOnInit, to load the user's current location, add the location to the current location button in the preselectedLocations array, and call the weather service API if it hasn't been already.
    * @returns {void}
@@ -45,16 +47,19 @@ export class HomepageComponent implements OnInit {
   private initializeCurrentLocation(): void {
     navigator.geolocation.getCurrentPosition(
       (pos: GeolocationPosition) => { // On successful location call..
-        if(!(pos && pos.coords)) { return; } // truthy early exit in case pos is broken for some reason
+        if (!(pos && pos.coords)) {
+          return; 
+        } 
 
-        for(let curLocation of this.preselectedLocations) { // loop through each location button 
-          if(!curLocation || curLocation.location !== 'Loading...') { continue; } // skip the iteration until we find the button titled 'Loading...'
+        for (let curLocation of this.preselectedLocations) { // loop through each location button 
+          if (!curLocation || curLocation.location !== 'Loading...') { continue; } // skip the iteration until we find the button titled 'Loading...'
 
           curLocation.location = 'Current location' // Change the button formerly called 'Loading...' to reflect that the user current location has been found
           curLocation.lat = pos.coords.latitude;
           curLocation.long = pos.coords.longitude;
 
-          if(!this.weatherService.hasSuccessfullyCompleted()) { // Check if the user has already called and gotten 
+          if (!this.weatherService.hasSuccessfullyCompleted()) { // Check if the user has already called and gotten 
+            // TODO - move the call method into app.component.ts. May require a service file 
             this.weatherService.call(pos.coords.latitude, pos.coords.longitude);
           }
           break; // since 'Loading...' button was found, do not need to continue

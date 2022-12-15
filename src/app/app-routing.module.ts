@@ -9,7 +9,6 @@ import { WeTrackComponent } from './components/views/we-track/we-track.component
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
-import { AboutPageComponent } from './components/help/about-page/about-page.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 const routes: Routes = [

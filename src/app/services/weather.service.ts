@@ -19,22 +19,22 @@ export class WeatherService {
   constructor (private http: HttpClient) { }
 
   /**
-   * @description - Resets the state of the service. This should be called in clearJobData service if this service is a job specific API.
+   * @description - Resets the state of the service, cancelling any ongoing API call.
    * @returns {void}
    */
- public resetData(): void {
-  this.apiResults = null;
-  this.loading = false;
-  this.loadingChanged.next(this.loading);
-  this.isSuccessfullyCompleted = false;
-  this.cancelRequest();
+  public resetData(): void {
+    this.apiResults = null;
+    this.loading = false;
+    this.loadingChanged.next(this.loading);
+    this.isSuccessfullyCompleted = false;
+    this.cancelRequest();
   }
 
   /**
    * @description - Cancels any ongoing API call.
    * @returns {void}
    */
-   private cancelRequest(): void {
+  private cancelRequest(): void {
     if (this.httpSubscription) {
       if (!this.httpSubscription.closed) {
         this.httpSubscription.unsubscribe();
@@ -82,115 +82,24 @@ export class WeatherService {
    * @param {number} long - The longitude of the location where you'd like to request weather alerts
    * @returns {void}
    */
- public call(lat: number, long: number): void {
+  public call(lat: number, long: number): void {
   // validate we're not already loading an API response and that we have the expected parameters
-  if (!this.loading && lat && long) {
-    this.updateLoading(true);
-    this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
-      .subscribe({
-        next: (apiResponse: any) => {
-          console.log(apiResponse); // TODO - remove, for testing purposes
-          this.apiResults = new WeatherAlertResponse(apiResponse);
-          console.log('api as new class -', this.apiResults);
-          this.isSuccessfullyCompleted = true;
-          this.updateLoading(false);
-        },
-        error: (error: any) => {
-          this.apiResults = new WeatherAlertResponse(error.error);
-          console.error(error);
-          this.isSuccessfullyCompleted = false;
-          this.updateLoading(false);
-        }
-      });
+    if (!this.loading && lat && long) {
+      this.updateLoading(true);
+      this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
+        .subscribe({
+          next: (apiResponse: any) => {
+            this.apiResults = new WeatherAlertResponse(apiResponse);
+            this.isSuccessfullyCompleted = true;
+            this.updateLoading(false);
+          },
+          error: (error: any) => {
+            this.apiResults = new WeatherAlertResponse(error.error);
+            console.error(error);
+            this.isSuccessfullyCompleted = false;
+            this.updateLoading(false);
+          }
+        });
     }
   }
 }
-
-
-// private databaseUrl: string = 'https://atlas-boot-camp-default-rtdb.firebaseio.com/we-track.json';
-  // private loading: boolean = false;
-  // private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // private httpSubscription: Subscription;
-  // private isSuccessfullyCompleted: boolean = false;
-  // private apiResults: WeTrackTicket[] = [];
-
-  // constructor(private httpClient: HttpClient) {}
-
-  // /**
-  //  * @description - Method to update loading and loadingChanged statuses
-  //  * @returns {void} - updates global variables
-  //  */
-  // public resetData(): void {
-  //   this.updateLoading(false);
-  //   this.isSuccessfullyCompleted = false;
-  //   this.apiResults = [];
-  //   this.cancelRequest();
-  // }
-
-  // /**
-  //  * @description - Method to cancel subscription
-  //  * @returns {void} - updates global variables
-  //  */
-  // private cancelRequest(): void {
-  //   if (this.httpSubscription) {
-  //     if (!this.httpSubscription.closed) {
-  //       this.httpSubscription.unsubscribe();
-  //     }
-  //   }
-  // }
-
-  // /**
-  //  * @description - Method to update loading and loadingChanged statuses
-  //  * @param {boolean} loading - current value of loading for serivce
-  //  * @returns {void}
-  //  */
-  // private updateLoading(loading: boolean): void {
-  //   this.loading = loading;
-  //   this.loadingChanged.next(this.loading);
-  // }
-
-  // /**
-  //  * @description - Method to update loading and loadingChanged statuses
-  //  * @returns {Observable<boolean>} update loading status
-  //  */
-  // public getLoading(): Observable<boolean> {
-  //   return this.loadingChanged.asObservable();
-  // }
-
-  // /**
-  //  * @description - Method to update loading and loadingChanged statuses
-  //  * @returns {boolean}  update status
-  //  */
-  // public hasSuccessfullyCompleted(): boolean {
-  //   return this.isSuccessfullyCompleted;
-  // }
-
-  // /**
-  //  * @description - returns results for weTrack service
-  //  * @returns {WeTrackTicket[]} returns ticket array
-  //  */
-  // public getResults(): WeTrackTicket[] {
-  //   return this.apiResults;
-  // }
-
-  // /**
-  //  * @description Call firebase server to get weTrack tickets
-  //  * @returns {void}
-  //  */
-  // public call(): void {
-  //   if (!this.loading) {
-  //     this.updateLoading(true);
-  //     this.httpSubscription = this.httpClient.get<WeTrackTicket[]>(this.databaseUrl).subscribe(
-  //       (response: any) => {
-  //         this.apiResults = response;
-  //         this.updateLoading(false);
-  //         this.isSuccessfullyCompleted = true;
-  //       },
-  //       (error: any) => {
-  //         console.log(error, error.error)
-  //         this.isSuccessfullyCompleted = false;
-  //         this.updateLoading(false);
-  //       }
-  //     );
-  //   }
-  // }

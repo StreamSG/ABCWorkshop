@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import {  WeatherService } from 'src/app/services/weather.service';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
-import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-weather-alert',
@@ -15,13 +15,8 @@ export class WeatherAlertComponent implements OnInit {
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-
     this.subscribeToWeatherService(); // subscribe to updates in the weatherService so we can show the toast in case it was closed
-
-    // only show WHEN and WHAT
-
-    if (this.weatherAlert && this.weatherAlert.activeAlertDescription && this.weatherAlert.activeAlertDescription.indexOf('WHAT') > -1 && this.weatherAlert.activeAlertDescription.indexOf('WHERE') && this.weatherAlert.activeAlertDescription.indexOf('WHEN') && this.weatherAlert.activeAlertDescription.indexOf('IMPACTS')) {
-    }
+    this.timerToRemoveAlert();
   }
 
   /**
@@ -45,5 +40,17 @@ export class WeatherAlertComponent implements OnInit {
         }
       }
     });
+  }
+
+  /**
+   * @description - provide timer to hide active alert so as to not persist on view and limit users use of the app
+   * @returns {void}
+   */
+  private timerToRemoveAlert(): void {
+    if (this.showToast) {
+      setTimeout(() => {
+        this.showToast = false;
+      }, 10000);
+    }
   }
 }

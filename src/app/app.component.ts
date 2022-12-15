@@ -1,30 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, take, takeUntil } from 'rxjs';
 
+import { GeolocationService } from './geolocation.service';
 import { WeatherAlertResponse } from './models/weather-alert.model';
-import {WeatherService } from './services/weather.service';
+import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
+  private ngUnsubscribe = new Subject<void>(); // Documentation: https://www.intertech.com/angular-best-practice-unsubscribing-rxjs-observables/ search for ngUnsubscribe
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService, private locationService: GeolocationService) { }
 
   ngOnInit(): void {
-    // Removing this for now, as it is implemented into the homepage location switcher box
-    // this.weatherService.call(43.0722,-89.4008); // hard coded to somewhere with several alerts
-
+    // this.weatherService.call(40, -80);
     // Subscribe to the weather service so the weather alert toast can be updated when new weather data is pulled
-    this.weatherService.getLoading().subscribe({
+    this.locationService.initializeCurrentLocation();
+    this.locationService.updatedCurrentLocation.subscribe({
+      next: () => {
+        
+      }
+    });
+    this.weatherService.getLoading().pipe( /*take(2),*/ takeUntil( this.ngUnsubscribe ) ).subscribe({ // For take(), documentation: https://rxjs.dev/api/operators/take
       next: (loading) => {
         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
-          // console.log(this.weatherService.getResults()); // TODO - remove console.log, for testing purposes
           this.weatherAlertResponse = this.weatherService.getResults();
         }
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 }

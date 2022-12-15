@@ -1,3 +1,5 @@
+import * as moment from "moment";
+
 export class WeatherAlertResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
@@ -7,34 +9,35 @@ export class WeatherAlertResponse {
   readonly activeAlertHeadline: string;
   readonly activeAlertId: string;
   readonly activeAlertInstruction: string;
+  readonly showAlertToast: boolean;
 
   constructor(apiResponse: any) {
     try {
-      if (typeof apiResponse.title === 'string') { // How we can validate the response of an API we can't control
+      if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
         this.flowStatus = 'SUCCESS';
         this.flowStatusMessage = apiResponse.title;
       } else {
         this.flowStatus = 'FAILURE';
-        this.flowStatusMessage = 'Unable to call API';
+        this.flowStatusMessage = 'Unable to parse api response';
       }
       if (this.flowStatus === 'SUCCESS') {
         const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(apiResponse);
-        console.log('returned array', tempAllActiveWeatherAlerts)
         this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
-        console.log('all active', this.allActiveWeatherAlerts)
         this.activeAlertDescription = this.descriptionForToast(this.allActiveWeatherAlerts);
         // the below variables are set to 0 index of array because that will be up-to-date active alert
         this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
         this.activeAlertHeadline = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].headline ? this.allActiveWeatherAlerts[0].headline : '';
         this.activeAlertId = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].id ? this.allActiveWeatherAlerts[0].id : '';
         this.activeAlertInstruction = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].instruction ? this.allActiveWeatherAlerts[0].instruction : '';
+        this.showAlertToast = Array.isArray(this.allActiveWeatherAlerts) && this.allActiveWeatherAlerts.length > 0;
       }
     } catch (e) {
-      console.log({e})
       this.flowStatus = 'FAILURE';
-      this.flowStatusMessage = 'Unable to parse API response';
+      this.flowStatusMessage = e;
     }
   }
+
+  /* ***** Below is parsing that should be done on a backend but mocked here ***** */
 
   /**
    * @description - method to semi-mock backend parsing of National Weather Service Active Alerts API
@@ -43,102 +46,111 @@ export class WeatherAlertResponse {
    */
   private parseApiResponse(apiResponse: any): WeatherAlertInfo[] {
     const tempAllActiveWeatherAlertsArray: WeatherAlertInfo[] = [];
-    if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
-      for (let apiAlert of apiResponse.features) {
-        const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
-        let tempWeatherAlert: WeatherAlertInfo = {
-          description: alertsToParse.description ? alertsToParse.description : '',
-          event: alertsToParse.event ? alertsToParse.event : '',
-          headline: alertsToParse.headline ? alertsToParse.headline : '',
-          id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
-          instruction: alertsToParse.instruction ? alertsToParse.instruction : '',
-          sent: alertsToParse.sent ? alertsToParse.sent : '',
-          severity: alertsToParse.severity ? alertsToParse.severity : ''
+    try {
+      if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
+        for (let apiAlert of apiResponse.features) {
+          const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
+          const tempWeatherAlert: WeatherAlertInfo = {
+            description: alertsToParse.description ? alertsToParse.description : '',
+            event: alertsToParse.event ? alertsToParse.event : '',
+            headline: alertsToParse.headline ? alertsToParse.headline : '',
+            id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
+            instruction: alertsToParse.instruction ? alertsToParse.instruction : '',
+            sent: alertsToParse.sent ? alertsToParse.sent : '',
+            severity: alertsToParse.severity ? alertsToParse.severity : ''
+          }
+          tempAllActiveWeatherAlertsArray.push(tempWeatherAlert);
         }
-        tempAllActiveWeatherAlertsArray.push(tempWeatherAlert);
       }
+      return tempAllActiveWeatherAlertsArray;
+    } catch (error) {
+      console.log(error);
+      return tempAllActiveWeatherAlertsArray;
     }
-    return tempAllActiveWeatherAlertsArray;
   }
 
+  /**
+   * @description Loops through param alerts, and will return a new array containing only the newest alerts of each ID. Every alert sent out has a unique ID associated with it, and the last 5 characters, typically like 001.1, are the same for alerts that are an update for a previous alert. So if an alert is made for rain, it may be called 001.1. Then, if an alert is made to say the rain will be longer, that second alert will also have the ID 001.1. This method will only return that second alert, because it is the most recent for that unique ID.
+   * @param {WeatherAlertInfo[]} alerts The full array of WeatherAlertInfo to be filtered down to the latest update of each alert.
+   * @returns {WeatherAlertInfo[]} The filtered array of WeatherAlertInfo, which will only contain the latest update of each alert from the passed "alert" parameter.
+   */
   private filterDuplicateAlerts(alerts: WeatherAlertInfo[]): WeatherAlertInfo[] {
-    console.log({alerts})
-    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { return []; } // early exit in case alerts not truthy, an array, or empty
-    // Sort the alerts by the time they were sent from oldest to newest
-    alerts = alerts.sort((a, b) => a.sent > b.sent ? 1 : -1);
-    let filteredAlerts = [];
-    // This nested loop will look at each alert, and only add it to the filtered array if there are no matching alerts that come after it. Essentially, creates an array of the latest update for each alert
-    for (let i = 0; i < alerts.length; i++) { // loop through the first length-1 alerts
-      let foundLaterDateAlert = false; // Prepare a variable to check if any matching later alerts exist
-      for (let j = i+1; j < alerts.length; j++) { // loop through all the alerts after the current [i] alert. won't run when [i] loop is on its last iteration
-        if (alerts[i].id === alerts[j].id) { // If a matching alert is found after the current alert..
-          foundLaterDateAlert = true; // mark that we found a matching alert so we don't add alert [i] to the filtered array
-          break; // exit the j loop since a match was found
-        }
-      }
-      if (!foundLaterDateAlert) { // will always add the last alert!
-        if(this.shouldAlertBeShown(alerts[i])) { // Verify if the alert is worth adding (such as not showing alerts of minor severity)
-          filteredAlerts.push(alerts[i]);
+    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { 
+      return []; 
+    } 
+
+    alerts = alerts.sort((a, b) => a.sent < b.sent ? 1 : -1); // Sort the alerts by the time they were sent from newest to oldest
+    let filteredAlerts: WeatherAlertInfo[] = [];
+    let alertIdsThatHaveBeenAdded: string[] = [];
+    for (let alert of alerts) { 
+      if (alert && alert.id && alertIdsThatHaveBeenAdded.indexOf( alert.id ) === -1) {
+        alertIdsThatHaveBeenAdded.push( alert.id ); // Always add the newest 
+        if (this.shouldAlertBeShown(alert)) {
+          filteredAlerts.push( alert );
         }
       }
     }
     return filteredAlerts;
   }
-
+  
+  /**
+   * @description Will check if the alert is worth showing to the user by seeing if the alert severity is Moderate, Severe, or Extreme.
+   * @param {WeatherAlertInfo} alert The alert to inspect
+   * @returns {boolean} Returns if the alert is worth showing
+   */
   private shouldAlertBeShown(alert: WeatherAlertInfo): boolean {
     return alert && alert.severity && (alert.severity.includes('Severe') || alert.severity.includes('Moderate') || alert.severity.includes('Extreme'));
   }
 
   /**
-   * @description - method to parse through description string and return value for ui consumption
+   * @description - method to parse through description string and return value for ui consumption, returning the headline is priority so as to limit the size of toast on ui. next is parsing through the description
    * @param {WeatherAlertInfo[]} allActiveWeatherAlerts - parsed active weather alert(s)
    * @returns {string} - parsed string to send to ui to show as active alert description
    */
   private descriptionForToast(allActiveWeatherAlerts: WeatherAlertInfo[]): string {
-    let returnedDescription: string;
-    if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0) {
-      const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert
-      if (weatherAlert && weatherAlert.headline) {
-        returnedDescription = weatherAlert.headline;
-      } else if (weatherAlert && weatherAlert.description && weatherAlert.description.indexOf('WHAT') > -1 && weatherAlert.description.indexOf('WHEN') > -1) {
-        let tempDescriptionArray: string[] = weatherAlert.description.split('*');
-        // tempDescriptionArray.forEach((msg) => {
-        //   msg.trimStart();
-        //   returnedDescription = msg.slice(msg.indexOf('...') + 3);
-        // })
-        returnedDescription = tempDescriptionArray[1].slice(tempDescriptionArray[1].indexOf('...') + 3);
-      } else if (weatherAlert && weatherAlert.description) {
-        returnedDescription = weatherAlert.description;
-      } else if (weatherAlert && weatherAlert.event && weatherAlert.sent) {
-        // parse date weatherAlert.sent
-        returnedDescription = `${weatherAlert.event} issued at ${new Date(weatherAlert.sent)}`;
-      } else {
-        returnedDescription = 'Weather Alert Info Unknown';
+    let returnedDescription: string = '';
+    try {
+      if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0 && allActiveWeatherAlerts[0]) {
+        const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
+        if (weatherAlert.headline) {
+          returnedDescription = weatherAlert.headline;
+        } else if (weatherAlert.description && weatherAlert.description.match(/WHAT/) && weatherAlert.description.match(/WHEN/)) {
+          const tempDescriptionObject: {[key: string]: string} = this.parseWeatherDescription(weatherAlert.description);
+          returnedDescription = `WHAT: ${tempDescriptionObject['WHAT']}\nWHEN: ${tempDescriptionObject['WHEN']}`;
+        } else if (weatherAlert.description) {
+          returnedDescription = weatherAlert.description;
+        } else if (weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
+          const dateTimeForToast: string = moment(weatherAlert.sent).calendar(); // returns time formatted as 'Today at 9:48 AM'
+          returnedDescription = `${weatherAlert.severity} ${weatherAlert.event} issued at ${dateTimeForToast}`;
+        } else {
+          returnedDescription = 'Weather Alert Info Unknown';
+        }
       }
       return returnedDescription;
+    } catch (e) {
+      console.log(e);
+      return returnedDescription;
     }
-    return '';
   }
   
   /**
-     * @description - Takes in a description from the weather api, and parses out each block of data. The type of description, such as WHAT, WHERE, WHEN will be set as the to the output, and the corresponding text for each part will be set as the value. For example, an output may look like { 'WHAT': 'The weather is bad.', 'WHEN': 'Later tonight' }
-     * @param desc - The weather description from the api
-     * @returns {[key: string]: string} - Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text. 
+     * @description Takes in a description from the weather api, and parses out each block of data. The type of description, such as WHAT, WHERE, WHEN will be set as the to the output, and the corresponding text for each part will be set as the value. For example, an output may look like { 'WHAT': 'The weather is bad.', 'WHEN': 'Later tonight' }
+     * @param desc The weather description from the api
+     * @returns - {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text. 
      */
    private parseWeatherDescription(desc: string): {[key: string]: string} {
-    // let re: RegExp = /\*\s[A-Z\s]*\.{3}[^\*]*/g; // working on grabbing every piece, but kinda not worth it tbh
     desc = desc.replace( /\n/g , ' '); // get rid of all new lines
     desc = desc.replace( /\s{2,}/g , ' '); // replace any groupings of spaces with just 1 space
     let mainParts: string[] = desc.split('*');
     mainParts.splice(0,1); // get rid of the first element, as the description will start with '*' so the first element is empty
-    let output: {[key: string]: string} = {}; 
+    let returnedObject: {[key: string]: string} = {}; 
     for (let part of mainParts) {
       if (!part) {continue}; // ensure no elements are broke
       let subParts: string[] = part.split('...'); // split each description into the type and text, such as 'WHAT' and 'The weather is bad.' respectively
       if (!subParts || !Array.isArray(subParts) || subParts.length < 2 || !subParts[0] || !subParts[1]) { return; } // Ensure we have usable data
-      output[subParts[0].trim()] = subParts[1].trim(); // store the type as the key (such as WHAT) and the description as the value
+      returnedObject[subParts[0].trim()] = subParts[1].trim(); // store the type as the key (such as WHAT) and the description as the value
     }
-    return output;
+    return returnedObject;
   }
 }
 
