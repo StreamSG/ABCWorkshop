@@ -1,10 +1,15 @@
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+import { BehaviorSubject, lastValueFrom, take } from 'rxjs';
+import { WeatherService } from './services/weather.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
+
+  
+
   public updatedCurrentLocation: BehaviorSubject<void> = new BehaviorSubject<void>(null);
   private preselectedLocations: ButtonLocationData[] = [ // An array of location names and lat/longs, used to generate location buttons in the component html
     { locationName: 'Austin, TX', lat: 30.2672, long: -97.7431 },
@@ -22,8 +27,13 @@ export class GeolocationService {
     isInvalid: true,
   }
 
+  private jobList: {[key: string]: any}[] = [];
 
-  constructor() { }
+  private static jobCount: number = 5;
+
+
+  constructor(private weatherService: WeatherService) { }
+
 
   public getPreselectedLocations(): ButtonLocationData[] {
     return [
@@ -59,7 +69,6 @@ export class GeolocationService {
       }
     );
   }
-
 }
 
 export interface ButtonLocationData {

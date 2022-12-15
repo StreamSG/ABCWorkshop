@@ -24,6 +24,7 @@ import { UniversalFullScreenModalComponent } from './components/universal/univer
 import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
 import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
 import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
+import { JobListComponent } from './components/job-list/job-list.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { WeatherAlertComponent } from './components/weather-alert/weather-alert.
     UniversalDropdownInputFieldComponent,
     UniversalPeBoxComponent,
     WeatherAlertComponent,
+    JobListComponent,
   ],
   imports: [
     BrowserModule,

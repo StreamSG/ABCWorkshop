@@ -1,0 +1,18 @@
+<ng-container *ngFor="let job of jobs; let i = index">
+  <!-- TODO - Implement click to open job view! -->
+  <div class="card end-0 mb-2" (click)="'put onClick method to route to job view here'"> 
+    <div class="row">
+      <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
+        <p>JOB</p>
+        <p>{{ i+1 }}</p>
+      </div>
+      <div class="col-9">
+        <p>ID: {{ job?.accountNumber }}</p>
+        <h5>{{ job?.jobType }}</h5>
+        <p>Appt: {{ job?.appointmentWindow }}</p>
+        <span>{{ job?.streetAddress }}</span>
+        <p>{{ job?.cityAndState }}</p>
+      </div>
+    </div>
+  </div>
+</ng-container> 

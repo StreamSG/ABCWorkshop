@@ -19,12 +19,13 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // this.weatherService.call(40, -80);
     // Subscribe to the weather service so the weather alert toast can be updated when new weather data is pulled
-    this.locationService.initializeCurrentLocation();
+    // this.locationService.initializeCurrentLocation();
     this.locationService.updatedCurrentLocation.subscribe({
       next: () => {
         
       }
     });
+    
     this.weatherService.getLoading().pipe( /*take(2),*/ takeUntil( this.ngUnsubscribe ) ).subscribe({ // For take(), documentation: https://rxjs.dev/api/operators/take
       next: (loading) => {
         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
