@@ -15,11 +15,16 @@ export class WeatherViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.wsSubscribe()
+    this.wsGetResults();
 
 }
 
-  private wsSubscribe(): void {
+/**
+ * @description- looks like black magic to me
+ * @returns- something Micah coded, probably.
+ */
+
+  private wsGetResults(): any {
     this.weatherService.getLoading().subscribe({
        next: (loading) => {
          if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
