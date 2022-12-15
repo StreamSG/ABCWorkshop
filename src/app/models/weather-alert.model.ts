@@ -75,16 +75,16 @@ export class WeatherAlertResponse {
    * @returns {WeatherAlertInfo[]} The filtered array of WeatherAlertInfo, which will only contain the latest update of each alert from the passed "alert" parameter.
    */
   private filterDuplicateAlerts(alerts: WeatherAlertInfo[]): WeatherAlertInfo[] {
-    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) { 
-      return []; 
-    } 
+    if (!alerts || !Array.isArray(alerts) || alerts.length === 0) {
+      return [];
+    }
 
     alerts = alerts.sort((a, b) => a.sent < b.sent ? 1 : -1); // Sort the alerts by the time they were sent from newest to oldest
     let filteredAlerts: WeatherAlertInfo[] = [];
     let alertIdsThatHaveBeenAdded: string[] = [];
-    for (let alert of alerts) { 
+    for (let alert of alerts) {
       if (alert && alert.id && alertIdsThatHaveBeenAdded.indexOf( alert.id ) === -1) {
-        alertIdsThatHaveBeenAdded.push( alert.id ); // Always add the newest 
+        alertIdsThatHaveBeenAdded.push( alert.id ); // Always add the newest
         if (this.shouldAlertBeShown(alert)) {
           filteredAlerts.push( alert );
         }
@@ -92,7 +92,7 @@ export class WeatherAlertResponse {
     }
     return filteredAlerts;
   }
-  
+
   /**
    * @description Will check if the alert is worth showing to the user by seeing if the alert severity is Moderate, Severe, or Extreme.
    * @param {WeatherAlertInfo} alert The alert to inspect
@@ -116,7 +116,7 @@ export class WeatherAlertResponse {
           returnedDescription = weatherAlert.headline;
         } else if (weatherAlert.description && weatherAlert.description.match(/WHAT/) && weatherAlert.description.match(/WHEN/)) {
           const tempDescriptionObject: {[key: string]: string} = this.parseWeatherDescription(weatherAlert.description);
-          returnedDescription = `WHAT: ${tempDescriptionObject['WHAT']}\nWHEN: ${tempDescriptionObject['WHEN']}`;
+          returnedDescription = `${tempDescriptionObject['WHEN']} ${tempDescriptionObject['WHAT']}`;
         } else if (weatherAlert.description) {
           returnedDescription = weatherAlert.description;
         } else if (weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
@@ -132,18 +132,18 @@ export class WeatherAlertResponse {
       return returnedDescription;
     }
   }
-  
+
   /**
      * @description Takes in a description from the weather api, and parses out each block of data. The type of description, such as WHAT, WHERE, WHEN will be set as the to the output, and the corresponding text for each part will be set as the value. For example, an output may look like { 'WHAT': 'The weather is bad.', 'WHEN': 'Later tonight' }
      * @param desc The weather description from the api
-     * @returns - {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text. 
+     * @returns - {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text.
      */
    private parseWeatherDescription(desc: string): {[key: string]: string} {
     desc = desc.replace( /\n/g , ' '); // get rid of all new lines
     desc = desc.replace( /\s{2,}/g , ' '); // replace any groupings of spaces with just 1 space
     let mainParts: string[] = desc.split('*');
     mainParts.splice(0,1); // get rid of the first element, as the description will start with '*' so the first element is empty
-    let returnedObject: {[key: string]: string} = {}; 
+    let returnedObject: {[key: string]: string} = {};
     for (let part of mainParts) {
       if (!part) {continue}; // ensure no elements are broke
       let subParts: string[] = part.split('...'); // split each description into the type and text, such as 'WHAT' and 'The weather is bad.' respectively
