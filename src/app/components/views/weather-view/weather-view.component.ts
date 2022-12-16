@@ -21,7 +21,6 @@ export class WeatherViewComponent implements OnInit {
  * @description - Subscribes to weather service and sets global variable for the api response
  * @returns {void}
  */
-
   private subscribeToWeatherService(): any {
     this.weatherService.getLoading().subscribe({
        next: (loading) => {
