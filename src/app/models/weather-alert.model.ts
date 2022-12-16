@@ -22,11 +22,13 @@ export class WeatherAlertResponse {
       }
       if (this.flowStatus === 'SUCCESS') {
         const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(apiResponse);
+        console.log(tempAllActiveWeatherAlerts)
         this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
-        this.activeAlertDescription = this.descriptionForToast(this.allActiveWeatherAlerts);
         // the below variables are set to 0 index of array because that will be up-to-date active alert
-        this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
+        console.log(`${this.allActiveWeatherAlerts[0].description.slice(0, 150).trimEnd()}...`)
         this.activeAlertHeadline = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].headline ? this.allActiveWeatherAlerts[0].headline : '';
+        this.activeAlertDescription = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].description ? this.allActiveWeatherAlerts[0].description : '';
+        this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
         this.activeAlertId = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].id ? this.allActiveWeatherAlerts[0].id : '';
         this.activeAlertInstruction = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].instruction ? this.allActiveWeatherAlerts[0].instruction : '';
         this.showAlertToast = Array.isArray(this.allActiveWeatherAlerts) && this.allActiveWeatherAlerts.length > 0;
@@ -51,7 +53,7 @@ export class WeatherAlertResponse {
         for (let apiAlert of apiResponse.features) {
           const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
           const tempWeatherAlert: WeatherAlertInfo = {
-            description: alertsToParse.description ? alertsToParse.description : '',
+            description: alertsToParse.description ? this.descriptionForToast(alertsToParse) : '',
             event: alertsToParse.event ? alertsToParse.event : '',
             headline: alertsToParse.headline ? alertsToParse.headline : '',
             id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
@@ -107,16 +109,17 @@ export class WeatherAlertResponse {
    * @param {WeatherAlertInfo[]} allActiveWeatherAlerts - parsed active weather alert(s)
    * @returns {string} - parsed string to send to ui to show as active alert description
    */
-  private descriptionForToast(allActiveWeatherAlerts: WeatherAlertInfo[]): string {
+  private descriptionForToast(weatherAlert: WeatherAlertInfo): string {
     let returnedDescription: string = '';
     try {
-      if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0 && allActiveWeatherAlerts[0]) {
-        const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
-        if (weatherAlert.headline) {
-          returnedDescription = weatherAlert.headline;
-        } else if (weatherAlert.description && weatherAlert.description.match(/WHAT/) && weatherAlert.description.match(/WHEN/)) {
+      // if (Array.isArray(allActiveWeatherAlerts) && allActiveWeatherAlerts.length > 0 && allActiveWeatherAlerts[0]) {
+        // const weatherAlert: WeatherAlertInfo = allActiveWeatherAlerts[0]; // setting to 0 index to use most recent alert or the only active alert
+        // if (weatherAlert.headline) {
+        //   returnedDescription = weatherAlert.headline;
+        // } else
+        if (weatherAlert.description && weatherAlert.description.match(/WHAT/) && weatherAlert.description.match(/WHEN/)) {
           const tempDescriptionObject: {[key: string]: string} = this.parseWeatherDescription(weatherAlert.description);
-          returnedDescription = `${tempDescriptionObject['WHEN']} ${tempDescriptionObject['WHAT']}`;
+          returnedDescription = `${tempDescriptionObject['WHEN'] ? tempDescriptionObject['WHEN'] : ''} ${tempDescriptionObject['WHAT'] ? tempDescriptionObject['WHAT'] : ''} ${tempDescriptionObject['WHERE'] ? tempDescriptionObject['WHERE'] : ''} ${tempDescriptionObject['IMPACTS'] ? tempDescriptionObject['IMPACTS'] : ''} ${tempDescriptionObject['ADDITIONAL DETAILS'] ? tempDescriptionObject['ADDITIONAL DETAILS'] : ''}`;
         } else if (weatherAlert.description) {
           returnedDescription = weatherAlert.description;
         } else if (weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
@@ -125,7 +128,7 @@ export class WeatherAlertResponse {
         } else {
           returnedDescription = 'Weather Alert Info Unknown';
         }
-      }
+      // }
       return returnedDescription;
     } catch (e) {
       console.log(e);
@@ -136,7 +139,7 @@ export class WeatherAlertResponse {
   /**
      * @description Takes in a description from the weather api, and parses out each block of data. The type of description, such as WHAT, WHERE, WHEN will be set as the to the output, and the corresponding text for each part will be set as the value. For example, an output may look like { 'WHAT': 'The weather is bad.', 'WHEN': 'Later tonight' }
      * @param desc The weather description from the api
-     * @returns - {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text.
+     * @returns {[key: string]: string} Returns an object where the key is the WHAT/WHEN/WHERE/etc of the description, and the value is the corresponding text.
      */
    private parseWeatherDescription(desc: string): {[key: string]: string} {
     desc = desc.replace( /\n/g , ' '); // get rid of all new lines
