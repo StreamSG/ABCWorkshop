@@ -1,25 +1,8 @@
 .card {
-    overflow: hidden;
+  overflow: hidden;
 }
+
 .block {
-    background-color:#444;
-    color: white;
-}
-.rain
-{
-    height: 10vh;
-    background: url(rain.png);
-    background-repeat: round;
-    animation: rain 10s linear infinite;
-}
-@keyframes rain
-{
-    0%
-    {
-        background-position: 0% 0%;
-    }
-    100%
-    {
-        background-position: -500% -500%;
-    }
+  background-color: #444;
+  color: white;
 }
