@@ -23,7 +23,7 @@ export class WeatherViewComponent implements OnInit {
  */
   private subscribeToWeatherService(): void {
     this.weatherService.getLoading().subscribe({
-       next: (loading) => {
+       next: (loading: boolean) => {
          if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
            this.weatherAlertResponse = this.weatherService.getResults();
          }
