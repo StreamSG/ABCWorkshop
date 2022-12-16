@@ -18,18 +18,34 @@ export class JobService {
 
   constructor() { }
 
+  /**
+   * @description Getter for master array of jobs
+   * @returns {JobData[]} Returns a copy of the master array of jobs
+   */
   public getJobs(): JobData[] {
     return this.jobs.slice();
   }
-
+  
+  /**
+   * @description Getter for currently selected job
+   * @returns {JobData} Returns the selected job
+   */
   public getSelectedJob(): JobData {
-    return this.getJobs()[ this.selectedJobIndex ];
+    return this.getJobs()[ this.selectedJobIndex ]; // use .getJobs so we return in line with the standard for how we want the jobs to be accessed. Meaning, for example, we return a copy of the array so this will ensure a copy is passed instead of the actual object.
   }
 
+  /**
+   * @description Getter for selected job index
+   * @returns {number} Returns the index of the selected job
+   */
   public getSelectedIndex(): number {
     return this.selectedJobIndex;
   }
 
+  /**
+   * @description Setter for setting the index of the selected job.
+   * @param {number} index The index of the selected job
+   */
   public setSelectedJob(index: number): void {
     this.selectedJobIndex = index;
   }

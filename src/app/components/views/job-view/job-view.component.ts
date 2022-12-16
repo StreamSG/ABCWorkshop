@@ -9,17 +9,16 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./job-view.component.scss']
 })
 export class JobViewComponent implements OnInit {
-
-  public job: JobData;
+  public job: JobData; // To be retrieved from jobService
 
   constructor(private jobService: JobService, private router: Router) { }
 
   ngOnInit(): void {
-    if (this.jobService.getSelectedIndex() === -1) {
-      this.router.navigate(['']); // leave this page if visited erroneously 
+    this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
+    if (!this.job) {
+      this.router.navigate(['']); // leave this page if visited erroneously, or if we have a "bad" job
       return;
     }
-    this.job = this.jobService.getSelectedJob();
   }
 
 }

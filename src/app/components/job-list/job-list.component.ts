@@ -20,6 +20,10 @@ export class JobListComponent implements OnInit {
     this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
   }
 
+  /**
+   * @description On click method for use in html for when a job from the list is clicked, in order to set the selected job index and route to the job view.
+   * @param {number} index The index of the job to mark as selected
+   */
   public onJobClicked(index: number): void {
     this.jobService.setSelectedJob(index);
     this.router.navigate(['job']);

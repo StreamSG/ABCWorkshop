@@ -1,6 +1,6 @@
 <h1>This is a job</h1>
-<p>{{ job.accountNumber }}</p>
-<p>{{ job.streetAddress }}</p>
-<p>{{ job.cityAndState }}</p>
-<p>{{ job.appointmentWindow }}</p>
-<p [ngStyle]="{'color': job.jobTypeColor}">{{ job.jobType }}</p>
+<p>{{ job?.accountNumber }}</p>
+<p>{{ job?.streetAddress }}</p>
+<p>{{ job?.cityAndState }}</p>
+<p>{{ job?.appointmentWindow }}</p>
+<p [ngStyle]="{'color': job?.jobTypeColor}">{{ job?.jobType }}</p>
