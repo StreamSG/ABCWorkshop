@@ -18,7 +18,7 @@ export class WeatherViewComponent implements OnInit {
 }
 
 /**
- * @description Subscribes to weather service and returns array for populating view
+ * @description - Subscribes to weather service and sets global variable for the api response
  * @returns {void}
  */
 
