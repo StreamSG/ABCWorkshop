@@ -100,6 +100,24 @@ export class WeatherService {
             this.updateLoading(false);
           }
         });
+  if (!this.loading && lat && long) {
+    this.updateLoading(true);
+    this.httpSubscription = this.http.get(`${this.serverURL}?point=44.0805%2C-103.2310&limit=500`)//got rid of ${lat} and long
+      .subscribe({
+        next: (apiResponse: any) => {
+          console.log(apiResponse); // TODO - remove, for testing purposes
+          this.apiResults = new WeatherAlertResponse(apiResponse);
+          console.log('api as new class -', this.apiResults);
+          this.isSuccessfullyCompleted = true;
+          this.updateLoading(false);
+        },
+        error: (error: any) => {
+          this.apiResults = new WeatherAlertResponse(error.error);
+          console.error(error);
+          this.isSuccessfullyCompleted = false;
+          this.updateLoading(false);
+        }
+      });
     }
   }
 }
