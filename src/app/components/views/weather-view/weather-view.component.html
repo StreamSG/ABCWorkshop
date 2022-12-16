@@ -1,37 +1,24 @@
 <div class="container">
-    <div class="row mb-5">
-      <div class="col text-center">
-        <div class="card pt-3">
-          <h3>Weather Alerts</h3>
-          <hr>
-          <h5>Active weather alerts in your area:</h5>
-        </div>
+  <div class="row mb-5">
+    <div class="col text-center">
+      <div class="card pt-3">
+        <h3>Weather Alerts</h3>
+        <hr>
+        <h5>Active weather alerts in your area:</h5>
       </div>
     </div>
   </div>
-  <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts ; let i = index">
-    <div class="card text-dark bg-light mb-3">
-      <div class="card-header"><h4>{{alert?.event}}</h4></div>
-      <div class="card-body">
-        <!-- <h5 class="card-title">Alert {{i+1}}</h5> -->
-        <p class="card-text">{{alert?.description}}</p>
-      </div>
+</div>
+<ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts ; let i = index">
+  <div class="card text-dark bg-light mb-3">
+    <div class="card-header">
+      <h3>{{alert?.event}}</h3>
     </div>
-  </ng-container>
-  
-    <!-- <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts ; let i = index">
-    <div class="card mb-2" style="overflow:hidden;">
-        <div class="row">
-            <div class="col-3 text-center pt-3 rain" style="background-color:#444; color: white;">
-                <p>ALERT</p>
-                <p>{{i+1}}</p>
-            </div>
-            <div class="col-9">
-                <h5>{{alert?.event}}</h5>
-                <p></p>
-                <p>{{alert?.description}}</p>
-
-            </div>
-        </div>
+    <div class="card-body">
+      <p class="card-text">{{alert?.description}}</p>
     </div>
-</ng-container> -->
+    <div class="card-footer">
+      <h6>{{alert?.severity}}</h6>
+    </div>
+  </div>
+</ng-container>

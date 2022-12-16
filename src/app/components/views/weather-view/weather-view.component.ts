@@ -15,12 +15,11 @@ export class WeatherViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToWeatherService();
-    console.log(this.weatherAlertResponse)
 }
 
 /**
  * @description Subscribes to weather service and returns array for populating view
- * @returns {WeatherAlertResponse}
+ * @returns {void}
  */
 
   private subscribeToWeatherService(): any {
