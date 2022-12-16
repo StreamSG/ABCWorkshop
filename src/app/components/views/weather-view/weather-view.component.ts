@@ -14,17 +14,16 @@ export class WeatherViewComponent implements OnInit {
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-
-    this.wsGetResults();
-
+    this.subscribeToWeatherService();
+    console.log(this.weatherAlertResponse)
 }
 
 /**
- * @description- looks like black magic to me
- * @returns- something Micah coded, probably.
+ * @description Subscribes to weather service and returns array for populating view
+ * @returns {WeatherAlertResponse}
  */
 
-  private wsGetResults(): any {
+  private subscribeToWeatherService(): any {
     this.weatherService.getLoading().subscribe({
        next: (loading) => {
          if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
