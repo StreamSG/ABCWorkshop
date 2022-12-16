@@ -25,6 +25,7 @@ import { UniversalDropdownInputFieldComponent } from './components/universal/uni
 import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
 import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
 import { JobListComponent } from './components/job-list/job-list.component';
+import { JobViewComponent } from './components/views/job-view/job-view.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { JobListComponent } from './components/job-list/job-list.component';
     UniversalPeBoxComponent,
     WeatherAlertComponent,
     JobListComponent,
+    JobViewComponent,
   ],
   imports: [
     BrowserModule,

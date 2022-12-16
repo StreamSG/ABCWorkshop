@@ -9,10 +9,12 @@ import { WeTrackComponent } from './components/views/we-track/we-track.component
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
+import { JobViewComponent } from './components/views/job-view/job-view.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
+  { path: 'job', component: JobViewComponent },
   // Mini-projects
   { path: 'touch-n-go', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },

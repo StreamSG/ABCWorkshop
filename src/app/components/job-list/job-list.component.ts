@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JobData } from 'src/app/models/job-data.model';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'app-job-list',
@@ -9,17 +11,18 @@ import { JobData } from 'src/app/models/job-data.model';
 export class JobListComponent implements OnInit {
 
   // TODO - Pick locations that will have alerts prior to meeting!
-  public readonly jobs: JobData[] = [
-    new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
-    new JobData(44.0805, -103.2310, 'Repair', 'Rapid City, SD'),
-    new JobData(30.2672, -97.7431, 'Helper', 'Austin, TX'),
-    new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
-    new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
-  ]; 
+  public jobs: JobData[];
 
-  constructor() { }
+  constructor(private jobService: JobService, private router: Router) { }
 
   ngOnInit(): void {
+    this.jobs = this.jobService.getJobs();
+    this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
+  }
+
+  public onJobClicked(index: number): void {
+    this.jobService.setSelectedJob(index);
+    this.router.navigate(['job']);
   }
 
 }
