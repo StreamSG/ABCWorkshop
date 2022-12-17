@@ -1,3 +1,11 @@
+<div class="job-header-bar" [ngStyle]="{ 'background-color' : job && job.jobTypeColor ? job.jobTypeColor: 'gray' }">
+  <div class="appointment-text">APPT: {{ job?.appointmentWindow }}</div>
+  <h1>{{ job?.jobType }}</h1>
+</div>
+<app-universal-inline-alert heading="Be safe out there" body="Follow necessary safety precautions! No job is so important!" alertType="warning"></app-universal-inline-alert>
+<app-universal-inline-alert heading="This is your job" body="Remember that you work here. This is your job. So please act like it." alertType="other"></app-universal-inline-alert>
+
+
 <h1>This is a job</h1>
 <p>{{ job?.accountNumber }}</p>
 <p>{{ job?.streetAddress }}</p>

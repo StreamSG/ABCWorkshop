@@ -26,6 +26,7 @@ import { UniversalPeBoxComponent } from './components/universal/proof-of-concept
 import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
 import { JobListComponent } from './components/job-list/job-list.component';
 import { JobViewComponent } from './components/views/job-view/job-view.component';
+import { UniversalInlineAlertComponent } from './components/universal/universal-inline-alert/universal-inline-alert.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { JobViewComponent } from './components/views/job-view/job-view.component
     WeatherAlertComponent,
     JobListComponent,
     JobViewComponent,
+    UniversalInlineAlertComponent,
   ],
   imports: [
     BrowserModule,

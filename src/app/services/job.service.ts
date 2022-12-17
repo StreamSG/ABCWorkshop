@@ -14,7 +14,7 @@ export class JobService {
     new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
   ]; 
 
-  private selectedJobIndex: number;
+  private selectedJobIndex: number = 0;
 
   constructor() { }
 

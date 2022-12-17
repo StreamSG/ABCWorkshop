@@ -1,0 +1,26 @@
+.alert-wrapper {
+  padding-top: 0;
+  margin: 10px;
+  border: 2px solid gray;
+  background-color: #ddd;
+  border-radius: 6px;
+  padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.alert-heading-wrapper {
+  display: flex;
+}
+
+.alert-icon {
+  border: 2px solid;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  margin: 4px;
+  margin-right: 8px;
+}
+
+.alert-heading {
+  font-size: larger;
+}
