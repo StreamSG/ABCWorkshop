@@ -1,6 +1,15 @@
 <div class="job-header-bar" [ngStyle]="{ 'background-color' : job && job.jobTypeColor ? job.jobTypeColor: 'gray' }">
   <div class="appointment-text">APPT: {{ job?.appointmentWindow }}</div>
-  <h1>{{ job?.jobType }}</h1>
+  <div class="row">
+    <div class="col">
+      <h1>{{ job?.jobType }}</h1>
+    </div>
+    <div class="col-auto text-end">
+      <div class="etc-box text-start">
+        Testing
+      </div>
+    </div>
+  </div>
   <nav class="nav">
     <ng-container *ngFor="let tab of tabTitleRoutes; let i = index;">
       <app-universal-nav-tab [tabText]="tab" [tabIsActive]="i === activeTab" (click)="activeTab = i" (click)="onTabClick(i)"></app-universal-nav-tab>
