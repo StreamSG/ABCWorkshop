@@ -14,7 +14,7 @@ export class JobData {
 
   private streetNames: string[] = ['Main Street', 'Church Street', 'High Street', 'Elm Street', 'Park Avenue', 'Walnut Street', 'Washington Street', '2nd Street', 'Chestnut Street', 'Broad Street', 'Maple Avenue', 'Oak Street', 'Maple Street', 'Center Street', 'Pine Street', 'River Road', 'Market Street', 'Washington Avenue', 'Water Street', 'Union Street', '3rd Street', 'South Street', '4th Street'];
   private aptWindows: string[] = ['8-10', '10-12', '12-2', '2-4', '8-12', '12-4', '4-8'];
-  
+  // background e4e9ec
   /**
    * @description Using a latitude and longitude, will generate job ticket data using a seeded pseudorandom number generator.
    * @param {number} latitude The latitudinal coordinate of the job, between -90 and 90
@@ -26,7 +26,7 @@ export class JobData {
     this.lat = latitude && latitude >= -90 && latitude <= 90 ? latitude : 0;
     this.long = longitude && longitude >= -90 && longitude <= 90 ? longitude : 0;
     this.jobType = jobType;
-    this.jobTypeColor = jobType === 'Install' ? 'blue' : jobType === 'Repair' ? 'purple' : jobType === 'Helper' ? 'green' : 'black';
+    this.jobTypeColor = jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? 'purple' : jobType === 'Helper' ? 'green' : 'black';
     this.cityAndState = cityAndState;
 
     // generate a seed from the lat and long, that will be basically be a unique number

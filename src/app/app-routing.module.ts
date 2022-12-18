@@ -10,11 +10,22 @@ import { WeTrackListComponent } from './components/we-track/we-track-list/we-tra
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
 import { JobViewComponent } from './components/views/job-view/job-view.component';
+import { JobSubviewComponent } from './components/views/job-view/subviews/job-subview/job-subview.component';
+import { CustomerSubviewComponent } from './components/views/job-view/subviews/customer-subview/customer-subview.component';
+import { HistorySubviewComponent } from './components/views/job-view/subviews/history-subview/history-subview.component';
+import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
+import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
-  { path: 'job', component: JobViewComponent },
+  { path: 'job', component: JobViewComponent, children: [
+    { path: 'job', component: JobSubviewComponent },
+    { path: 'customer', component: CustomerSubviewComponent },
+    { path: 'history', component: HistorySubviewComponent },
+    { path: 'facilities', component: FacilitiesSubviewComponent },
+    { path: 'tests', component: TestsSubviewComponent }
+  ]},
   // Mini-projects
   { path: 'touch-n-go', component: OfficeInfoComponent },
   { path: 'ticket-generator', component: TicketGeneratorComponent },

@@ -27,6 +27,12 @@ import { WeatherAlertComponent } from './components/weather-alert/weather-alert.
 import { JobListComponent } from './components/job-list/job-list.component';
 import { JobViewComponent } from './components/views/job-view/job-view.component';
 import { UniversalInlineAlertComponent } from './components/universal/universal-inline-alert/universal-inline-alert.component';
+import { UniversalNavTabComponent } from './components/universal/universal-nav-tab/universal-nav-tab.component';
+import { JobSubviewComponent } from './components/views/job-view/subviews/job-subview/job-subview.component';
+import { CustomerSubviewComponent } from './components/views/job-view/subviews/customer-subview/customer-subview.component';
+import { HistorySubviewComponent } from './components/views/job-view/subviews/history-subview/history-subview.component';
+import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
+import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +58,12 @@ import { UniversalInlineAlertComponent } from './components/universal/universal-
     JobListComponent,
     JobViewComponent,
     UniversalInlineAlertComponent,
+    UniversalNavTabComponent,
+    JobSubviewComponent,
+    CustomerSubviewComponent,
+    HistorySubviewComponent,
+    FacilitiesSubviewComponent,
+    TestsSubviewComponent,
   ],
   imports: [
     BrowserModule,

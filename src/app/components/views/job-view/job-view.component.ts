@@ -10,6 +10,8 @@ import { JobService } from 'src/app/services/job.service';
 })
 export class JobViewComponent implements OnInit {
   public job: JobData; // To be retrieved from jobService
+  public activeTab: number;
+  public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
 
   constructor(private jobService: JobService, private router: Router) { }
 
@@ -19,6 +21,13 @@ export class JobViewComponent implements OnInit {
       this.router.navigate(['']); // leave this page if visited erroneously, or if we have a "bad" job
       return;
     }
+    
+    this.onTabClick(0);
+  }
+
+  onTabClick(tabIndex: number): void {
+    this.activeTab = tabIndex;
+    this.router.navigate(['job', this.tabTitleRoutes[this.activeTab]]);
   }
 
 }

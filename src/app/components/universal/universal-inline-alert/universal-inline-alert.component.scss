@@ -1,12 +1,13 @@
 .alert-wrapper {
   padding-top: 0;
-  margin: 10px;
-  border: 2px solid gray;
-  background-color: #ddd;
+  margin: 10px 5px;
+  border: 1px solid #bfbfbf;
+  background-color: white;
   border-radius: 6px;
   padding: 6px;
   padding-left: 10px;
   padding-right: 10px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .alert-heading-wrapper {
   display: flex;
@@ -22,5 +23,6 @@
 }
 
 .alert-heading {
-  font-size: larger;
+  font-size: large;
+  font-weight: bolder;
 }
