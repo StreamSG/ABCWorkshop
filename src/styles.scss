@@ -3,11 +3,6 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-.toast-container {
-  position: absolute;
-  z-index: 1000;
-}
-
 .dot {
   border: 2px solid red;
   height: 9px;
