@@ -51,7 +51,7 @@ export class WeatherAlertResponse {
         for (let apiAlert of apiResponse.features) {
           const alertsToParse: WeatherAlertInfo = apiAlert && apiAlert.properties ? apiAlert.properties : null;
           const tempWeatherAlert: WeatherAlertInfo = {
-            description: alertsToParse.description ? this.descriptionForToast(alertsToParse) : '',
+            description: alertsToParse.description ? this.parseAlertDescription(alertsToParse) : '',
             event: alertsToParse.event ? alertsToParse.event : '',
             headline: alertsToParse.headline ? alertsToParse.headline : '',
             id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
@@ -106,11 +106,11 @@ export class WeatherAlertResponse {
    * @param {WeatherAlertInfo[]} allActiveWeatherAlerts - parsed active weather alert(s)
    * @returns {string} - parsed string to send to ui to show as active alert description
    */
-  private descriptionForToast(weatherAlert: WeatherAlertInfo): string {
+  private parseAlertDescription(weatherAlert: WeatherAlertInfo): string {
     let returnedDescription: string = '';
     try {
       if (weatherAlert.description) {
-        returnedDescription = weatherAlert.description;
+        returnedDescription = weatherAlert.description.indexOf('*') > -1 ? weatherAlert.description.replace(/\* /g, '') : weatherAlert.description; // sometimes the description has '* WHAT...' and such in the string, this will remove the *
       } else if (weatherAlert.headline) {
         returnedDescription = weatherAlert.headline;
       } else if (weatherAlert.event && weatherAlert.sent && weatherAlert.severity) {
