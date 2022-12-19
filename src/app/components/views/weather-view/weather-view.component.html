@@ -1,0 +1,15 @@
+<ng-container *ngIf="weatherAlertResponse?.allActiveWeatherAlerts?.length > 0">
+  <ng-container *ngFor="let weatherAlert of weatherAlertResponse?.allActiveWeatherAlerts">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">{{weatherAlert?.event}}</div>
+      </div>
+      <div class="card-body">
+        <p>{{weatherAlert?.description}}</p>
+        <ng-container *ngIf="doesWeatherAlertRelateToSafetyJobAid(weatherAlert)">
+
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</ng-container>
