@@ -14,6 +14,7 @@ export class JobData {
 
   public customer: {name: string, phone: string, email: string};
 
+  // If you're reading this, feel free to add more data to the arrays below! The more variety the better!
   private streetNames: string[] = ['Main Street', 'Church Street', 'High Street', 'Elm Street', 'Park Avenue', 'Walnut Street', 'Washington Street', '2nd Street', 'Chestnut Street', 'Broad Street', 'Maple Avenue', 'Oak Street', 'Maple Street', 'Center Street', 'Pine Street', 'River Road', 'Market Street', 'Washington Avenue', 'Water Street', 'Union Street', '3rd Street', 'South Street', '4th Street'];
   private aptWindows: string[] = ['8-10', '10-12', '12-2', '2-4', '8-12', '12-4', '4-8'];
   private firstNames: string[] = ['Aaron', 'Ed', 'Kerry', 'Micah', 'Raul', 'Tyler'];

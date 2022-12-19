@@ -23,7 +23,15 @@ export class JobViewComponent implements OnInit {
       return;
     }
 
-    // check current route
+    const curRoute = this.router.url.split('/');
+    if(curRoute.length > 2) {
+      for(let i = 0; i < this.tabTitleRoutes.length; i++) {
+        if(this.tabTitleRoutes[i] === curRoute[2]) {
+          this.activeTab = i;
+          break;
+        }
+      }
+    }
   }
 
   onTabClick(tabIndex: number): void {
