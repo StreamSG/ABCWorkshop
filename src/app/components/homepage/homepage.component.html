@@ -3,7 +3,7 @@
     <div class="col text-center">
       <div class="card pt-3">
         <h3>Works well with others.</h3>
-        <hr>
+        <hr />
         <h5>Be safe!</h5>
       </div>
     </div>
@@ -15,29 +15,28 @@
           <h5>Change Location</h5>
           <div class="d-inline">
             <ng-container *ngFor="let curLocation of preselectedLocations">
-              <button 
-                type="button" 
-                class="btn btn-primary me-1 mb-1" 
-                [disabled]="curLocation?.lat === 999 && curLocation?.long === 999"
-                (click)="onChangeLocation(curLocation?.lat, curLocation?.long)">{{ curLocation?.location }}</button>
+              <button
+                type="button"
+                class="btn btn-primary me-1 mb-1"
+                [disabled]="
+                  curLocation?.lat === 999 && curLocation?.long === 999
+                "
+                (click)="onChangeLocation(curLocation?.lat, curLocation?.long)"
+              >
+                {{ curLocation?.location }}
+              </button>
             </ng-container>
-          </div> 
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="row mb-4">
+    <div class="col text-center">&larr;</div>
     <div class="col text-center">
-      &larr;
+      <div class="card">Today</div>
     </div>
-    <div class="col text-center">
-      <div class="card">
-        Today
-      </div>
-    </div>
-    <div class="col text-center">
-      &rarr;
-    </div>
+    <div class="col text-center">&rarr;</div>
   </div>
   <div class="row mb-2">
     <div class="col text-start">
@@ -46,21 +45,46 @@
   </div>
   <div class="row">
     <div class="col end-0">
-      <ng-container *ngFor="let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper']; let i = index">
+      <ng-container
+        *ngFor="
+          let job of ['Install', 'Repair', 'Helper', 'BSW', 'IPCO Jumper'];
+          let i = index
+        "
+      >
         <div class="card end-0 mb-2">
           <div class="row">
-            <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job === 'Install' ? 'blue' : job === 'Repair' ? 'purple' : job === 'Helper' ? 'green' : 'black'}">
+            <div
+              class="col-3 text-center pt-3 text-light"
+              [ngStyle]="{
+                'background-color':
+                  job === 'Install'
+                    ? 'blue'
+                    : job === 'Repair'
+                    ? 'purple'
+                    : job === 'Helper'
+                    ? 'green'
+                    : 'black'
+              }"
+            >
               <p>JOB</p>
-              <p>{{ i+1 }}</p>
+              <p>{{ i + 1 }}</p>
             </div>
             <div class="col-9">
-              <p>ID: {{ (i+1)*220123456789%99999 }}</p> <!-- just a stupid way to generate a randomish number -->
+              <p>ID: {{ ((i + 1) * 220123456789) % 99999 }}</p>
+              <!-- just a stupid way to generate a randomish number -->
               <h5>{{ job }}</h5>
-              <p>Appt: {{ ['8-10', '12-4', '8-8', '9-2', '8-4:30'][i] }}</p>
+              <p>Appt: {{ ["8-10", "12-4", "8-8", "9-2", "8-4:30"][i] }}</p>
             </div>
           </div>
         </div>
       </ng-container>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-danger">
+        {{ ReadMore ? "Dispatch" : "Dispatch" }}
+      </button>
     </div>
   </div>
 </div>

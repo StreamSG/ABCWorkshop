@@ -8,6 +8,11 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
+  
+  public ReadMore:boolean = false;
+  public onclick(): void {
+    this.ReadMore = !this.ReadMore
+  }
   public readonly preselectedLocations: {location: string, lat: number, long: number}[] = [ // An array of location names and lat/longs, used to generate location buttons in the component html
     { 
       location: 'Loading...', // can be placed anywhere in array, just ensure that location equals 'Loading...'
