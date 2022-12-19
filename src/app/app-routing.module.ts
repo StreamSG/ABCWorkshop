@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
   { path: 'job', component: JobViewComponent, children: [
-    { path: 'job', component: JobSubviewComponent },
+    { path: '', component: JobSubviewComponent },
     { path: 'customer', component: CustomerSubviewComponent },
     { path: 'history', component: HistorySubviewComponent },
     { path: 'facilities', component: FacilitiesSubviewComponent },
