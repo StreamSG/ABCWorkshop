@@ -16,9 +16,9 @@
           <h5>Change Location</h5>
           <div class="d-inline">
             <ng-container *ngFor="let curLocation of preselectedLocations">
-              <button
-                type="button"
-                class="btn btn-primary me-1 mb-1"
+              <button 
+                type="button" 
+                class="btn btn-primary me-1 mb-1" 
                 [disabled]="curLocation?.lat === 999 && curLocation?.long === 999"
                 (click)="onChangeLocation(curLocation?.lat, curLocation?.long)">{{ curLocation?.location }}</button>
             </ng-container>
