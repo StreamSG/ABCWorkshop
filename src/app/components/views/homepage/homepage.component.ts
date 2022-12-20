@@ -48,23 +48,23 @@ export class HomepageComponent implements OnInit {
     navigator.geolocation.getCurrentPosition(
       (pos: GeolocationPosition) => { // On successful location call..
         if (!(pos && pos.coords)) {
-          return;
-        }
+          return; 
+        } 
 
-        for (let curLocation of this.preselectedLocations) { // loop through each location button
+        for (let curLocation of this.preselectedLocations) { // loop through each location button 
           if (!curLocation || curLocation.location !== 'Loading...') { continue; } // skip the iteration until we find the button titled 'Loading...'
 
           curLocation.location = 'Current location' // Change the button formerly called 'Loading...' to reflect that the user current location has been found
           curLocation.lat = pos.coords.latitude;
           curLocation.long = pos.coords.longitude;
 
-          if (!this.weatherService.hasSuccessfullyCompleted()) { // Check if the user has already called and gotten
-            // TODO - move the call method into app.component.ts. May require a service file
+          if (!this.weatherService.hasSuccessfullyCompleted()) { // Check if the user has already called and gotten 
+            // TODO - move the call method into app.component.ts. May require a service file 
             this.weatherService.call(pos.coords.latitude, pos.coords.longitude);
           }
           break; // since 'Loading...' button was found, do not need to continue
         }
-      },
+      }, 
       (err) => { // Location call failed
         console.error(err);
         this.preselectedLocations[0].location = 'No local pos'; // Update button to indicate finished loading but no position available
