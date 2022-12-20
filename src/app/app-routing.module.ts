@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HelpComponent } from './components/help/help.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
-import { OfficeInfoComponent } from './components/office-info/office-info.component';
+import { HelpComponent } from './components/views/help/help.component';
+import { HomepageComponent } from './components/views/homepage/homepage.component';
+import { TicketGeneratorComponent } from './components/views/ticket-generator/ticket-generator.component';
+import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
-import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
+import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
 import { JobViewComponent } from './components/views/job-view/job-view.component';
 import { JobSubviewComponent } from './components/views/job-view/subviews/job-subview/job-subview.component';
 import { CustomerSubviewComponent } from './components/views/job-view/subviews/customer-subview/customer-subview.component';
 import { HistorySubviewComponent } from './components/views/job-view/subviews/history-subview/history-subview.component';
 import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
 import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
+import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'qc-timer', component: QcTimerComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'weather', component: WeatherViewComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },
