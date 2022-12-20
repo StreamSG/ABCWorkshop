@@ -9,7 +9,7 @@ import { WeatherAlertResponse } from '../models/weather-alert.model';
   providedIn: 'root'
 })
 export class WeatherService {
-  private serverURL: string = 'https://api.weather.gov/alerts'; //add back /active
+  private serverURL: string = 'https://api.weather.gov/alerts/active';
   private apiResults: WeatherAlertResponse = null;
   private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loading: boolean;
