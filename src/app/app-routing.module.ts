@@ -9,6 +9,7 @@ import { WeTrackComponent } from './components/views/we-track/we-track.component
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
+import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 const routes: Routes = [
   { path: '', component: HomepageComponent, pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'qc-timer', component: QcTimerComponent },
   { path: 'help', component: HelpComponent },
+  { path: 'weather', component: WeatherViewComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },
