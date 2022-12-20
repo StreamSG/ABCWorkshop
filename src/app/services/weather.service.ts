@@ -100,6 +100,7 @@ export class WeatherService {
             this.updateLoading(false);
           }
         });
-      }
     }
   }
+
+}

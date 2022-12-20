@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HelpComponent } from './components/help/help.component';
-import { HomepageComponent } from './components/homepage/homepage.component';
-import { TicketGeneratorComponent } from './components/ticket-generator/ticket-generator.component';
-import { OfficeInfoComponent } from './components/office-info/office-info.component';
+import { HelpComponent } from './components/views/help/help.component';
+import { HomepageComponent } from './components/views/homepage/homepage.component';
+import { TicketGeneratorComponent } from './components/views/ticket-generator/ticket-generator.component';
+import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
 import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
-import { QcTimerComponent } from './components/qc-timer/qc-timer.component';
+import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 const routes: Routes = [
