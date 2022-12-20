@@ -16,7 +16,9 @@
     </div>
     <div class="card-body">
       <p class="card-text">{{alert?.description}}</p>
-
+      <ng-container *ngIf="doesWeatherAlertRelateToSafetyJobAid(alert)">
+        ;lkj;lkj
+      </ng-container>
     </div>
     <div class="card-footer">
       <h6>{{alert?.severity}}</h6>
