@@ -42,24 +42,27 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
   }
 
   public doesWeatherAlertRelateToSafetyJobAid(weatherAlert: WeatherAlertInfo): boolean {
-    const coldWeatherTags: string[] = ["Ice", "Cold", "Snow", "Winter", "Wind", "Freez", "Blizzard", "Frost"]; // spelling of 'freez' is intentional as the event name from api may say 'freeze' or 'freezing'
+    let tempTag;
+    const coldWeatherTags: string[] = ['Ice', 'Cold', 'Snow', 'Winter', 'Freez', 'Blizzard', 'Frost', 'Wind Chill']; // spelling of 'freez' is intentional as the event name from api may say 'freeze' or 'freezing'
+    const tropicalStormTags: string[] = ['Tropical', 'Hurricane'];
+    const highWindTags: string[] = ['High Wind', 'Tornado', 'Extreme Wind'];
+    const allTags: string[] = [...coldWeatherTags, ...tropicalStormTags, ...highWindTags]
     if (Object.keys(weatherAlert) && weatherAlert.event) {
-      Object.keys(this.safetyJobAids).forEach(tag => {
-        if (weatherAlert.event.indexOf(tag) > -1) {
-          console.log(tag)
-          console.log(this.safetyJobAids[tag])
-        } else
-        for (let coldTag of coldWeatherTags) {
-          if (weatherAlert.event.indexOf(coldTag) > -1) {
-            console.log('cold weather man')
-            break
-          }
+      for (let tag of allTags) {
+        if (weatherAlert.event.includes(tag)) {
+          tempTag = tag
+          break
         }
-      })
+      }
+      if (coldWeatherTags.includes(tempTag)) {
+        tempTag = 'Cold'
+      } else if (tropicalStormTags.includes(tempTag)) {
+        tempTag = 'Tropical'
+      } else if (highWindTags.includes(tempTag)) {
+        tempTag = 'Wind'
+      }
+      console.log(tempTag, this.safetyJobAids[tempTag])
       return true
-      // if (this.safetyJobAids.indexOf(weatherAlert.event) > -1) {
-      //   console.log('ok')
-      // }
     } else {
       return false;
     }
