@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil, take } from 'rxjs';
 
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -28,7 +28,7 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
 * @returns {void}
 */
   private subscribeToWeatherService(): void {
-    this.weatherService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+    this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
        next: (loading: boolean) => {
          if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
            this.weatherAlertResponse = this.weatherService.getResults();
