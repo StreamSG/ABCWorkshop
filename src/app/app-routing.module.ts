@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'ticket-generator', component: TicketGeneratorComponent },
   { path: 'qc-timer', component: QcTimerComponent },
   { path: 'help', component: HelpComponent },
-  { path: 'weatherView', component: WeatherViewComponent },
+  { path: 'weather', component: WeatherViewComponent },
   { path: 'we-track', component: WeTrackComponent, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },

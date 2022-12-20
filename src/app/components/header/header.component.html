@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light sticky-top bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" routerLink="home" data-bs-dismiss="offcanvas">
       <img src="../../../assets/att-logo-white.png" width="30" height="30" alt="Logo" >
     </a>
     <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -14,13 +14,13 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" routerLink="home" data-bs-dismiss="offcanvas">Home</a>
+            <a class="nav-link active" aria-current="page" routerLink="home" data-bs-dismiss="offcanvas">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="weatherView" data-bs-dismiss="offcanvas">Alerts</a>
+            <a class="nav-link" routerLink="weather" data-bs-dismiss="offcanvas">Alerts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="help" data-bs-dismiss="offcanvas">Help</a>
+            <a class="nav-link" routerLink="help" data-bs-dismiss="offcanvas">Help</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Map</a>
@@ -47,14 +47,12 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Profile</a>
           </li>
-
-
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Mini-projects
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" routerLink="we-track">weTrack</a></li>
+              <li><a class="dropdown-item" routerLink="we-track">weTrack</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
