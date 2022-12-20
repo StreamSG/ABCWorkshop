@@ -47,6 +47,7 @@ import { WeatherViewComponent } from './components/views/weather-view/weather-vi
     UniversalDropdownInputFieldComponent,
     UniversalPeBoxComponent,
     WeatherAlertComponent,
+    WeatherViewComponent
   ],
   imports: [
     BrowserModule,
