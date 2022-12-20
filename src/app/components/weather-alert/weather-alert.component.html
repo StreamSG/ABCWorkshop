@@ -5,7 +5,7 @@
       <button type="button" class="btn-close" aria-label="Close" (click)="onClickCloseToast()"></button>
     </div>
     <div class="toast-body">
-      <p>{{weatherAlert?.activeAlertDescription}}</p>
+      <p class="truncate-description">{{weatherAlert?.activeAlertDescription}}</p>
       <div class="text-end"><a class="text-decoration-none" routerLink="/weather"><i>View More...</i></a></div>
     </div>
   </div>
