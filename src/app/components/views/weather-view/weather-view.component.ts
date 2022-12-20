@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, take, takeUntil } from 'rxjs';
+import { Subject, takeUntil, take } from 'rxjs';
 
 import { WeatherAlertInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { WeatherService } from 'src/app/services/weather.service';
-import * as safetyJobAids from '../../../safetyJobAids.json';
+
 
 @Component({
   selector: 'app-weather-view',
@@ -13,7 +13,6 @@ import * as safetyJobAids from '../../../safetyJobAids.json';
 export class WeatherViewComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe = new Subject<void>();
-  private safetyJobAids: string = '';
 
   constructor(private weatherService: WeatherService) { }
 
@@ -23,26 +22,20 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
+    this.ngUnsubscribe.complete
   }
-
+/**
+* @description - Subscribes to weather service and sets global variable for the api response
+* @returns {void}
+*/
   private subscribeToWeatherService(): void {
-    this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe((loading: boolean) => {
-      if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
-        this.weatherAlertResponse = this.weatherService.getResults();
-      }
-    });
-  }
-
-  public doesWeatherAlertRelateToSafetyJobAid(weatherAlert: WeatherAlertInfo): boolean {
-    if (Object.keys(weatherAlert) && weatherAlert.event) {
-      const tempWeatherString: string = '';
-      if (this.eventTypes.indexOf(weatherAlert.event) > -1) {
-        console.log('ok')
-      }
-    } else {
-      return false;
-    }
+    this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
+       next: (loading: boolean) => {
+         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
+           this.weatherAlertResponse = this.weatherService.getResults();
+         }
+       }
+     });
   }
 
 }
