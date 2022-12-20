@@ -15,12 +15,12 @@ export class WeatherViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscribeToWeatherService();
-}
+  }
 
 /**
- * @description - Subscribes to weather service and sets global variable for the api response
- * @returns {void}
- */
+* @description - Subscribes to weather service and sets global variable for the api response
+* @returns {void}
+*/
   private subscribeToWeatherService(): void {
     this.weatherService.getLoading().subscribe({
        next: (loading: boolean) => {
