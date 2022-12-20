@@ -1,1 +1,22 @@
-<p>history-subview works!</p>
+<ng-container *ngFor="let history of historyData">
+  <div class="card mt-2 mb-2">
+    <div class="container">
+      <div class="row pt-2">
+        <div class="col">
+          <h5>{{ history?.heading }} History:</h5>
+        </div>
+        <div class="col text-end">
+          <h5>{{ history?.date }}</h5>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <ng-container *ngFor="let data of history?.subData | keyvalue">
+            <div><b>{{data.key}}</b>: {{data.value}}</div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    </div>
+</ng-container>

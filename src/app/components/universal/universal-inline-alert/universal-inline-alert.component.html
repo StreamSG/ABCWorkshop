@@ -1,9 +1,22 @@
 <div class="alert-wrapper">
-  <div class="alert-heading-wrapper">
-    <div class="alert-icon" [ngStyle]="alertIconStyle"></div>
-    <div class="alert-heading">{{ heading }}</div>
-  </div>
-  <div class="alert-body">
-    {{ body }}
+  <div class="row">
+    <ng-container *ngIf="alertType !== 'none'">
+      <div class="col-1">
+        <div class="alert-icon" [ngStyle]="alertIconStyle"></div>
+      </div>
+    </ng-container>
+    <div class="col">
+      <div class="alert-heading-wrapper">
+        <div class="alert-heading">{{ heading }}</div>
+      </div>
+      <div class="alert-body">
+        {{ body }}
+      </div>
+    </div>
+    <ng-container *ngIf="addLink">
+      <div class="col-1 my-auto arrow-col">
+        &rsaquo;
+      </div>
+    </ng-container>
   </div>
 </div>

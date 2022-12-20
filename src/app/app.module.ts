@@ -33,6 +33,7 @@ import { CustomerSubviewComponent } from './components/views/job-view/subviews/c
 import { HistorySubviewComponent } from './components/views/job-view/subviews/history-subview/history-subview.component';
 import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
 import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
+import { UniversalFacilitiesCardComponent } from './components/universal/universal-facilities-card/universal-facilities-card.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { TestsSubviewComponent } from './components/views/job-view/subviews/test
     HistorySubviewComponent,
     FacilitiesSubviewComponent,
     TestsSubviewComponent,
+    UniversalFacilitiesCardComponent,
   ],
   imports: [
     BrowserModule,

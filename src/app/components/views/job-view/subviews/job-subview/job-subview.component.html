@@ -1,9 +1,257 @@
-<app-universal-inline-alert heading="Be safe out there" body="Follow necessary safety precautions! No job is so important!" alertType="warning"></app-universal-inline-alert>
-<app-universal-inline-alert heading="This is your job" body="Remember that you work here. This is your job. So please act like it." alertType="other"></app-universal-inline-alert>
-
-<h1>This is a job</h1>
-<p>{{ job?.accountNumber }}</p>
-<p>{{ job?.streetAddress }}</p>
-<p>{{ job?.cityAndState }}</p>
-<p>{{ job?.appointmentWindow }}</p>
-<p [ngStyle]="{'color': job?.jobTypeColor}">{{ job?.jobType }}</p>
+<div class="row">
+  <app-universal-inline-alert heading="Be safe out there" body="Follow necessary safety precautions! No job is so important!" alertType="warning"></app-universal-inline-alert>
+  <app-universal-inline-alert heading="This is your job" body="Remember that you work here. This is your job. So please act like it." alertType="other"></app-universal-inline-alert>
+  <app-universal-inline-alert heading="Good job, do a good job."></app-universal-inline-alert>
+</div>
+<ng-container *ngIf="job?.jobType === 'Install'">
+  <div class="row mt-4">
+    <div class="col">
+      <h2>New Services</h2>
+    </div>
+    <div class="col text-end">
+      VIEW ORDER
+    </div>
+  </div>
+  <div class="row">
+    <app-universal-inline-alert heading="Internet: Hsia300g" body="Transport Type: FTTP-GPON" alertType="none" [addLink]="true"></app-universal-inline-alert>
+    <app-universal-inline-alert heading="U-verse TV: U300" body="Premium Packages: 9" alertType="none" [addLink]="true"></app-universal-inline-alert>
+    <app-universal-inline-alert heading="Fiber Installation Instructions" body="BGW gateways are the primary option for fiber installations. Other compatible gateways can be used but only when a BGW cannot be used." alertType="other"></app-universal-inline-alert>
+  </div>
+</ng-container>
+<div class="row mt-4">
+  <div class="col">
+    <h2>Existing Services</h2>
+  </div>
+</div>
+<div class="row mb-2">
+  <app-universal-inline-alert heading="Internet: Hsia300g" body="Transport Type: FTTP-GPON" alertType="none" [addLink]="true"></app-universal-inline-alert>
+  <app-universal-inline-alert heading="U-verse TV: U300" body="Premium Packages: 9" alertType="none" [addLink]="true"></app-universal-inline-alert>
+</div>
+<h6>Open Tickets</h6>
+<div class="font-smaller mb-2">None</div>
+<h6>One Time Charges</h6>
+<div class="font-smaller">None</div>
+<hr>
+<div class="equipment-box">
+  <h2>Equipment</h2>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <img src="assets/fjack.png" alt="fiber jack" width="100%">
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              JACK
+            </div>
+            <div class="row">
+              Fiber Jack
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Installed</span>
+          </div>
+          <div class="col text-end">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <img src="assets/bgw320.png" alt="bgw320" width="100%">
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              ONT
+            </div>
+            <div class="row">
+              IONT320-505-X
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Connected</span>
+          </div>
+          <div class="col text-end font-smaller">
+            <span>SIG:-19.2 dBm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <img src="assets/bgw320.png" alt="bgw320" width="100%">
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              ROUTER/GATEWAY
+            </div>
+            <div class="row">
+              Nokia NGW320-505
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Active</span>
+          </div>
+          <div class="col text-end font-smaller">
+            <span>GUID: ...8675</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <div class="stb-gap"></div>
+          <div class="stb-box"></div>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              SET TOP BOX
+            </div>
+            <div class="row">
+              001 VIP2250
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Active</span>
+          </div>
+          <div class="col text-end font-smaller">
+            <span>GUID: ...5309</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <div class="stb-gap"></div>
+          <div class="stb-box"></div>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              SET TOP BOX
+            </div>
+            <div class="row">
+              001 VIP1200
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Active</span>
+          </div>
+          <div class="col text-end font-smaller">
+            <span>GUID: ...6753</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <hr>
+    <div class="row mb-3 mt-4">
+      <div class="col-3">
+        <div class="default-bg-color equipment-icon-box">
+          <div class="stb-gap"></div>
+          <div class="stb-box"></div>
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row ms-1">
+          <div class="col-7 font-smaller">
+            <div class="row">
+              SET TOP BOX
+            </div>
+            <div class="row">
+              001 VIP1200
+            </div>
+          </div>
+          <div class="col-5 text-end">
+            <div class="btn btn-secondary btn-sm">DETAILS</div>
+          </div>
+        </div>
+        <div class="clean-hr mt-1 mb-1"></div>
+        <div class="row">
+          <div class="col">
+            <span class="dot dot-green me-1"></span>
+            <span class="font-smaller">Active</span>
+          </div>
+          <div class="col text-end font-smaller">
+            <span>GUID: ...7530</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container d-grid mt-1 mb-2">
+    <div class="btn btn-primary btn-block">ADD RECEIVER</div>
+  </div>
+</div>
+<h5 class="mt-5">Quality Check</h5>
+<div class="card p-2 text-center">
+  Job Not Dispatched
+</div>
+<div class="mb-5"></div>

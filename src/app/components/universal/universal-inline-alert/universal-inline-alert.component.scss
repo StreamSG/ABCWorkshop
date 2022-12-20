@@ -1,6 +1,6 @@
 .alert-wrapper {
   padding-top: 0;
-  margin: 10px 5px;
+  margin: 6px 5px;
   border: 1px solid #bfbfbf;
   background-color: white;
   border-radius: 6px;
@@ -16,13 +16,18 @@
 .alert-icon {
   border: 2px solid;
   border-radius: 50%;
-  width: 18px;
-  height: 18px;
-  margin: 4px;
+  width: 16px;
+  height: 16px;
+  margin: 5px;
   margin-right: 8px;
 }
 
 .alert-heading {
   font-size: large;
   font-weight: bolder;
+}
+
+.arrow-col {
+  margin-right: 15px;
+  font-size: xx-large;
 }
