@@ -24,6 +24,7 @@ import { UniversalFullScreenModalComponent } from './components/universal/univer
 import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
 import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
 import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
+import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 @NgModule({
   declarations: [
