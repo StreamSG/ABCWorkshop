@@ -1,3 +1,6 @@
+<ng-container *ngIf="weatherAlertResponse?.showAlertToast">
+  <app-weather-alert [weatherAlert]="weatherAlertResponse"></app-weather-alert>
+</ng-container>
 <div class="container">
   <div class="row mb-5">
     <div class="col text-center">

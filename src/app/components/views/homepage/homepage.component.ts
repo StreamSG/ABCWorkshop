@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject, take, takeUntil } from 'rxjs';
+import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -22,12 +25,24 @@ export class HomepageComponent implements OnInit {
     { location: 'Dallas, TX', lat: 32.7767, long: -96.7970 },
     { location: 'Rapid City, SD', lat: 44.0805, long: -103.2310 },
   ];
+  public weatherAlertResponse: WeatherAlertResponse;
+  private ngUnsubscribe: Subject<void> = new Subject<void>;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     // When the page is loaded, grab the current location and add it to the current location button in the preselectedLocations array
     // this.initializeCurrentLocation(); // TODO rework this bad boy. Removing for now.
+    navigator.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
+      console.log(pos.coords)
+    });
+    this.weatherService.call(30.2672, -97.7431)
+    this.subscribeToWeatherService();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete
   }
 
   /**
@@ -72,5 +87,20 @@ export class HomepageComponent implements OnInit {
         // Don't change lat and long so the button will remain disabled in the DOM!
       }
     );
+  }
+
+  /**
+   * @description - Subscribes to weather service and sets global variable for the api response
+   * @returns {void}
+   */
+  private subscribeToWeatherService(): void {
+    this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (loading: boolean) => {
+        if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
+          this.weatherAlertResponse = this.weatherService.getResults();
+          console.log(this.weatherAlertResponse)
+        }
+      }
+    });
   }
 }
