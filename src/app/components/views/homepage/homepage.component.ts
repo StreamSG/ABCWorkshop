@@ -9,9 +9,9 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class HomepageComponent implements OnInit {
   
-  public button:boolean = false;
-  public onclick(): void {
-    this.button = !this.button
+  public button: boolean = false;
+  public onClick(): void {
+    this.button = !this.button;
   }
   public readonly preselectedLocations: {location: string, lat: number, long: number}[] = [ // An array of location names and lat/longs, used to generate location buttons in the component html
     {
