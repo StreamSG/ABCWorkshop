@@ -1,6 +1,6 @@
 <ng-container *ngIf="historyData">
   <ng-container *ngFor="let history of historyData">
-    <div class="card mt-2 mb-2">
+    <div class="card my-2">
       <div class="container">
         <div class="row pt-2">
           <div class="col">
@@ -14,7 +14,7 @@
         <div class="row">
           <div class="col">
             <ng-container *ngFor="let data of history?.subData | keyvalue">
-              <div><b>{{ data?.key.slice(1) }}</b>: {{ data?.value }}</div>
+              <div><b>{{ data?.key?.slice(1) }}</b>: {{ data?.value }}</div>
             </ng-container>
           </div>
         </div>

@@ -39,7 +39,7 @@ export class JobViewComponent implements OnInit {
    */
   private setActiveTabByUrl(): void {
     const curRoute = this.router.url.split('/');
-    if (curRoute.length > 2) {
+    if (this.tabTitleRoutes && Array.isArray(this.tabTitleRoutes) && curRoute.length > 2) {
       for (let i = 0; i < this.tabTitleRoutes.length; i++) {
         if (this.tabTitleRoutes[i] === curRoute[2]) {
           this.activeTab = i;
@@ -52,6 +52,7 @@ export class JobViewComponent implements OnInit {
   /**
    * @description For use in html, when the user clicks on a tab. Will set active tab and direct route to specified tab
    * @param {number} tabIndex The index of the tab, to be passed from the ngFor loop.
+   * @returns {void}
    */
   public onTabClick(tabIndex: number): void {
     this.activeTab = tabIndex;

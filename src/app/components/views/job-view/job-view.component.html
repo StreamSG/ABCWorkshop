@@ -12,8 +12,10 @@
     </div>
   </div>
   <nav class="nav">
-    <ng-container *ngFor="let tab of tabTitleRoutes; let i = index;">
-      <app-universal-nav-tab [tabText]="tab" [tabIsActive]="i === activeTab" (click)="activeTab = i" (click)="onTabClick(i)"></app-universal-nav-tab>
+    <ng-container *ngIf="tabTitleRoutes">
+      <ng-container *ngFor="let tab of tabTitleRoutes; let i = index;">
+        <app-universal-nav-tab [tabText]="tab" [tabIsActive]="i === activeTab" (click)="onTabClick(i)"></app-universal-nav-tab>
+      </ng-container>
     </ng-container>
   </nav>
 </div>
