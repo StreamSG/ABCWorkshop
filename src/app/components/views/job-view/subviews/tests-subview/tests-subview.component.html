@@ -1,0 +1,44 @@
+<div class="row py-3 testgroup-header">
+  <div class="col-auto">
+    Common Tests
+  </div>
+  <div class="col text-end">
+    &uarr;
+  </div>
+</div>
+<div class="clean-hr"></div>
+<ng-container *ngIf="tests1">
+  <ng-container *ngFor="let test of tests1">
+    <div class="row py-3">
+      <div class="col-auto ms-3">
+        {{ test }}
+      </div>
+      <div class="col text-end me-2">
+        &rarr;
+      </div>
+    </div>
+    <div class="clean-hr"></div>
+  </ng-container>
+</ng-container>
+<div class="row py-3 mt-4 testgroup-header">
+  <div class="col-auto">
+    Other Tests
+  </div>
+  <div class="col text-end">
+    &uarr;
+  </div>
+</div>
+<div class="clean-hr"></div>
+<ng-container *ngIf="tests2">
+  <ng-container *ngFor="let test of tests2">
+    <div class="row py-3">
+      <div class="col-auto ms-3">
+        {{ test }}
+      </div>
+      <div class="col text-end me-2">
+        &rarr;
+      </div>
+    </div>
+    <div class="clean-hr"></div>
+  </ng-container>
+</ng-container>

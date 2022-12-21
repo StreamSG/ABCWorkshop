@@ -1,5 +1,8 @@
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { toJSDate } from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+import { BehaviorSubject, lastValueFrom, take } from 'rxjs';
+
+import { WeatherService } from './services/weather.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,15 +25,7 @@ export class GeolocationService {
     isInvalid: true,
   }
 
-
   constructor() { }
-
-  public getPreselectedLocations(): ButtonLocationData[] {
-    return [
-      this.currentLocation,
-      ...this.preselectedLocations
-    ];
-  }
 
   /**
    * @description Load the user's current location, add the location to the current location button in the preselectedLocations array, and call the weather service API if it hasn't been already.
@@ -59,7 +54,6 @@ export class GeolocationService {
       }
     );
   }
-
 }
 
 export interface ButtonLocationData {

@@ -1,0 +1,64 @@
+<div class="card my-2 p-2" (click)="isCardOpen = !isCardOpen">
+  <div class="row">
+    <div class="col">
+      {{ heading }}
+    </div>
+    <div class="col text-end">
+      {{ isCardOpen ? '&uarr;' : '&darr;' }}
+    </div>
+  </div>
+  <ng-container *ngIf="isCardOpen">
+    <div class="container mt-2">
+      <div class="row">
+        <div class="col-4">
+          <div class="facilities-img-box">
+          </div>
+        </div>
+        <div class="col font-smaller my-auto ms-3">
+          <div class="row">
+            Address
+          </div>
+          <div class="row">
+            {{ address }}
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row font-smaller mt-4">
+          <div class="col">
+            LAT LONG
+          </div>
+          <div class="col text-end">
+            UPDATE &rsaquo;
+          </div>
+          <div class="clean-hr"></div>
+        </div>
+        <div class="row font-smaller mt-3">
+          <div class="col">
+            GATE CODE
+          </div>
+          <div class="col text-end">
+            ADD &rsaquo;
+          </div>
+          <div class="clean-hr"></div>
+        </div>
+        <div class="row font-smaller mt-3">
+          <div class="col">
+            NOTES
+          </div>
+          <div class="col text-end">
+            POST A NOTE &rsaquo;
+          </div>
+          <div class="clean-hr"></div>
+        </div>
+        <div class="row">
+          <div class="container ms-2 mt-2">
+            <ng-container *ngFor="let curData of data | keyvalue">
+              <div>{{ curData?.key?.substring(1) }}: <b>{{ curData?.value }}</b></div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -26,9 +26,9 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete
   }
-
+  
   /**
-   * @description - subscribes to weather service and gets api result
+   * @description - Subscribes to weather service and sets global variable for the api response
    * @returns {void}
    */
   private subscribeToWeatherService(): void {

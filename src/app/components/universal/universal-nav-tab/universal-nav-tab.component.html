@@ -1,0 +1,8 @@
+<div class="me-1">
+  <a class="nav-tab-link">
+    <div class="container">
+      <div class="row mb-1 ps-1 pe-1" [ngStyle]="{'color': tabIsActive ? 'white' : 'rgb(255,255,255,0.5)'} ">{{ styledTabText }}</div>
+      <div class="row" [ngClass]="tabIsActive ? 'nav-tab-highlight' : ''"></div>
+    </div>
+  </a>
+</div>
