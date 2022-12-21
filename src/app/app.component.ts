@@ -17,16 +17,10 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private weatherService: WeatherService, private locationService: GeolocationService) { }
 
   ngOnInit(): void {
-    // this.weatherService.call(40, -80);
-    // Subscribe to the weather service so the weather alert toast can be updated when new weather data is pulled
-    // this.locationService.initializeCurrentLocation();
-    this.locationService.updatedCurrentLocation.subscribe({
-      next: () => {
-        
-      }
-    });
     
-    this.weatherService.getLoading().pipe( /*take(2),*/ takeUntil( this.ngUnsubscribe ) ).subscribe({ // For take(), documentation: https://rxjs.dev/api/operators/take
+    // TODO This probably won't end up here
+    // only use take(2) when you subscribe right after call method!
+    this.weatherService.getLoading().pipe( take(2), takeUntil( this.ngUnsubscribe ) ).subscribe({ // For take(), documentation: https://rxjs.dev/api/operators/take
       next: (loading) => {
         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
           this.weatherAlertResponse = this.weatherService.getResults();

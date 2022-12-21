@@ -89,7 +89,6 @@ export class WeatherService {
       this.httpSubscription = this.http.get(`${this.serverURL}?point=${lat}%2C${long}&limit=500`)
         .subscribe({
           next: (apiResponse: any) => {
-            console.log(apiResponse);
             this.apiResults = new WeatherAlertResponse(apiResponse);
             this.isSuccessfullyCompleted = true;
             this.updateLoading(false);

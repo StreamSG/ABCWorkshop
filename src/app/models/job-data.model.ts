@@ -19,7 +19,7 @@ export class JobData {
   private aptWindows: string[] = ['8-10', '10-12', '12-2', '2-4', '8-12', '12-4', '4-8'];
   private firstNames: string[] = ['Aaron', 'Ed', 'Kerry', 'Micah', 'Raul', 'Tyler'];
   private lastNames: string[] = ['Smith', 'Jones', 'Collins', 'Doe', 'Simmons', 'Taylor'];
-  // background e4e9ec
+  
   /**
    * @description Using a latitude and longitude, will generate job ticket data using a seeded pseudorandom number generator.
    * @param {number} latitude The latitudinal coordinate of the job, between -90 and 90
@@ -68,16 +68,22 @@ export class JobData {
     return (a * a * a % 2038074743) / 2038074743;
   }
 
+  /**
+   * @description Generate a seeded email.
+   * @param {string} first The user's first name
+   * @param {string} last The user's last name
+   * @returns {string} The finished email
+   */
   private generateEmail(first: string, last: string): string {
     const domains: string[] = ['gmail', 'aol', 'adelphia', 'yahoo', 'bell', 'att', 'microsoft', 'outlook'];
     const topLevel: string[] = ['com', 'net', 'gov', 'co.uk', 'org', 'edu'];
 
     let email = '';
-    email += this.nextRand() < 0.5 ? first.charAt(0) : first;
-    email += this.nextRand() < 0.5 ? '.' : '_';
-    email += last;
-    email += Math.floor(this.nextRand() * Math.pow(10, Math.floor(this.nextRand()*2)+2));
-    email += `@${domains[Math.floor( this.nextRand() * domains.length)]}.${topLevel[Math.floor( this.nextRand() * topLevel.length)]}`;
+    email += this.nextRand() < 0.5 ? first.charAt(0) : first; // Add first name
+    email += this.nextRand() < 0.5 ? '.' : '_'; // Add first/last spacer
+    email += last; 
+    email += Math.floor(this.nextRand() * Math.pow(10, Math.floor(this.nextRand()*2)+2)); // Add some amount of numbers
+    email += `@${domains[Math.floor( this.nextRand() * domains.length)]}.${topLevel[Math.floor( this.nextRand() * topLevel.length)]}`; // add @ and domain
     return email;
   }
 }

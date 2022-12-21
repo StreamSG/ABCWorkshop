@@ -13,8 +13,14 @@ export class UniversalNavTabComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    let firstLetter = this.tabText.charAt(0);
-    this.styledTabText = `${firstLetter.toUpperCase()}${this.tabText.substring(1)}`
+    this.stylizeTabText();
+  }
+  
+  private stylizeTabText(): void {
+    if(this.tabText) {
+      let firstLetter = this.tabText.charAt(0);
+      this.styledTabText = `${firstLetter.toUpperCase()}${this.tabText.substring(1)}`;
+    }
   }
 
 }

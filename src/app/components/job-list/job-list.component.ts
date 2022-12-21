@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { JobData } from 'src/app/models/job-data.model';
 import { JobService } from 'src/app/services/job.service';
 
@@ -9,7 +10,6 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit {
-
   // TODO - Pick locations that will have alerts prior to meeting!
   public jobs: JobData[];
 

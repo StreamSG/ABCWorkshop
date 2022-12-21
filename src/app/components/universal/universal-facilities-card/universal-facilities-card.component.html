@@ -54,7 +54,7 @@
         <div class="row">
           <div class="container ms-2 mt-2">
             <ng-container *ngFor="let curData of data | keyvalue">
-              <div>{{ curData.key.substring(1) }}: <b>{{ curData.value }}</b></div>
+              <div>{{ curData?.key?.substring(1) }}: <b>{{ curData?.value }}</b></div>
             </ng-container>
           </div>
         </div>

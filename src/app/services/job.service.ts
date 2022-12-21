@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { JobData } from '../models/job-data.model';
 
 @Injectable({
