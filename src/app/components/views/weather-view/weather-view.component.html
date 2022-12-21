@@ -12,13 +12,20 @@
 <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts">
   <div class="card text-dark bg-light mb-3">
     <div class="card-header">
-      <h3>{{alert?.event}}</h3>
+      <h5>{{alert?.event}}</h5>
     </div>
     <div class="card-body">
-      <p class="card-text">{{alert?.description}}</p>
+      <p class="card-text">{{alert?.headline}}</p>
     </div>
     <div class="card-footer">
-      <h6>{{alert?.severity}}</h6>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#seeMore" aria-expanded="false" aria-controls="seeMore">
+        See more
+      </button>
+  </div>
+    <div class="collapse" id="seeMore">
+      <div class="card card-body">
+        <p class="card-text">{{alert?.description}}</p>
+      </div>
     </div>
   </div>
 </ng-container>
