@@ -2,6 +2,7 @@
 <ng-container *ngIf="weatherAlertResponse?.showAlertToast">
   <app-weather-alert [weatherAlert]="weatherAlertResponse" ></app-weather-alert>
 </ng-container>
-<div class="container mt-2">
+<!-- Removing container and mt-2 class from this wrapper here. We'd probably normally want this, I guess idk, but it's causing my sub-header to float. We should probably just add containers and top margins in each view! -->
+<div class="">
   <router-outlet></router-outlet>
 </div>

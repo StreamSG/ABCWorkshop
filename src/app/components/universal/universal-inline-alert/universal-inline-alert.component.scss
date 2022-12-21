@@ -1,0 +1,34 @@
+.alert-wrapper {
+  padding-top: 0;
+  margin: 6px 5px;
+  border: 1px solid #bfbfbf;
+  background-color: white;
+  border-radius: 6px;
+  padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.alert-heading-wrapper {
+  display: flex;
+}
+
+.alert-icon {
+  border: 2px solid;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  margin: 5px;
+  margin-right: 8px;
+}
+
+.alert-heading {
+  font-size: large;
+  font-weight: bolder;
+}
+
+.arrow-col {
+  margin-right: 15px;
+  font-size: xx-large;
+}
