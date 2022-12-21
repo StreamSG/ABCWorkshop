@@ -17,15 +17,16 @@
     <div class="card-body">
       <p class="card-text">{{alert?.headline}}</p>
     </div>
-    <div class="card-footer">
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#seeMore" aria-expanded="false" aria-controls="seeMore">
-        See more
-      </button>
-  </div>
+    
     <div class="collapse" id="seeMore">
       <div class="card card-body">
         <p class="card-text">{{alert?.description}}</p>
       </div>
+    </div>
+    <div class="card-footer text-center">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#seeMore" aria-expanded="false" aria-controls="seeMore" (click)="onMoreClicked()">
+        {{ showMoreButtonText ? 'Show More' : 'Show Less' }}
+      </button>
     </div>
   </div>
 </ng-container>
