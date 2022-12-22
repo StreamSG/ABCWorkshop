@@ -18,6 +18,8 @@ export class JobListComponent implements OnInit {
   ngOnInit(): void {
     this.jobs = this.jobService.getJobs();
     this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
+
+    this.subscribeToJobServiceList();
   }
 
   /**
@@ -28,6 +30,18 @@ export class JobListComponent implements OnInit {
   public onJobClicked(index: number): void {
     this.jobService.setSelectedJob(index);
     this.router.navigate(['job']);
+  }
+
+  /**
+   * @description Subscribe to the job service update in case a new job is added/removed from the list.
+   * @returns {void}
+   */
+  private subscribeToJobServiceList(): void {
+    this.jobService.jobListChanged.subscribe({
+      next: (jobs: JobData[]) => {
+        this.jobs = jobs;
+      }
+    });
   }
 
 }

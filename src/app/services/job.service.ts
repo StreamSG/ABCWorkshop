@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 import { JobData } from '../models/job-data.model';
 
@@ -6,6 +6,8 @@ import { JobData } from '../models/job-data.model';
   providedIn: 'root'
 })
 export class JobService {
+  public jobListChanged: EventEmitter<JobData[]> = new EventEmitter<JobData[]>();
+
   // TODO - Pick locations that will have alerts prior to meeting!
   private jobs: JobData[] = [
     new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
@@ -25,6 +27,22 @@ export class JobService {
    */
   public getJobs(): JobData[] {
     return this.jobs.slice();
+  }
+
+  /**
+   * @description Will generate a new job and add it to the end of the current job array.
+   * @returns {void}
+   */
+  public generateNewJob(): void {
+    const newJob = new JobData(
+      Math.round( (Math.random()*180 - 90) *1000) / 1000,
+      Math.round( (Math.random()*360 - 180) *1000) / 1000,
+      ['Install', 'Repair', 'Helper', 'BSW', 'POTS'][Math.round( Math.random() * 5) ],
+      'RandomTown, USA Baby'
+    );
+
+    this.jobs.push(newJob);
+    this.jobListChanged.next(this.getJobs());
   }
   
   /**
