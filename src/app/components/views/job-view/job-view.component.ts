@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, take, takeUntil } from 'rxjs';
 
 import { JobData } from 'src/app/models/job-data.model';
+import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
+import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
   selector: 'app-job-view',
@@ -10,17 +13,24 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./job-view.component.scss']
 })
 export class JobViewComponent implements OnInit {
+  private ngUnsubscribe: Subject<void> = new Subject<void>;
+  public weatherAlertResponse: WeatherAlertResponse;
   public job: JobData; // To be retrieved from jobService
   public activeTab: number = 0;
   public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
 
-  constructor(private jobService: JobService, private router: Router) { }
+  constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
-    
+    this.subscribeToWeatherService();
     this.verifyJobSelected();
     this.setActiveTabByUrl();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete
   }
 
   /**
@@ -62,6 +72,20 @@ export class JobViewComponent implements OnInit {
     else {
       this.router.navigate(['job', this.tabTitleRoutes[this.activeTab]]); // All other paths are job/tab-name
     }
+  }
+
+  /**
+   * @description - Subscribes to weather service and sets global variable for the api response
+   * @returns {void}
+   */
+  private subscribeToWeatherService(): void {
+    this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (loading: boolean) => {
+        if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
+          this.weatherAlertResponse = this.weatherService.getResults();
+        }
+      }
+    });
   }
 
 }
