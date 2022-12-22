@@ -1,0 +1,59 @@
+<div class="container mt-3 pb-2 pt-1 white-bg">
+  <ng-container *ngIf="job?.customer">
+    <div class="row">
+      <h1>{{ job?.customer?.name }}</h1>
+    </div>
+    <div class="row subheading">
+      <span>CUSTOMER</span>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{ job?.customer?.name }}</span>
+      </div>
+      <div class="col text-end">
+        <span class="phone">{{ job?.customer?.phone }}</span>
+      </div>
+    </div>
+    <div class="clean-hr mb-3"></div>
+    <div class="row subheading">
+      <span>ON SITE CONTACT</span>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span>{{ job?.customer?.name }}</span>
+      </div>
+      <div class="col text-end">
+        <span class="phone">{{ job?.customer?.phone }}</span>
+      </div>
+    </div>
+    <div class="clean-hr mb-3"></div>
+    <div class="row subheading">
+      <span>CUSTOMER EMAIL</span>
+    </div>
+    <div class="row">
+      <span>{{ job?.customer?.email }}</span>
+    </div>
+    <div class="clean-hr mb-3"></div>
+    <div class="row subheading">
+      <span>ACCOUNT NUMBER</span>
+    </div>
+    <div class="row">
+      <span>{{ job?.accountNumber }}</span>
+    </div>
+    <div class="clean-hr mb-3"></div>
+    <h1>Location</h1>
+    <div class="row subheading">
+      <span>CUSTOMER</span>
+    </div>
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        <span>{{ job?.streetAddress }} {{ job?.cityAndState }}</span>
+      </div>
+      <div class="text-end">
+        <span class="phone">MAP</span>
+      </div>
+    </div>
+    <div class="clean-hr mb-3"></div>
+    <img src="assets/generic-map.png" alt="map" width="100%">
+  </ng-container>
+</div>
