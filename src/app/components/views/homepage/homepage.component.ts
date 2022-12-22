@@ -14,7 +14,6 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class HomepageComponent implements OnInit {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe: Subject<void> = new Subject<void>;
-  public currentLocation: GeolocationCoordinates;
   public jobList: JobData[];
   
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
