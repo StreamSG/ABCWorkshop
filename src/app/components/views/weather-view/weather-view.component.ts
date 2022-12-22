@@ -13,7 +13,6 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe = new Subject<void>();
 
-
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
