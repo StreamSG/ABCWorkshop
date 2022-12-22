@@ -1,4 +1,5 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { JobData } from '../models/job-data.model';
 
@@ -6,8 +7,6 @@ import { JobData } from '../models/job-data.model';
   providedIn: 'root'
 })
 export class JobService {
-  public jobListChanged: EventEmitter<JobData[]> = new EventEmitter<JobData[]>();
-
   // TODO - Pick locations that will have alerts prior to meeting!
   private jobs: JobData[] = [
     new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
@@ -16,7 +15,7 @@ export class JobService {
     new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
     new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
   ]; 
-
+  private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
   private selectedJobIndex: number = 0;
 
   constructor() { }
@@ -34,7 +33,7 @@ export class JobService {
    * @returns {void}
    */
   public generateNewJob(): void {
-    const newJob = new JobData(
+    const newJob: JobData = new JobData(
       Math.round( (Math.random()*180 - 90) *1000) / 1000,
       Math.round( (Math.random()*360 - 180) *1000) / 1000,
       ['Install', 'Repair', 'Helper', 'BSW', 'POTS'][Math.round( Math.random() * 5) ],
@@ -59,6 +58,14 @@ export class JobService {
    */
   public getSelectedIndex(): number {
     return this.selectedJobIndex;
+  }
+
+  /**
+   * @description Returns the loadingChanged Subject as an Observable. 
+   * @returns {Observable<JobData[]>} - The jobListChanged Subject as an Observable 
+   */
+  public getJobListChanged(): Observable<JobData[]> {
+    return this.jobListChanged.asObservable();
   }
 
   /**

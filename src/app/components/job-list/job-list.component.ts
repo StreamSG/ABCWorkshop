@@ -49,7 +49,7 @@ export class JobListComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   private subscribeToJobServiceList(): void {
-    this.jobService.jobListChanged.pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+    this.jobService.getJobListChanged().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: (jobs: JobData[]) => {
         this.jobs = jobs;
       }
