@@ -1,12 +1,14 @@
 <div class="toast-container position-absolute">
-  <div class="toast position-fixed w-100" [ngClass]="{'show': showToast}" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="toast position-fixed w-100 bg-light" [ngClass]="{'show': showToast}" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="toast-header">
       <strong class="me-auto">{{weatherAlert?.activeAlertEvent}}</strong>
       <button type="button" class="btn-close" aria-label="Close" (click)="onClickCloseToast()"></button>
     </div>
     <div class="toast-body">
       <p class="truncate-description">{{weatherAlert?.activeAlertHeadline}}</p>
-      <div class="text-end"><a class="text-decoration-none" routerLink="/weather"><i>View More...</i></a></div>
+    </div>
+    <div class="toast-footer">
+      <div class="text-end pb-1 pe-3"><a class="text-decoration-none" routerLink="/weather">Alert Details</a></div>
     </div>
   </div>
 </div>
