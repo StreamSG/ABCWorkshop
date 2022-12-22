@@ -33,10 +33,10 @@ export class HomepageComponent implements OnInit {
   }
 
   /**
-   * @description For use in html when the dispatch buton is clicked. Will Generate a new job to add to the job list
+   * @description For use in html when the request job button is clicked. Will Generate a new job to add to the job list
    * @returns {void}
    */
-  public onDispatchButtonClick(): void {
+  public onRequestJobButtonClick(): void {
     this.jobService.generateNewJob();
   }
 
