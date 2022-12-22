@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject, take, takeUntil } from 'rxjs';
-import { JobData } from 'src/app/models/job-data.model';
 
+import { JobData } from 'src/app/models/job-data.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -34,9 +34,8 @@ export class HomepageComponent implements OnInit {
    * @returns {void}
    */
   private callAndSubscribeToWeatherService(): void {
-    console.log(this.jobList)
-    if (Array.isArray(this.jobList) && this.jobList.length > 0) {
-      this.weatherService.call(this.jobList[0].lat, this.jobList[0].long);
+    if (Array.isArray(this.jobList) && this.jobList.length > 0) { // only want to make this call if there are 
+      this.weatherService.call(this.jobList[0].lat, this.jobList[0].long); // calls with first assigned job cause alerts should be similar to the area
       this.weatherService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
         next: (loading: boolean) => {
           if (!loading && this.weatherService.hasSuccessfullyCompleted()) {

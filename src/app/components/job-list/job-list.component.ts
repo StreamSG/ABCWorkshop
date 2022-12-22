@@ -27,7 +27,6 @@ export class JobListComponent implements OnInit {
    * @returns {void} Returns void {void}
    */
   public onJobClicked(selectedJob: JobData, index: number): void {
-    console.log(selectedJob)
     this.jobService.setSelectedJob(index);
     this.weatherService.call(selectedJob.lat, selectedJob.long);
     this.router.navigate(['job']);
