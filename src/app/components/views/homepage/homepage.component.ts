@@ -13,7 +13,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class HomepageComponent implements OnInit {
   public weatherAlertResponse: WeatherAlertResponse;
-  private ngUnsubscribe: Subject<void> = new Subject<void>;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   public jobList: JobData[];
   
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
@@ -26,6 +26,14 @@ export class HomepageComponent implements OnInit {
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
     this.ngUnsubscribe.complete
+  }
+
+  /**
+   * @description For use in html when the request job button is clicked. Will Generate a new job to add to the job list
+   * @returns {void}
+   */
+  public onRequestJobButtonClick(): void {
+    this.jobService.generateNewJob();
   }
 
   /**
