@@ -1,6 +1,6 @@
 export class JobData {
-  private lat: number;
-  private long: number;
+  readonly lat: number;
+  readonly long: number;
 
   private seed: number;
   private seedIndex: number = 0; // To be incremented by one each number generated
@@ -28,8 +28,8 @@ export class JobData {
    * @param {string} cityAndState (optional, defaults to Heaven) From the master list of preselected alert-prone locations, pass the city and state in here
    */
   constructor(latitude: number, longitude: number, jobType: string = 'Install', cityAndState: string = 'Cleveland, OH') {
-    this.lat = latitude && latitude >= -90 && latitude <= 90 ? latitude : 0;
-    this.long = longitude && longitude >= -90 && longitude <= 90 ? longitude : 0;
+    this.lat = latitude
+    this.long = longitude
     this.jobType = jobType;
     this.jobTypeColor = jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? '#563064' : jobType === 'Helper' ? '#050' : jobType === 'BSW' ? '#3a2204' : jobType === 'POTS' ? '#5e5c13' : 'black';
     this.cityAndState = cityAndState;
