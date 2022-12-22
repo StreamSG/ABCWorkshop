@@ -16,8 +16,17 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
 
   constructor(private weatherService: WeatherService) { }
 
-  onMoreClicked() {
-    this.showMoreButtonText = !this.showMoreButtonText;
+  /**
+   * @description used to toggle showMoreButtonText from true to false when show more button is clicked
+   * @returns {void}
+   */
+  public onMoreClicked(alert, buttonState) {
+    this.weatherAlertResponse.allActiveWeatherAlerts.some(function (alertValue) {
+      if (alertValue.event === alert) {
+        buttonState = !buttonState;
+      }
+    })
+    this.showMoreButtonText = buttonState;
   }
 
   ngOnInit(): void {

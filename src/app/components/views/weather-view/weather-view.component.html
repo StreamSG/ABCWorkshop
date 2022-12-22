@@ -9,7 +9,7 @@
     </div>
   </div>
 </div>
-<ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts">
+<ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts; let i = index">
   <div class="card text-dark bg-light mb-3">
     <div class="card-header">
       <h5>{{alert?.event}}</h5>
@@ -18,13 +18,13 @@
       <p class="card-text">{{alert?.headline}}</p>
     </div>
     
-    <div class="collapse" id="seeMore">
+    <div class="collapse" [id]="'seeMore' + i">
       <div class="card card-body">
         <p class="card-text">{{alert?.description}}</p>
       </div>
     </div>
     <div class="card-footer text-center">
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#seeMore" aria-expanded="false" aria-controls="seeMore" (click)="onMoreClicked()">
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#seeMore' + i" aria-expanded="false" aria-controls="seeMore" (click)="onMoreClicked(alert?.event, showMoreButtonText)">
         {{ showMoreButtonText ? 'Show More' : 'Show Less' }}
       </button>
     </div>
