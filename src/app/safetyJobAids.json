@@ -1,15 +1,18 @@
 {
     "Cold": {
-      "description": "Winter weather can expose outdoor workers to frostbite, hypothermia, and cold stress, all of which can be fatal. It is important to know the wind chill temperature to better prepare and perform the work safely.",
+      "description": "In some parts of our service area, snowstorms and/or ice storms can occur quickly, creating a number of potential hazards. Driving is particularly hazardous under these conditions, and one of the most dangerous situations is the potential for becoming stranded in an inaccessible area.",
       "guidelines": [
-        "Know the symptoms of cold stress; reddening skin, tingling, pain, swelling, leg cramps, numbness, and blisters.",
-        "Dress properly; wear at least three layers of loose-fitting clothing, insulated gloves and boots, and cover your head.",
-        "Monitor your physical condition and that of your coworkers.",
-        "Stay dry and pack extra clothes; moisture can increase heat loss from the body.",
-        "Take frequent breaks in warm, dry areas.",
-        "Drink warm liquids."
+        "Be alert to National Weather Service Storm Watches and Warnings.",
+        "Dress appropriately for conditions. See EHS-3500-FST-7, Working in the Cold Fact Sheet.",
+        "Avoid isolated areas where you may be stranded by a storm.",
+        "Be alert to changing weather conditions.",
+        "Drive defensively, being especially aware of changing road conditions and inexperienced drivers.",
+        "Beware of the potential for falling ice or snowbanks.",
+        "If conditions warrant, carry a change of dry clothes in your vehicle.",
+        "If available, check that cell phones and/or other communications devices are charged and working."
       ],
-      "jobAidLink": "https://www.osha.gov/dts/weather/winter_weather/"
+      "jobAidTitle": "Working in the Cold Fact Sheet",
+      "jobAidLink": "https://cps.web.att.com/CPSWorkplace/getContent?id=current&amp;vsId=%7B1386E9BA-13C9-45D9-929E-57FA9BBDD4F6%7D&amp;objectStoreName=EHS&amp;objectType=document&amp;GuestId=EHSGuest"
     },
     "Heat": {
       "description": "The combination of heat and humidity can be a serious health threat during the summer months. If you work outside (for example, at a beach resort, on a farm, at a construction site) or in a kitchen, laundry, or bakery you may be at increased risk for heatrelated illness. So, take precautions. Here’s how:",
@@ -23,22 +26,14 @@
       ],
       "jobAidLink": "www.osha.gov/OshDoc/data_Hurricane_Facts/heat_stress.pdf"
     },
-    "Earthquake": {
-      "description": "When an earthquake occurs in a populated area, it may cause deaths and injuries and extensive property damage. Ground movement during an earthquake is seldom the direct cause of death or injury. Most earthquake-related injuries result from collapsing walls, flying glass, and falling objects as a result of the ground shaking, or people trying to move more than a few feet during the shaking. Much of the damage in earthquakes is predictable and preventable.",
-      "guidlines": [
-        "Pick \"safe places\". A safe place could be under a sturdy table or desk or against an interior wall away from windows and bookcases, or tall furniture that could fall on you.",
-        "Wait in your safe place until the shaking stops, then check to see if you are hurt. You will be better able to help others if you take care of yourself first, then check the people around you.",
-        "Move carefully and watch out for things that have fallen or broken, creating hazards. Be ready for aftershocks."
-      ],
-      "jobAidLink": "https://www.osha.gov/emergency-preparedness/guides/earthquakes"
-    },
     "Tropical": {
-      "description": "",
-      "guidelines" : []
-    },
-    "Wind": {
-      "description": "",
-      "guidelines": []
-    },
-    "items": ["ice", "cold", "snow", "heat", "wind", "freez", "blizzard", "flood", "earthquake", "hurricane", "tornado", "tropical", "tsunami", "winter", "volcano", "fire", "frost"]
+      "description": "Some parts of our service area are subject to tropical storms. This type of storm is generally detected long before it makes landfall, giving employees time to make advanced preparations as needed. Recovery operations following the storm may present a greater set of hazards.",
+      "guidelines" : [
+        "Follow the instructions of management and local authorities regarding preparations for the storm and return following the storm.",
+        "During a storm, the primary hazards will be due to high winds and the potential for flooding (storm surge); if caught in a tropical storm, follow the guidelines described earlier in Sections 2 and 4 for hazards related to floods and windstorms.",
+        "Following a storm, the primary hazards are flooding and storm damage."
+      ],
+      "jobAidTitle": "Restoration Worker Safety Job Aid",
+      "jobAidLink": "https://cps.web.att.com/CPSWorkplace/getContent?id=current&amp;vsId=%7BBB815DA2-966D-46D7-A193-3F913486B904%7D&amp;objectStoreName=EHS&amp;objectType=document&amp;GuestId=EHSGuest"
+    }
 }
