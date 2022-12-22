@@ -9,19 +9,57 @@
     </div>
   </div>
 </div>
-<ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts">
-  <div class="card text-dark bg-light mb-3">
-    <div class="card-header">
-      <h3>{{alert?.event}}</h3>
-    </div>
-    <div class="card-body">
-      <p class="card-text">{{alert?.description}}</p>
-      <ng-container *ngIf="doesWeatherAlertRelateToSafetyJobAid(alert)">
-        ;lkj;lkj
-      </ng-container>
-    </div>
-    <div class="card-footer">
-      <h6>{{alert?.severity}}</h6>
+  <div class="alert-card">
+    <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts; let i = index">
+      <hr>
+      <div class="row mb-3 mt-4">
+        <div class="col">
+          <div class="row ms-1">
+            <div class="col">
+                <h4>Weather Alert</h4>
+              <div class="row">
+                {{alert?.headline}}
+              </div>
+            </div>
+          </div>
+          <div class="clean-hr my-1"></div>
+          <div class="row">
+            <div class="col collapse" [id]="'seeMore' + i">
+              <span class="font-smaller">{{alert?.description}}</span>
+              <div class="row">
+                <div class="col">
+                  <a class="text-decoration-none m-1">Safe Work Practice</a>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="row">
+              <div class="col text-center">
+              <button class="btn btn-outline-secondary btn-sm m-1" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#seeMore' + i" aria-expanded="false" aria-controls="seeMore">Show Description</button>
+              </div>
+            </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+<div class="modal fade" id="detailsModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Weather Details</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Bad weather is bad to work in. Try working in good weather, because it's safer!</h6>
+        <br>
+        <h6>No job is so important and no service is so urgent that</h6>
+        <br>
+        <p>please transfer Mike to Port St Lucie</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok!</button>
+      </div>
     </div>
   </div>
-</ng-container>
+</div>
