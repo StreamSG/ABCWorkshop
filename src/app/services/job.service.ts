@@ -33,13 +33,14 @@ export class JobService {
    * @returns {void}
    */
   public generateNewJob(): void {
+    const newJobLatitude: number = +(Math.random() * (49.38 - 24.54) + 24.54).toFixed(2);
+    const newJobLongtitude: number = +(Math.random() * (-66.93 - 124.48) - 124.48).toFixed(2);
     const newJob: JobData = new JobData(
-      Math.round( (Math.random()*180 - 90) *1000) / 1000, // Generates a latitude between -90 and 90 with 3 decimal places
-      Math.round( (Math.random()*360 - 180) *1000) / 1000, // Generates a longitude between -180 and 180 with 3 decimal places
+      newJobLatitude, // Generates a latitude between -90 and 90 with 3 decimal places
+      newJobLongtitude, // Generates a longitude between -180 and 180 with 3 decimal places
       ['Install', 'Repair', 'Helper', 'BSW', 'POTS'][Math.round( Math.random() * 5) ], // Picks a random job type
       'RandomTown, USA Baby'
     );
-
     this.jobs.push(newJob);
     this.jobListChanged.next(this.getJobs());
   }
