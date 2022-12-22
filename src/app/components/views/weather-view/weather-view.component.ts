@@ -12,13 +12,9 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class WeatherViewComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe = new Subject<void>();
-  public showMoreButtonText = true;
+
 
   constructor(private weatherService: WeatherService) { }
-
-  onMoreClicked() {
-    this.showMoreButtonText = !this.showMoreButtonText;
-  }
 
   ngOnInit(): void {
     this.subscribeToWeatherService();
