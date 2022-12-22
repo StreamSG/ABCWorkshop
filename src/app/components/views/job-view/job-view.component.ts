@@ -83,7 +83,6 @@ export class JobViewComponent implements OnInit {
       next: (loading: boolean) => {
         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
           this.weatherAlertResponse = this.weatherService.getResults();
-          console.log(this.weatherAlertResponse)
         }
       }
     });
