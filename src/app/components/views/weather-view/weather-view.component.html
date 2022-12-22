@@ -9,21 +9,8 @@
     </div>
   </div>
 </div>
-  <!-- <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts">
-    <div class="card text-dark bg-light mb-3">
-      <div class="card-header">
-        <h3>{{alert?.event}}</h3>
-      </div>
-      <div class="card-body">
-        <p class="card-text">{{alert?.description}}</p>
-      </div>
-      <div class="card-footer">
-        <h6>{{alert?.severity}}</h6>
-      </div>
-    </div>
-  </ng-container> -->
-  <div class="equipment-box">
-    <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts">
+  <div class="alert-card">
+    <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts; let i = index">
       <hr>
       <div class="row mb-3 mt-4">
         <div class="col">
@@ -34,22 +21,27 @@
                 {{alert?.headline}}
               </div>
             </div>
-
           </div>
           <div class="clean-hr my-1"></div>
-          <div class="col">
-            <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#seeMore" aria-expanded="false" aria-controls="seeMore">See more</button>
-            <button class="btn btn-secondary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#detailsModal">Details</button>
-          </div>
           <div class="row">
-            <div class="col collapse" id="seeMore">
+            <div class="col collapse" [id]="'seeMore' + i">
               <span class="font-smaller">{{alert?.description}}</span>
+              <div class="row">
+                <div class="col">
+                  <a class="text-decoration-none m-1">Safe Work Practice</a>
+                </div>
+              </div>
             </div>
           </div>
+            <div class="row">
+              <div class="col text-center">
+              <button class="btn btn-outline-secondary btn-sm m-1" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#seeMore' + i" aria-expanded="false" aria-controls="seeMore">Show Description</button>
+              </div>
+            </div>
         </div>
       </div>
-  </ng-container>
-</div>
+    </ng-container>
+  </div>
 <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
