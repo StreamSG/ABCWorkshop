@@ -24,6 +24,16 @@ import { UniversalFullScreenModalComponent } from './components/universal/univer
 import { UniversalDropdownInputFieldComponent } from './components/universal/universal-dropdown-input-field/universal-dropdown-input-field.component';
 import { UniversalPeBoxComponent } from './components/universal/proof-of-concept/universal-pe-box/universal-pe-box.component';
 import { WeatherAlertComponent } from './components/weather-alert/weather-alert.component';
+import { JobListComponent } from './components/job-list/job-list.component';
+import { JobViewComponent } from './components/views/job-view/job-view.component';
+import { UniversalInlineAlertComponent } from './components/universal/universal-inline-alert/universal-inline-alert.component';
+import { UniversalNavTabComponent } from './components/universal/universal-nav-tab/universal-nav-tab.component';
+import { JobSubviewComponent } from './components/views/job-view/subviews/job-subview/job-subview.component';
+import { CustomerSubviewComponent } from './components/views/job-view/subviews/customer-subview/customer-subview.component';
+import { HistorySubviewComponent } from './components/views/job-view/subviews/history-subview/history-subview.component';
+import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
+import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
+import { UniversalFacilitiesCardComponent } from './components/universal/universal-facilities-card/universal-facilities-card.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
 
 @NgModule({
@@ -47,6 +57,16 @@ import { WeatherViewComponent } from './components/views/weather-view/weather-vi
     UniversalDropdownInputFieldComponent,
     UniversalPeBoxComponent,
     WeatherAlertComponent,
+    JobListComponent,
+    JobViewComponent,
+    UniversalInlineAlertComponent,
+    UniversalNavTabComponent,
+    JobSubviewComponent,
+    CustomerSubviewComponent,
+    HistorySubviewComponent,
+    FacilitiesSubviewComponent,
+    TestsSubviewComponent,
+    UniversalFacilitiesCardComponent,
     WeatherViewComponent
   ],
   imports: [
