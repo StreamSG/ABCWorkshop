@@ -8,5 +8,6 @@
       <p class="truncate-description">{{weatherAlert?.activeAlertHeadline}}</p>
       <div class="text-end"><a class="text-decoration-none" routerLink="/weather"><i>View More...</i></a></div>
     </div>
+    <div class="timer-bar mx-auto" [ngStyle]="{ 'width': toastTimeoutBarWidth + '%'}"></div>
   </div>
 </div>

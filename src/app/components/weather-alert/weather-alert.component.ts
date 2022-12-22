@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 
 import {  WeatherService } from 'src/app/services/weather.service';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
+import { interval, take } from 'rxjs';
 
 @Component({
   selector: 'app-weather-alert',
@@ -11,12 +12,24 @@ import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 export class WeatherAlertComponent implements OnInit {
   @Input() weatherAlert: WeatherAlertResponse;
   public showToast: boolean = true; // By default we want to show the toast, but will be changed if the user closes the toast or if new weather alert data is called from the API
+  public toastTimeoutBarWidth: number = 100;
+  private timeoutTime: number = 10000;
+  private updateInterval: number = 10;
+  private endTime: number;
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.subscribeToWeatherService(); // subscribe to updates in the weatherService so we can show the toast in case it was closed
     this.timerToRemoveAlert();
+    this.endTime = new Date().getTime() + this.timeoutTime;
+
+    interval(this.updateInterval).pipe(take(Math.ceil(this.timeoutTime / this.updateInterval))).subscribe({
+      next: () => {
+        const timeLeft = this.endTime - new Date().getTime();
+        this.toastTimeoutBarWidth = Math.round( timeLeft / this.timeoutTime * 10000 )/100;
+      }
+    });
   }
 
   /**
@@ -50,7 +63,7 @@ export class WeatherAlertComponent implements OnInit {
     if (this.showToast) {
       setTimeout(() => {
         this.showToast = false;
-      }, 10000);
+      }, this.timeoutTime);
     }
   }
 }

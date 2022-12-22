@@ -13,12 +13,6 @@ export class JobData {
   public cityAndState: string ;
 
   public customer: {name: string, phone: string, email: string};
-
-  // If you're reading this, feel free to add more data to the arrays below! The more variety the better!
-  private streetNames: string[] = ['Main Street', 'Church Street', 'High Street', 'Elm Street', 'Park Avenue', 'Walnut Street', 'Washington Street', '2nd Street', 'Chestnut Street', 'Broad Street', 'Maple Avenue', 'Oak Street', 'Maple Street', 'Center Street', 'Pine Street', 'River Road', 'Market Street', 'Washington Avenue', 'Water Street', 'Union Street', '3rd Street', 'South Street', '4th Street'];
-  private aptWindows: string[] = ['8-10', '10-12', '12-2', '2-4', '8-12', '12-4', '4-8'];
-  private firstNames: string[] = ['Aaron', 'Ed', 'Kerry', 'Micah', 'Raul', 'Tyler'];
-  private lastNames: string[] = ['Smith', 'Jones', 'Collins', 'Doe', 'Simmons', 'Taylor'];
   
   /**
    * @description Using a latitude and longitude, will generate job ticket data using a seeded pseudorandom number generator.
@@ -44,17 +38,23 @@ export class JobData {
       .replace('-', '1')
       .replace('.', '1'); 
     this.seed = +`${latAsStr}${longAsStr}`; // if lat=123 and long=456 will create a number 123456
+
+    // If you're reading this, feel free to add more data to the arrays below! The more variety the better!
+    const streetNames: string[] = ['Main Street', 'Church Street', 'High Street', 'Elm Street', 'Park Avenue', 'Walnut Street', 'Washington Street', '2nd Street', 'Chestnut Street', 'Broad Street', 'Maple Avenue', 'Oak Street', 'Maple Street', 'Center Street', 'Pine Street', 'River Road', 'Market Street', 'Washington Avenue', 'Water Street', 'Union Street', '3rd Street', 'South Street', '4th Street'];
+    const aptWindows: string[] = ['8-10', '10-12', '12-2', '2-4', '8-12', '12-4', '4-8'];
+    const firstNames: string[] = ['Aaron', 'Ed', 'Kerry', 'Micah', 'Raul', 'Tyler'];
+    const lastNames: string[] = ['Smith', 'Jones', 'Collins', 'Doe', 'Simmons', 'Taylor'];
     
     this.accountNumber = Math.floor(this.nextRand()*1000000);
-    this.streetAddress = `${Math.floor(this.nextRand() * Math.pow(10, Math.floor(this.nextRand()*3) + 3))} ${this.streetNames[Math.floor(this.nextRand() * this.streetNames.length)]}`;
-    this.appointmentWindow = this.aptWindows[Math.floor(this.nextRand() * this.aptWindows.length)].toString();
+    this.streetAddress = `${Math.floor(this.nextRand() * Math.pow(10, Math.floor(this.nextRand()*3) + 3))} ${streetNames[Math.floor(this.nextRand() * streetNames.length)]}`;
+    this.appointmentWindow = aptWindows[Math.floor(this.nextRand() * aptWindows.length)].toString();
 
-    const custFirstI = Math.floor(this.nextRand() * this.firstNames.length);
-    const custLastI = Math.floor(this.nextRand() * this.lastNames.length);
+    const custFirstI = Math.floor(this.nextRand() * firstNames.length);
+    const custLastI = Math.floor(this.nextRand() * lastNames.length);
     this.customer = {
-      name: `${this.firstNames[custFirstI]} ${this.lastNames[custLastI]}`,
+      name: `${firstNames[custFirstI]} ${lastNames[custLastI]}`,
       phone: `(${Math.floor(this.nextRand() * 900 + 100)}) ${Math.floor(this.nextRand() * 900 + 100)}-${Math.floor(this.nextRand() * 9000 + 1000)}`,
-      email: this.generateEmail(this.firstNames[custFirstI], this.lastNames[custLastI]),
+      email: this.generateEmail(firstNames[custFirstI], lastNames[custLastI]),
     }
   }
 
