@@ -28,8 +28,8 @@ export class JobData {
    * @param {string} cityAndState (optional, defaults to Heaven) From the master list of preselected alert-prone locations, pass the city and state in here
    */
   constructor(latitude: number, longitude: number, jobType: string = 'Install', cityAndState: string = 'Cleveland, OH') {
-    this.lat = latitude && latitude >= -90 && latitude <= 90 ? latitude : 0; // only wraps from equator to pole, so goes from -90 to 90
-    this.long = longitude && longitude >= -180 && longitude <= 180 ? longitude : 0; // wraps the entire distance around the globe, away from the prime meridian. -180 to 180
+    this.lat = latitude
+    this.long = longitude
     this.jobType = jobType;
     this.jobTypeColor = jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? '#563064' : jobType === 'Helper' ? '#050' : jobType === 'BSW' ? '#3a2204' : jobType === 'POTS' ? '#5e5c13' : 'black';
     this.cityAndState = cityAndState;
