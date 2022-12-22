@@ -1,4 +1,6 @@
 import * as moment from "moment";
+import * as SafetyJobAid from '../safetyJobAids.json';
+
 
 export class WeatherAlertResponse {
   readonly flowStatus: string;
@@ -57,7 +59,8 @@ export class WeatherAlertResponse {
             id: alertsToParse.id ? alertsToParse.id.slice(-5) : '',  // We only need the last 5 digits of the alert to find updates to alert
             instruction: alertsToParse.instruction ? alertsToParse.instruction : '',
             sent: alertsToParse.sent ? alertsToParse.sent : '',
-            severity: alertsToParse.severity ? alertsToParse.severity : ''
+            severity: alertsToParse.severity ? alertsToParse.severity : '',
+            safetyInfo: this.doesWeatherAlertRelateToSafetyJobAid(alertsToParse)
           }
           tempAllActiveWeatherAlertsArray.push(tempWeatherAlert);
         }
@@ -125,6 +128,37 @@ export class WeatherAlertResponse {
       return returnedDescription;
     }
   }
+
+  /**
+   * @description - passes weather alert and loops through the event value to match pre determined key words that will be used to grab info from a local json
+   * @param {WeatherAlertInfo} weatherAlert - active passed weather alert
+   * @returns {SafetyInfo} - returns an object of weather related safety info
+   */
+  public doesWeatherAlertRelateToSafetyJobAid(weatherAlert: WeatherAlertInfo): SafetyInfo {
+    let tempTag: string;
+    const coldWeatherTags: string[] = ['Ice', 'Cold', 'Snow', 'Winter', 'Freez', 'Blizzard', 'Frost', 'Wind Chill']; // spelling of 'freez' is intentional as the event name from api may say 'freeze' or 'freezing'
+    const tropicalStormTags: string[] = ['Tropical', 'Hurricane'];
+    const highWindTags: string[] = ['High Wind', 'Tornado', 'Extreme Wind'];
+    const allTags: string[] = [...coldWeatherTags, ...tropicalStormTags, ...highWindTags]
+    if (Object.keys(weatherAlert) && weatherAlert.event) {
+      for (let tag of allTags) {
+        if (weatherAlert.event.includes(tag)) {
+          tempTag = tag;
+          break;
+        }
+      }
+      if (coldWeatherTags.includes(tempTag)) {
+        tempTag = 'Cold';
+      } else if (tropicalStormTags.includes(tempTag)) {
+        tempTag = 'Tropical';
+      } else if (highWindTags.includes(tempTag)) {
+        tempTag = 'Wind';
+      }
+      return SafetyJobAid[tempTag];
+    } else {
+      return null;
+    }
+  }
 }
 
 /**
@@ -163,4 +197,12 @@ export class WeatherAlertResponse {
     certainty?: string;
     urgency?: string;
     response?: string;
+    safetyInfo?: SafetyInfo;
+}
+
+export interface SafetyInfo {
+  description: string,
+  guidelines: string[],
+  jobAidTitle: string,
+  jobAidLink: string
 }

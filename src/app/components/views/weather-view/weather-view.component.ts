@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, take } from 'rxjs';
 
-import { WeatherAlertInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
+import { SafetyInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { WeatherService } from 'src/app/services/weather.service';
-import * as SafetyJobAids from '../../../safetyJobAids.json';
 
 @Component({
   selector: 'app-weather-view',
@@ -13,13 +12,13 @@ import * as SafetyJobAids from '../../../safetyJobAids.json';
 export class WeatherViewComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe = new Subject<void>();
-  private safetyJobAids: object;
+  public modalSafetyInfo: SafetyInfo;
+
 
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.subscribeToWeatherService();
-    this.safetyJobAids = SafetyJobAids.default;
   }
 
   ngOnDestroy(): void {
@@ -41,31 +40,12 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
      });
   }
 
-  public doesWeatherAlertRelateToSafetyJobAid(weatherAlert: WeatherAlertInfo): boolean {
-    let tempTag;
-    const coldWeatherTags: string[] = ['Ice', 'Cold', 'Snow', 'Winter', 'Freez', 'Blizzard', 'Frost', 'Wind Chill']; // spelling of 'freez' is intentional as the event name from api may say 'freeze' or 'freezing'
-    const tropicalStormTags: string[] = ['Tropical', 'Hurricane'];
-    const highWindTags: string[] = ['High Wind', 'Tornado', 'Extreme Wind'];
-    const allTags: string[] = [...coldWeatherTags, ...tropicalStormTags, ...highWindTags]
-    if (Object.keys(weatherAlert) && weatherAlert.event) {
-      for (let tag of allTags) {
-        if (weatherAlert.event.includes(tag)) {
-          tempTag = tag
-          break
-        }
-      }
-      if (coldWeatherTags.includes(tempTag)) {
-        tempTag = 'Cold'
-      } else if (tropicalStormTags.includes(tempTag)) {
-        tempTag = 'Tropical'
-      } else if (highWindTags.includes(tempTag)) {
-        tempTag = 'Wind'
-      }
-      console.log(tempTag, this.safetyJobAids[tempTag])
-      return true
-    } else {
-      return false;
-    }
+  /**
+   * @description - sets global variable for use in modal
+   * @param {SafetyInfo} safetyInfo - passed safetyinfo to be passed to a modal
+   * @returns {void}
+   */
+  public setSafetyInfoForModal(safetyInfo: SafetyInfo): void {
+    this.modalSafetyInfo = safetyInfo;
   }
-
 }
