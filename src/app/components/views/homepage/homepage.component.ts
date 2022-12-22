@@ -9,12 +9,8 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./homepage.component.scss']
 })
 export class HomepageComponent implements OnInit {
-  
-  public button: boolean = false;
-  public onClick(): void {
-    this.button = !this.button;
-  }
   public readonly preselectedLocations: {location: string, lat: number, long: number}[] = [ // An array of location names and lat/longs, used to generate location buttons in the component html
+  
     {
       location: 'Loading...', // can be placed anywhere in array, just ensure that location equals 'Loading...'
       lat: 999, // default lat and long to an impossible coordinate so that the component html knows not to enable this button
@@ -29,11 +25,19 @@ export class HomepageComponent implements OnInit {
     { location: 'Rapid City, SD', lat: 44.0805, long: -103.2310 },
   ];
 
-  constructor(private weatherService: WeatherService) { }
+  constructor(private weatherService: WeatherService, private jobService: JobService) { }
 
   ngOnInit(): void {
     // When the page is loaded, grab the current location and add it to the current location button in the preselectedLocations array
     // this.initializeCurrentLocation(); // TODO rework this bad boy. Removing for now.
+  }
+
+  /**
+   * @description For use in html when the dispatch buton is clicked. Will Generate a new job to add to the job list
+   * @returns {void}
+   */
+  public onDispatchButtonClick(): void {
+    this.jobService.generateNewJob();
   }
 
   /**
