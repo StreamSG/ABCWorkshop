@@ -142,16 +142,16 @@ export class WeatherAlertResponse {
     const allTags: string[] = [...coldWeatherTags, ...tropicalStormTags, ...highWindTags]
     if (Object.keys(weatherAlert) && weatherAlert.event) {
       for (let tag of allTags) {
-        if (weatherAlert.event.includes(tag)) {
+        if (weatherAlert.event.indexOf(tag) > -1) {
           tempTag = tag;
           break;
         }
       }
-      if (coldWeatherTags.includes(tempTag)) {
+      if (coldWeatherTags.indexOf(tempTag) > -1) {
         tempTag = 'Cold';
-      } else if (tropicalStormTags.includes(tempTag)) {
+      } else if (tropicalStormTags.indexOf(tempTag) > -1) {
         tempTag = 'Tropical';
-      } else if (highWindTags.includes(tempTag)) {
+      } else if (highWindTags.indexOf(tempTag) > -1) {
         tempTag = 'Wind';
       }
       return SafetyJobAid[tempTag];
