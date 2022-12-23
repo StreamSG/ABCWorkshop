@@ -14,7 +14,6 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
   private ngUnsubscribe = new Subject<void>();
   public modalSafetyInfo: SafetyInfo;
 
-
   constructor(private weatherService: WeatherService) { }
 
   ngOnInit(): void {
