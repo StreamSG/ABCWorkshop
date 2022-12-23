@@ -1,0 +1,39 @@
+{
+    "Cold": {
+      "description": "In some parts of our service area, snowstorms and/or ice storms can occur quickly, creating a number of potential hazards. Driving is particularly hazardous under these conditions, and one of the most dangerous situations is the potential for becoming stranded in an inaccessible area.",
+      "guidelines": [
+        "Be alert to National Weather Service Storm Watches and Warnings.",
+        "Dress appropriately for conditions.",
+        "Avoid isolated areas where you may be stranded by a storm.",
+        "Be alert to changing weather conditions.",
+        "Drive defensively, being especially aware of changing road conditions and inexperienced drivers.",
+        "Beware of the potential for falling ice or snowbanks.",
+        "If conditions warrant, carry a change of dry clothes in your vehicle.",
+        "If available, check that cell phones and/or other communications devices are charged and working."
+      ],
+      "jobAidTitle": "Working in the Cold Fact Sheet",
+      "jobAidLink": "https://cps.web.att.com/CPSWorkplace/getContent?id=current&amp;vsId=%7B1386E9BA-13C9-45D9-929E-57FA9BBDD4F6%7D&amp;objectStoreName=EHS&amp;objectType=document&amp;GuestId=EHSGuest"
+    },
+    "Heat": {
+      "description": "The combination of heat and humidity can be a serious health threat during the summer months. If you work outside (for example, at a beach resort, on a farm, at a construction site) or in a kitchen, laundry, or bakery you may be at increased risk for heatrelated illness. So, take precautions. Here’s how:",
+      "guidelines": [
+        "Take frequent short breaks in cool shade.",
+        "Eat smaller meals before work activity.",
+        "Avoid caffeine and alcohol or large amounts of sugar.",
+        "Work in the shade.",
+        "Find out from your health care provider if your medications and heat don’t mix.",
+        "Know that equipment such as respirators or work suits can increase heat stress."
+      ],
+      "jobAidLink": "www.osha.gov/OshDoc/data_Hurricane_Facts/heat_stress.pdf"
+    },
+    "Tropical": {
+      "description": "Some parts of our service area are subject to tropical storms. This type of storm is generally detected long before it makes landfall, giving employees time to make advanced preparations as needed. Recovery operations following the storm may present a greater set of hazards.",
+      "guidelines" : [
+        "Follow the instructions of management and local authorities regarding preparations for the storm and return following the storm.",
+        "During a storm, the primary hazards will be due to high winds and the potential for flooding (storm surge); if caught in a tropical storm, follow the guidelines described earlier in Sections 2 and 4 for hazards related to floods and windstorms.",
+        "Following a storm, the primary hazards are flooding and storm damage."
+      ],
+      "jobAidTitle": "Restoration Worker Safety Job Aid",
+      "jobAidLink": "https://cps.web.att.com/CPSWorkplace/getContent?id=current&amp;vsId=%7BBB815DA2-966D-46D7-A193-3F913486B904%7D&amp;objectStoreName=EHS&amp;objectType=document&amp;GuestId=EHSGuest"
+    }
+}

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, takeUntil, take } from 'rxjs';
 
-import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
+import { SafetyInfo, WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { WeatherService } from 'src/app/services/weather.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class WeatherViewComponent implements OnInit, OnDestroy {
   public weatherAlertResponse: WeatherAlertResponse;
   private ngUnsubscribe = new Subject<void>();
+  public modalSafetyInfo: SafetyInfo;
 
   constructor(private weatherService: WeatherService) { }
 
@@ -36,5 +37,14 @@ export class WeatherViewComponent implements OnInit, OnDestroy {
          }
        }
      });
+  }
+
+  /**
+   * @description - sets global variable for use in modal
+   * @param {SafetyInfo} safetyInfo - passed safetyinfo to be passed to a modal
+   * @returns {void}
+   */
+  public setSafetyInfoForModal(safetyInfo: SafetyInfo): void {
+    this.modalSafetyInfo = safetyInfo;
   }
 }
