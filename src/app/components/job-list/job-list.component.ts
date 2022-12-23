@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 
 import { JobData } from 'src/app/models/job-data.model';
 import { JobService } from 'src/app/services/job.service';
@@ -10,15 +11,23 @@ import { WeatherService } from 'src/app/services/weather.service';
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.scss']
 })
-export class JobListComponent implements OnInit {
+export class JobListComponent implements OnInit, OnDestroy {
   // TODO - Pick locations that will have alerts prior to meeting!
   public jobs: JobData[];
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
     this.jobs = this.jobService.getJobs();
     this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
+
+    this.subscribeToJobServiceList();
+  }
+
+  ngOnDestroy(): void {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete
   }
 
   /**
@@ -33,6 +42,18 @@ export class JobListComponent implements OnInit {
     }
     this.jobService.setSelectedJob(index);
     this.router.navigate(['job']);
+  }
+
+  /**
+   * @description Subscribe to the job service update in case a new job is added/removed from the list.
+   * @returns {void}
+   */
+  private subscribeToJobServiceList(): void {
+    this.jobService.getJobListChanged().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (jobs: JobData[]) => {
+        this.jobs = jobs;
+      }
+    });
   }
 
 }

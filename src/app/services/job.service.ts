@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { JobData } from '../models/job-data.model';
 
@@ -14,7 +15,7 @@ export class JobService {
     new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
     new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
   ]; 
-
+  private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
   private selectedJobIndex: number = 0;
 
   constructor() { }
@@ -25,6 +26,23 @@ export class JobService {
    */
   public getJobs(): JobData[] {
     return this.jobs.slice();
+  }
+
+  /**
+   * @description Will generate a new job and add it to the end of the current job array.
+   * @returns {void}
+   */
+  public generateNewJob(): void {
+    const newJobLatitude: number = +(Math.random() * (49.38 - 24.54) + 24.54).toFixed(2);
+    const newJobLongtitude: number = +(Math.random() * (-66.93 + 124.48) - 124.48).toFixed(2);
+    const newJob: JobData = new JobData(
+      newJobLatitude, // Generates a latitude between -90 and 90 with 3 decimal places
+      newJobLongtitude, // Generates a longitude between -180 and 180 with 3 decimal places
+      ['Install', 'Repair', 'Helper', 'BSW', 'POTS'][Math.round( Math.random() * 5) ], // Picks a random job type
+      'RandomTown, USA Baby'
+    );
+    this.jobs.push(newJob);
+    this.jobListChanged.next(this.getJobs());
   }
   
   /**
@@ -41,6 +59,14 @@ export class JobService {
    */
   public getSelectedIndex(): number {
     return this.selectedJobIndex;
+  }
+
+  /**
+   * @description Returns the loadingChanged Subject as an Observable. 
+   * @returns {Observable<JobData[]>} - The jobListChanged Subject as an Observable 
+   */
+  public getJobListChanged(): Observable<JobData[]> {
+    return this.jobListChanged.asObservable();
   }
 
   /**
