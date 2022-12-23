@@ -19,10 +19,7 @@ export class WeatherAlertComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribeToWeatherService(); // subscribe to updates in the weatherService so we can show the toast in case it was closed
-    
-    const toastTimeoutTime: number = 10000; // Adjustable to make the toast display a shorter or longer amount of time
-    this.timerToRemoveAlert(toastTimeoutTime);
-    this.setupToastTimeoutBarInterval(toastTimeoutTime);
+    this.setupToastTimeout();
   }
 
   ngOnDestroy(): void {
@@ -53,35 +50,26 @@ export class WeatherAlertComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @description - provide timer to hide active alert so as to not persist on view and limit users use of the app
-   * @param {number} toastTimeoutTime The length of time the toast should be visible, measured in milliseconds.
+   * @description Will create and subscribe to an interval which will adjust the width of the toast timeout timer bar. Shrinks with the frequency of the variable updateInterval. When the interval completes, hides the toast
    * @returns {void}
    */
-  private timerToRemoveAlert(toastTimeoutTime: number): void {
-    if (this.showToast) {
-      setTimeout(() => {
-        this.showToast = false;
-      }, toastTimeoutTime);
-    }
-  }
-
-  /**
-   * @description Will create and subscribe to an interval which will adjust the width of the toast timeout timer bar. Shrinks with the frequency of the variable updateInterval
-   * @param {number} toastTimeoutTime The length of time the toast should be visible, measured in milliseconds.
-   * @returns {void}
-   */
-  private setupToastTimeoutBarInterval(toastTimeoutTime: number): void {
+  private setupToastTimeout(): void {
+    const toastTimeoutTime: number = 10000; // Adjustable to make the toast display a shorter or longer amount of time
     const toastTimeoutUpdateInterval: number = 10; // Adjustable to make the shrinking of the timer bar smoother in exchange for more processing power. The smaller the number, the more frequently the bar width will be calculated.
+    
     const toastLifespanEndTime: number = new Date().getTime() + toastTimeoutTime; 
-
+    
     // Figure out how many times the interval will be called in the lifespan of the toast, so we can take() that many times.
     const numberOfTimesToTakeInterval: number = Math.ceil(toastTimeoutTime / toastTimeoutUpdateInterval);
     this.timeoutBarUpdateIntervalSubscription = interval(toastTimeoutUpdateInterval)
-      .pipe( take(numberOfTimesToTakeInterval) )
+    .pipe( take(numberOfTimesToTakeInterval) )
       .subscribe({
-        next: () => {
+        next: () => { // Each interval, shrink the timer bar
           const timeLeft: number = toastLifespanEndTime - new Date().getTime();
           this.toastTimeoutBarWidth = Math.round( timeLeft / toastTimeoutTime * 100000 )/1000; 
+        },
+        complete: () => { // When the take(n) hits the limit, the subscription will complete, then hide the tost
+          this.showToast = false;
         }
       });
   }
