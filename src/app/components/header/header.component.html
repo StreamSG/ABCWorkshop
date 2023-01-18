@@ -13,57 +13,52 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="home" data-bs-dismiss="offcanvas">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="weather" data-bs-dismiss="offcanvas">Alerts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="help" data-bs-dismiss="offcanvas">Help</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Map</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Prior Tickets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Tools</a>
-          </li> <hr>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Timesheet</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">System Health <img class="float-end" src="assets/idkweather.png">
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">News</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Safety</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Mini-projects
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" routerLink="we-track">weTrack</a></li>
-              <li>
-                <hr class="dropdown-divider">
+          <!-- this should be its own components, it works but very messy -->
+          <ng-container *ngFor="let menuLink of menuLinks">
+            <ng-container *ngIf="!menuLink.hr">
+              <li class="nav-item" [ngClass]="menuLink.dropdown ? 'dropdown' : ''">
+                <ng-container *ngIf="menuLink.dropdown">
+                  <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ menuLink.text }}
+                    <ng-container *ngIf="menuLink.imgPath">
+                      <img class="float-end" [src]="menuLink.imgPath" width="30" height="30">
+                    </ng-container>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <ng-container *ngFor="let dropdown of menuLink.dropdown">
+                      <li>
+                        <ng-container *ngIf="!dropdown.hr">
+                          <a class="dropdown-item" [routerLink]="dropdown.routerLink" data-bs-dismiss="offcanvas">
+                            {{ dropdown.text }}
+                            <ng-container *ngIf="dropdown.imgPath">
+                              <img class="float-end" [src]="dropdown.imgPath" width="30" height="30">
+                            </ng-container>
+                          </a>
+                        </ng-container>
+                        <ng-container *ngIf="dropdown.hr">
+                          <hr class="dropdown-divider">
+                        </ng-container>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </ng-container>
+                <ng-container *ngIf="!menuLink.dropdown">
+                  <a class="nav-link active" [routerLink]="menuLink.routerLink" data-bs-dismiss="offcanvas">
+                    {{ menuLink.text }}
+                    <ng-container *ngIf="menuLink.imgPath">
+                      <img class="float-end" [src]="menuLink.imgPath" width="30" height="30">
+                    </ng-container>
+                  </a>
+                </ng-container>
               </li>
-              <li><a class="dropdown-item" routerLink="touch-n-go" data-bs-dismiss="offcanvas">Touch 'n' Go</a></li>
-              <li><a class="dropdown-item" routerLink="ticket-generator" data-bs-dismiss="offcanvas">Ticket Generator</a></li>
-              <li><a class="dropdown-item" routerLink="qc-timer" data-bs-dismiss="offcanvas">QC Timer</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
+            </ng-container>
+            <ng-container *ngIf="menuLink.hr">
+              <hr>
+            </ng-container>
+          </ng-container>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </div>
+</nav>
 <!-- If you'd like to add something, check this resource: https://getbootstrap.com/docs/5.2/components/navbar/ -->

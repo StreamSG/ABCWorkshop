@@ -13,7 +13,7 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./job-view.component.scss']
 })
 export class JobViewComponent implements OnInit {
-  private ngUnsubscribe: Subject<void> = new Subject<void>;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   public weatherAlertResponse: WeatherAlertResponse;
   public job: JobData; // To be retrieved from jobService
   public activeTab: number = 0;
