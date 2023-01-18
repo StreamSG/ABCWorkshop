@@ -10,6 +10,10 @@
     <div class="toast-footer">
       <div class="text-end pb-1 pe-3"><a class="text-decoration-none" routerLink="/weather">Alert Details</a></div>
     </div>
-    <div class="timer-bar mx-auto" [ngStyle]="{ 'width': toastTimeoutBarWidth + '%'}"></div>
+    <div class="timer-bar mx-auto" 
+      [ngStyle]="{ 'width': toastTimeoutBarWidth + '%' }" 
+      [ngClass]="{ 'bg-danger': weatherAlert?.activeAlertEvent?.includes('Warning') || weatherAlert?.activeAlertEvent?.includes('Extreme'), 
+        'bg-warning': weatherAlert?.activeAlertEvent?.includes('Watch'), 
+        'bg-blue': !(weatherAlert?.activeAlertEvent?.includes('Warning') || weatherAlert?.activeAlertEvent?.includes('Extreme') || weatherAlert?.activeAlertEvent?.includes('Watch')) }"></div>
   </div>
 </div>
