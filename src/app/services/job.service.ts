@@ -8,14 +8,14 @@ import { JobData } from '../models/job-data.model';
 })
 export class JobService {
   // TODO - Pick locations that will have alerts prior to meeting!
-  private jobs: JobData[] = [
-    new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
-    // new JobData(44.0805, -103.2310, 'Repair', 'Rapid City, SD'),
-    new JobData(48.4779, -120.1862, 'Repair', 'Winthrop, WA'),
-    new JobData(30.2672, -97.7431, 'Helper', 'Austin, TX'),
-    new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
-    new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
-  ]; 
+  private jobs: JobData[] = [new JobData(), new JobData(), new JobData(), new JobData(), new JobData()];
+  //   new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
+  //   new JobData(44.0805, -103.2310, 'Repair', 'Rapid City, SD'),
+  //   new JobData(48.4779, -120.1862, 'Repair', 'Winthrop, WA'),
+  //   new JobData(30.2672, -97.7431, 'Helper', 'Austin, TX'),
+  //   new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
+  //   new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
+  // ]; 
   private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
   private selectedJobIndex: number = 0;
 
