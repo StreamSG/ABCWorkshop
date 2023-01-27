@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 
 import { JobData } from 'src/app/models/job-data.model';
+import { JobsResponse } from 'src/app/models/jobs-response.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
 
@@ -14,20 +15,21 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class JobListComponent implements OnInit, OnDestroy {
   // TODO - Pick locations that will have alerts prior to meeting!
   public jobs: JobData[];
+  @Input('jobsResponse') jobsResponse: JobsResponse;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.jobs = this.jobService.getJobs();
-    this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
+    // this.jobs = this.jobService.getJobs();
+    // this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
 
-    this.subscribeToJobServiceList();
+    // this.subscribeToJobServiceList();
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete
+    this.ngUnsubscribe.complete();
   }
 
   /**

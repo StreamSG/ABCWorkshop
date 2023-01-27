@@ -1,12 +1,110 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { JobData } from '../models/job-data.model';
+import { JobsResponse } from '../models/jobs-response.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
+  private serverURL: string = 'http://localhost:3000/jobs/get'; // For use with https://github.com/micah-wehrle/ABCNest
+  private apiResults: JobsResponse = null;
+  private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private loading: boolean;
+  private httpSubscription: Subscription;
+  private isSuccessfullyCompleted: boolean = false;
+
+  constructor(private http: HttpClient) { }
+
+  /**
+   * @description - Resets the state of the service. This should be called in clearJobData service if this service is a job specific API.
+   * @returns {void}
+   */
+   public resetData(): void {
+    this.apiResults = null;
+    this.loading = false;
+    this.loadingChanged.next(this.loading);
+    this.isSuccessfullyCompleted = false;
+    this.cancelRequest();
+  }
+ 
+  /**
+   * @description - Cancels any ongoing API call.
+   * @returns {void}
+   */
+  private cancelRequest(): void {
+    if (this.httpSubscription) {
+      if (!this.httpSubscription.closed) {
+        this.httpSubscription.unsubscribe();
+      }
+    }
+  }
+ 
+  /**
+   * @description - Returns the loadingChanged Subject as an Observable. Components should subscribe to this function, which should return the status of the API, and retrieve the API result when the loading has been updated from true to false. 
+   * @returns {Observable<boolean>} - The loadingChanged Subject as an Observable
+   */
+  public getLoading(): Observable<boolean> {
+    return this.loadingChanged.asObservable();
+  }
+ 
+  /**
+   * @description - Updates the loadingChanged BehaviorSubject. This is called within the service's call() to update the status of the API. The loading variable is updated to true when the API is called, and updated to false when the response is retrieved.
+   * @param {boolean} loading - The new value for loading
+   * @returns {void}
+   */
+  private updateLoading(loading: boolean): void {
+    this.loading = loading;
+    this.loadingChanged.next(this.loading);
+  }
+ 
+  /**
+   * @description - Returns the status of isSuccessfullyCompleted. This should be used in components to determine if an API should be called again.
+   * @returns {boolean} - true if the API has successfully been called; false otherwise
+   */
+  public hasSuccessfullyCompleted(): boolean {
+    return this.isSuccessfullyCompleted;
+  }
+ 
+  /**
+   * @description - Returns the <yourModel> API result
+   * @returns {JobsResponse} - The API results for the inquireBillingAuthorization call
+   */
+  public getResults(): JobsResponse {
+    return this.apiResults;
+  }
+ 
+  /**
+   * @description - //TODO - Fill out with your own description. Tell us why this service is needed, what the API does, and where in the application this service is being used.
+   * @returns {void}
+   */
+  public call(uuid: string): void {
+    // validate we're not already loading an API response and that we have the expected parameters
+    if (!this.loading && uuid) {
+      this.updateLoading(true);
+      this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}`)
+        .subscribe({ 
+          next: (response: any) => {
+            this.apiResults = new JobsResponse(response);
+            this.isSuccessfullyCompleted = true;
+            this.updateLoading(false);
+          },
+          error: (error: any) => {
+            this.apiResults = new JobsResponse(error.error);
+            this.isSuccessfullyCompleted = false;
+            this.updateLoading(false);
+          }
+        });
+      }
+  }
+
+
+
+  // EVERYTHING AFTER HERE WILL GO BYE BYE!
+
+
   // TODO - Pick locations that will have alerts prior to meeting!
   private jobs: JobData[] = [
     new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
@@ -18,7 +116,7 @@ export class JobService {
   private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
   private selectedJobIndex: number = 0;
 
-  constructor() { }
+  // constructor() { }
 
   /**
    * @description Getter for master array of jobs

@@ -1,17 +1,24 @@
-<ng-container *ngFor="let job of jobs; let i = index">
-  <div class="card end-0 mb-2" (click)="onJobClicked(job, i)"> 
-    <div class="row">
-      <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
-        <p>JOB</p>
-        <p>{{ i+1 }}</p>
-      </div>
-      <div class="col-9">
-        <p>ID: {{ job?.accountNumber }}</p>
-        <h5>{{ job?.jobType }}</h5>
-        <p>Appt: {{ job?.appointmentWindow }}</p>
-        <span>{{ job?.streetAddress }}</span>
-        <p>{{ job?.cityAndState }}</p>
+<ng-container *ngIf="!jobsResponse">
+  <div class="d-flex justify-content-center mt-4">
+    <h3>Loading Jobs . . .</h3>
+  </div>
+</ng-container>
+<ng-container *ngIf="jobsResponse">
+  <ng-container *ngFor="let job of jobs; let i = index">
+    <div class="card end-0 mb-2" (click)="onJobClicked(job, i)"> 
+      <div class="row">
+        <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
+          <p>JOB</p>
+          <p>{{ i+1 }}</p>
+        </div>
+        <div class="col-9">
+          <p>ID: {{ job?.accountNumber }}</p>
+          <h5>{{ job?.jobType }}</h5>
+          <p>Appt: {{ job?.appointmentWindow }}</p>
+          <span>{{ job?.streetAddress }}</span>
+          <p>{{ job?.cityAndState }}</p>
+        </div>
       </div>
     </div>
-  </div>
-</ng-container> 
+  </ng-container> 
+</ng-container>
