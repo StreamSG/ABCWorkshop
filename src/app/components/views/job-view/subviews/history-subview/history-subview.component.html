@@ -1,10 +1,10 @@
-<ng-container *ngIf="historyData">
-  <ng-container *ngFor="let history of historyData">
+<ng-container *ngIf="job && job.history">
+  <ng-container *ngFor="let history of job.history">
     <div class="card my-2">
       <div class="container">
         <div class="row pt-2">
           <div class="col">
-            <h5>{{ history?.heading }} History:</h5>
+            <h5>{{ history?.title }} History:</h5>
           </div>
           <div class="col text-end">
             <h5>{{ history?.date }}</h5>
@@ -13,8 +13,8 @@
         <hr>
         <div class="row">
           <div class="col">
-            <ng-container *ngFor="let data of history?.subData | keyvalue">
-              <div><b>{{ data?.key?.slice(1) }}</b>: {{ data?.value }}</div>
+            <ng-container *ngFor="let info of history?.info">
+              <div>{{ info }}</div>
             </ng-container>
           </div>
         </div>

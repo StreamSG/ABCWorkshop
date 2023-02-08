@@ -1,17 +1,17 @@
 <div class="container mt-3 pb-2 pt-1 white-bg">
-  <ng-container *ngIf="job?.customer">
+  <ng-container *ngIf="job">
     <div class="row">
-      <h1>{{ job?.customer?.name }}</h1>
+      <h1>{{ job?.firstName }} {{ job?.lastName }}</h1>
     </div>
     <div class="row subheading">
       <span>CUSTOMER</span>
     </div>
     <div class="row">
       <div class="col">
-        <span>{{ job?.customer?.name }}</span>
+        <span>{{ job?.firstName }} {{ job?.lastName }}</span>
       </div>
       <div class="col text-end">
-        <span class="phone">{{ job?.customer?.phone }}</span>
+        <span class="phone">{{ job?.phone }}</span>
       </div>
     </div>
     <div class="clean-hr mb-3"></div>
@@ -20,10 +20,10 @@
     </div>
     <div class="row">
       <div class="col">
-        <span>{{ job?.customer?.name }}</span>
+        <span>{{ job?.firstName }} {{ job?.lastName }}</span>
       </div>
       <div class="col text-end">
-        <span class="phone">{{ job?.customer?.phone }}</span>
+        <span class="phone">{{ job?.phone }}</span>
       </div>
     </div>
     <div class="clean-hr mb-3"></div>
@@ -31,7 +31,7 @@
       <span>CUSTOMER EMAIL</span>
     </div>
     <div class="row">
-      <span>{{ job?.customer?.email }}</span>
+      <span>{{ job?.email }}</span>
     </div>
     <div class="clean-hr mb-3"></div>
     <div class="row subheading">
@@ -47,7 +47,7 @@
     </div>
     <div class="d-flex">
       <div class="flex-grow-1">
-        <span>{{ job?.streetAddress }} {{ job?.cityAndState }}</span>
+        <span>{{ job?.streetAddress }}, {{ job?.city?.city }} {{ job?.city?.state }} {{ job?.city?.zip }}</span>
       </div>
       <div class="text-end">
         <span class="phone">MAP</span>

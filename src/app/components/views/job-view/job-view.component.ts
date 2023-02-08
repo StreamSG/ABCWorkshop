@@ -13,18 +13,23 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./job-view.component.scss']
 })
 export class JobViewComponent implements OnInit {
-  private ngUnsubscribe: Subject<void> = new Subject<void>;
+  private ngUnsubscribe: Subject<void> = new Subject<void>();
   public weatherAlertResponse: WeatherAlertResponse;
-  public job: JobData; // To be retrieved from jobService
+  public job: any; // To be retrieved from jobService
   public activeTab: number = 0;
   public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
+
+  private jobApiLoading: boolean;
+  private jobApiResults: any;
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
-    this.subscribeToWeatherService();
-    this.verifyJobSelected();
+
+    this.subscribeToJobService();
+    // this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
+    // this.subscribeToWeatherService();
+    // this.verifyJobSelected();
     this.setActiveTabByUrl();
   }
 
@@ -72,6 +77,18 @@ export class JobViewComponent implements OnInit {
     else {
       this.router.navigate(['job', this.tabTitleRoutes[this.activeTab]]); // All other paths are job/tab-name
     }
+  }
+
+  private subscribeToJobService(): void {
+    this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (loading: boolean) => {
+        this.jobApiLoading = loading;
+        if (!this.jobApiLoading) {
+          this.jobApiResults = this.jobService.getResults();
+          this.job = this.jobService.getSelectedJob();
+        }
+      }
+    });
   }
 
   /**

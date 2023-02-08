@@ -10,11 +10,12 @@ import { JobsResponse } from '../models/jobs-response.model';
 })
 export class JobService {
   private serverURL: string = 'http://localhost:3000/jobs/get'; // For use with https://github.com/micah-wehrle/ABCNest
-  private apiResults: JobsResponse = null;
+  private jobApiResults: JobsResponse = null;
   private loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private loading: boolean;
   private httpSubscription: Subscription;
   private isSuccessfullyCompleted: boolean = false;
+  public selectedJobAccountNumber: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +24,7 @@ export class JobService {
    * @returns {void}
    */
    public resetData(): void {
-    this.apiResults = null;
+    this.jobApiResults = null;
     this.loading = false;
     this.loadingChanged.next(this.loading);
     this.isSuccessfullyCompleted = false;
@@ -73,7 +74,7 @@ export class JobService {
    * @returns {JobsResponse} - The API results for the inquireBillingAuthorization call
    */
   public getResults(): JobsResponse {
-    return this.apiResults;
+    return this.jobApiResults;
   }
  
   /**
@@ -87,12 +88,12 @@ export class JobService {
       this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}`)
         .subscribe({ 
           next: (response: any) => {
-            this.apiResults = new JobsResponse(response);
+            this.jobApiResults = new JobsResponse(response);
             this.isSuccessfullyCompleted = true;
             this.updateLoading(false);
           },
           error: (error: any) => {
-            this.apiResults = new JobsResponse(error.error);
+            this.jobApiResults = new JobsResponse(error.error);
             this.isSuccessfullyCompleted = false;
             this.updateLoading(false);
           }
@@ -102,7 +103,7 @@ export class JobService {
 
 
 
-  // EVERYTHING AFTER HERE WILL GO BYE BYE!
+  // EVERYTHING AFTER HERE MAY GO BYE BYE!
 
 
   // TODO - Pick locations that will have alerts prior to meeting!
@@ -114,11 +115,11 @@ export class JobService {
     new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
   ]; 
   private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
-  private selectedJobIndex: number = 0;
 
   // constructor() { }
 
   /**
+   * @deprecated ? I think
    * @description Getter for master array of jobs
    * @returns {JobData[]} Returns a copy of the master array of jobs
    */
@@ -127,6 +128,7 @@ export class JobService {
   }
 
   /**
+   * @deprecated
    * @description Will generate a new job and add it to the end of the current job array.
    * @returns {void}
    */
@@ -144,34 +146,34 @@ export class JobService {
   }
   
   /**
+   * @deprecated needs to be converted
    * @description Getter for currently selected job
    * @returns {JobData} Returns the selected job
    */
-  public getSelectedJob(): JobData {
-    return this.getJobs()[ this.selectedJobIndex ]; // use .getJobs so we return in line with the standard for how we want the jobs to be accessed. Meaning, for example, we return a copy of the array so this will ensure a copy is passed instead of the actual object.
+  public getSelectedJobOld(): JobData {
+    return this.getJobs()[ 0 ]; // use .getJobs so we return in line with the standard for how we want the jobs to be accessed. Meaning, for example, we return a copy of the array so this will ensure a copy is passed instead of the actual object.
   }
 
   /**
-   * @description Getter for selected job index
-   * @returns {number} Returns the index of the selected job
+   * @description Getter for currently selected job
+   * @returns {JobData} Returns the selected job
    */
-  public getSelectedIndex(): number {
-    return this.selectedJobIndex;
+   public getSelectedJob(): JobData {
+    if (!this.loading && this.isSuccessfullyCompleted) {
+      for (let i = 0; i < this.jobApiResults.jobs.length; i++) {
+        if (this.jobApiResults.jobs[i].accountNumber === this.selectedJobAccountNumber) {
+          return this.jobApiResults.jobs[i];
+        }
+      }
+    }
+    return null;
   }
 
   /**
-   * @description Returns the loadingChanged Subject as an Observable. 
-   * @returns {Observable<JobData[]>} - The jobListChanged Subject as an Observable 
+   * @description Setter for setting the account number of the selected job.
+   * @param {number} accountNumber The account number of the selected job
    */
-  public getJobListChanged(): Observable<JobData[]> {
-    return this.jobListChanged.asObservable();
-  }
-
-  /**
-   * @description Setter for setting the index of the selected job.
-   * @param {number} index The index of the selected job
-   */
-  public setSelectedJob(index: number): void {
-    this.selectedJobIndex = index;
+  public setSelectedJob(accountNumber: number): void {
+    this.selectedJobAccountNumber = accountNumber;
   }
 }

@@ -71,7 +71,7 @@ export class HomepageComponent implements OnInit {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          console.log(this.jobsResponse);
+          // console.log(this.jobsResponse);
         }
       }
     });

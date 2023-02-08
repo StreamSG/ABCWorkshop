@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
+import { JobService } from 'src/app/services/job.service';
+
 @Component({
   selector: 'app-facilities-subview',
   templateUrl: './facilities-subview.component.html',
   styleUrls: ['./facilities-subview.component.scss']
 })
 export class FacilitiesSubviewComponent implements OnInit {
+  /*
   public splData: {[key: string]: string} = {
     '1Splitter': '8',
     '2Network Port': '07',
@@ -24,10 +27,14 @@ export class FacilitiesSubviewComponent implements OnInit {
     '1ONT': '1-2-3-2-1',
     '2Network Port': 'Unavail',
   };
+  */ 
 
-  constructor() { }
+  public job: any;
+  
+  constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
+    this.job = this.jobService.getSelectedJob();
   }
 
 }

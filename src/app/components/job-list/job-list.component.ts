@@ -13,9 +13,9 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./job-list.component.scss']
 })
 export class JobListComponent implements OnInit, OnDestroy {
-  // TODO - Pick locations that will have alerts prior to meeting!
-  public jobs: JobData[];
-  @Input('jobsResponse') jobsResponse: JobsResponse;
+  // public jobs: JobData[];
+  public jobs: any;
+  public jobsResponse: JobsResponse;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
@@ -25,6 +25,16 @@ export class JobListComponent implements OnInit, OnDestroy {
     // this.jobService.setSelectedJob(-1); // In case the user navigates here when a job was already selected, we want to "forget" the job that was selected
 
     // this.subscribeToJobServiceList();
+    
+    // No take 3 because we aren't calling here, and want to keep listening in case somebody else calls again. Right?
+    this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (loading: boolean) => {
+        if(!loading && this.jobService.hasSuccessfullyCompleted()) {
+          this.jobsResponse = this.jobService.getResults();
+          console.log(this.jobsResponse);
+        }
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -38,24 +48,11 @@ export class JobListComponent implements OnInit, OnDestroy {
    * @param {JobData} selectedJob - the current job clicked, lat long needed for this job
    * @returns {void} Returns void {void}
    */
-  public onJobClicked(selectedJob: JobData, index: number): void {
+  public onJobClicked(selectedJob: JobData): void {
     if (selectedJob) {
-      this.weatherService.call(selectedJob.lat, selectedJob.long);
+      // this.weatherService.call(selectedJob.lat, selectedJob.long);
     }
-    this.jobService.setSelectedJob(index);
+    this.jobService.setSelectedJob(selectedJob.accountNumber);
     this.router.navigate(['job']);
   }
-
-  /**
-   * @description Subscribe to the job service update in case a new job is added/removed from the list.
-   * @returns {void}
-   */
-  private subscribeToJobServiceList(): void {
-    this.jobService.getJobListChanged().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
-      next: (jobs: JobData[]) => {
-        this.jobs = jobs;
-      }
-    });
-  }
-
 }

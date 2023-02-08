@@ -1,7 +1,7 @@
 <div class="card my-2 p-2" (click)="isCardOpen = !isCardOpen">
   <div class="row">
     <div class="col">
-      {{ heading }}
+      {{ facility?.heading }}
     </div>
     <div class="col text-end">
       {{ isCardOpen ? '&uarr;' : '&darr;' }}
@@ -19,7 +19,7 @@
             Address
           </div>
           <div class="row">
-            {{ address }}
+            {{ facility?.address }}
           </div>
         </div>
       </div>
@@ -53,8 +53,40 @@
         </div>
         <div class="row">
           <div class="container ms-2 mt-2">
-            <ng-container *ngFor="let curData of data | keyvalue">
-              <div>{{ curData?.key?.substring(1) }}: <b>{{ curData?.value }}</b></div>
+            <ng-container *ngIf="isFiber">
+              <ng-container *ngIf="facilityIndex === 0">
+                <p>Splitter</p>
+                <h5>{{ facility?.cable }}</h5>
+                <p>Network Port</p>
+                <h5>{{ facility?.pair }}</h5>
+                <hr>
+                <p>Network Port</p>
+                <h5>NPN-{{ (+facility?.cable - 1)*32 + (+facility?.pair) }}</h5>
+                <p>Access Port</p>
+                <h5>APN-{{ facility?.port }}</h5>
+              </ng-container>
+              <ng-container *ngIf="facilityIndex === 1">
+                <p>Cable</p>
+                <h5>{{ facility?.cable }}</h5>
+                <p>Network Port</p>
+                <h5>NPN-{{ facility?.pair }}</h5>
+                <p>Access Port</p>
+                <h5>APN-{{ facility?.port }}</h5>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!isFiber">
+              <ng-container *ngIf="facility?.cable">
+                <p>Cable</p>
+                <h5>{{ facility?.cable }}</h5>
+              </ng-container>
+              <ng-container *ngIf="facility?.pair">
+                <p>Pair</p>
+                <h5>{{ facility?.pair }}</h5>
+              </ng-container>
+              <ng-container *ngIf="facility?.port">
+                <p>BP</p>
+                <h5>{{ facility?.port }}</h5>
+              </ng-container>
             </ng-container>
           </div>
         </div>

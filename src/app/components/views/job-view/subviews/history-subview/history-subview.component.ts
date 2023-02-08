@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JobService } from 'src/app/services/job.service';
 
 @Component({
   selector: 'app-history-subview',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./history-subview.component.scss']
 })
 export class HistorySubviewComponent implements OnInit {
+  /*
   public historyData: {heading: string, date: string, subData: {[key: string]: string} }[] = [
     {
       heading: 'Interaction', date: '12/11/22',
@@ -31,10 +33,13 @@ export class HistorySubviewComponent implements OnInit {
       }
     },
 
-  ];
-  constructor() { }
+  ];*/
+  public job: any;
+  
+  constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
+    this.job = this.jobService.getSelectedJob();
   }
 
 }

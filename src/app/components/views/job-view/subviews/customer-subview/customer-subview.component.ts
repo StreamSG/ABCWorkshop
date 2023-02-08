@@ -9,7 +9,7 @@ import { JobService } from 'src/app/services/job.service';
   styleUrls: ['./customer-subview.component.scss']
 })
 export class CustomerSubviewComponent implements OnInit {
-  public job: JobData;
+  public job: any;
   
   constructor(private jobService: JobService) { }
 
