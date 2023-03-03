@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { WeatherService } from 'src/app/services/weather.service';
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss']
 })
-export class JobViewComponent implements OnInit {
+export class JobViewComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   public weatherAlertResponse: WeatherAlertResponse;
   public job: JobData;
@@ -27,15 +27,13 @@ export class JobViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.subscribeToJobService();
-    // this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
-    // this.subscribeToWeatherService();
-    // this.verifyJobSelected();
+    // this.subscribeToWeatherService(); // Temporarily removed until can be properly implemented as a future feature.
     this.setActiveTabByUrl();
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete
+    this.ngUnsubscribe.complete();
   }
 
   /**
@@ -79,13 +77,17 @@ export class JobViewComponent implements OnInit {
     }
   }
 
+  /**
+   * @description - Subscribe to job service in order to get currently selected job data, and then verify that the given job exists. To be called in ngOnInit()
+   * @returns {void}
+   */
   private subscribeToJobService(): void {
     this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: (loading: boolean) => {
         this.jobApiLoading = loading;
         if (!this.jobApiLoading) {
-          this.jobApiResults = this.jobService.getResults();
           this.job = this.jobService.getSelectedJob();
+          this.verifyJobSelected(); // Verify that the job is not null. This can happen if the user refreshes the page from within a job!
         }
       }
     });

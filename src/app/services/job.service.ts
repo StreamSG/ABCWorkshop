@@ -14,7 +14,7 @@ export class JobService {
   private loading: boolean;
   private httpSubscription: Subscription;
   private isSuccessfullyCompleted: boolean = false;
-  public selectedJobAccountNumber: number = 0;
+  private selectedJobAccountNumber: number = 0;
 
   constructor(private http: HttpClient) { }
 
@@ -77,7 +77,8 @@ export class JobService {
   }
  
   /**
-   * @description - //TODO - Fill out with your own description. Tell us why this service is needed, what the API does, and where in the application this service is being used.
+   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
+   * @param {string} uuid - the uuid to be passed to the back end as a seed to generate jobs.
    * @returns {void}
    */
   public call(uuid: string): void {
@@ -101,7 +102,7 @@ export class JobService {
   }
 
   /**
-   * @description Getter for currently selected job
+   * @description Getter for currently selected job.
    * @returns {JobData} Returns the selected job
    */
    public getSelectedJob(): JobData {
@@ -118,6 +119,7 @@ export class JobService {
   /**
    * @description Setter for setting the account number of the selected job.
    * @param {number} accountNumber The account number of the selected job
+   * @returns {void}
    */
   public setSelectedJob(accountNumber: number): void {
     this.selectedJobAccountNumber = accountNumber;
