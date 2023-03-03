@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 
-import { JobData } from 'src/app/models/job-data.model';
+import { JobData } from 'src/app/models/jobs-response.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -15,7 +15,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class JobViewComponent implements OnInit {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   public weatherAlertResponse: WeatherAlertResponse;
-  public job: any; // To be retrieved from jobService
+  public job: JobData;
   public activeTab: number = 0;
   public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
 

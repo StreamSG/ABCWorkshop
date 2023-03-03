@@ -2,7 +2,8 @@
   <app-weather-alert [weatherAlert]="weatherAlertResponse"></app-weather-alert>
 </ng-container>
 <div class="job-header-bar" [ngStyle]="{ 'background-color': job && job.jobTypeColor ? job.jobTypeColor: 'gray' }">
-  <div class="appointment-text">APPT: {{ job?.appointment }}</div>
+  <div class="header-text">BAN: {{ job?.accountNumber }}</div>
+  <div class="header-text">APPT: {{ job?.appointment }}</div>
   <div class="row">
     <div class="col">
       <h1>{{ job?.jobType }}</h1>

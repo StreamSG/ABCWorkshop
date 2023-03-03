@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
-import { JobData } from '../models/job-data.model';
-import { JobsResponse } from '../models/jobs-response.model';
+import { JobsResponse, JobData } from '../models/jobs-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -99,59 +98,6 @@ export class JobService {
           }
         });
       }
-  }
-
-
-
-  // EVERYTHING AFTER HERE MAY GO BYE BYE!
-
-
-  // TODO - Pick locations that will have alerts prior to meeting!
-  private jobs: JobData[] = [
-    new JobData(41.4993, -81.6944, 'Install', 'Cleveland, OH'),
-    new JobData(44.0805, -103.2310, 'Repair', 'Rapid City, SD'),
-    new JobData(30.2672, -97.7431, 'Helper', 'Austin, TX'),
-    new JobData(26.1224, -80.1373, 'BSW', 'Fort Something, FL'),
-    new JobData(34.0195, -118.4912, 'POTS', 'Santa Monica, CA')
-  ]; 
-  private jobListChanged: BehaviorSubject<JobData[]> = new BehaviorSubject<JobData[]>(this.jobs);
-
-  // constructor() { }
-
-  /**
-   * @deprecated ? I think
-   * @description Getter for master array of jobs
-   * @returns {JobData[]} Returns a copy of the master array of jobs
-   */
-  public getJobs(): JobData[] {
-    return this.jobs.slice();
-  }
-
-  /**
-   * @deprecated
-   * @description Will generate a new job and add it to the end of the current job array.
-   * @returns {void}
-   */
-  public generateNewJob(): void {
-    const newJobLatitude: number = +(Math.random() * (49.38 - 24.54) + 24.54).toFixed(2);
-    const newJobLongtitude: number = +(Math.random() * (-66.93 + 124.48) - 124.48).toFixed(2);
-    const newJob: JobData = new JobData(
-      newJobLatitude, // Generates a latitude between -90 and 90 with 3 decimal places
-      newJobLongtitude, // Generates a longitude between -180 and 180 with 3 decimal places
-      ['Install', 'Repair', 'Helper', 'BSW', 'POTS'][Math.round( Math.random() * 5) ], // Picks a random job type
-      'RandomTown, USA Baby'
-    );
-    this.jobs.push(newJob);
-    this.jobListChanged.next(this.getJobs());
-  }
-  
-  /**
-   * @deprecated needs to be converted
-   * @description Getter for currently selected job
-   * @returns {JobData} Returns the selected job
-   */
-  public getSelectedJobOld(): JobData {
-    return this.getJobs()[ 0 ]; // use .getJobs so we return in line with the standard for how we want the jobs to be accessed. Meaning, for example, we return a copy of the array so this will ensure a copy is passed instead of the actual object.
   }
 
   /**

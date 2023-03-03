@@ -20,7 +20,6 @@ export class HomepageComponent implements OnInit {
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
 
   ngOnInit(): void {
-    // this.jobList = this.jobService.getJobs();
     // this.callAndSubscribeToWeatherService();
     this.callAndSubscribeToJobService();
   }
@@ -31,11 +30,12 @@ export class HomepageComponent implements OnInit {
   }
 
   /**
+   * @todo This method requires implementation, now that the job generation has been moved to the back end. Will require back end changes as well, requesting the back end to generate a new job. This should be done by creating a system where the front end can do: backendURL/jobs/get/{uuid}/{job-index}. Usually, when removing job-index, the back end will decide how many jobs should be returned. However, when passing job-index, the back end will then then generate that many jobs and remove them. So essentially the front end will request job-index as current job count + 1
    * @description For use in html when the request job button is clicked. Will Generate a new job to add to the job list
    * @returns {void}
    */
   public onRequestJobButtonClick(): void {
-    this.jobService.generateNewJob();
+    console.log('TODO: awaiting implementation as a future feature.');
   }
 
   /**
@@ -45,7 +45,8 @@ export class HomepageComponent implements OnInit {
   public onRefreshJobList(): void {
     this.callAndSubscribeToJobService();
   }
-
+  
+  // This has been temporarily removed until we can decide where the weather api will be called (back end or front end).
   // /**
   //  * @description - Subscribes to weather service and sets global variable for the api response
   //  * @returns {void}
@@ -63,7 +64,6 @@ export class HomepageComponent implements OnInit {
   //   }
   // }
 
-
   private callAndSubscribeToJobService(): void {
     this.jobsResponse = null;
     this.jobService.call('mw224e');
@@ -71,7 +71,6 @@ export class HomepageComponent implements OnInit {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          // console.log(this.jobsResponse);
         }
       }
     });

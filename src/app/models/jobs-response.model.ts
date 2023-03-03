@@ -3,7 +3,7 @@ export class JobsResponse {
   readonly flowStatusMessage: string;
   readonly jobData: any;
   readonly apiResponse: any;
-  readonly jobs: any[];
+  readonly jobs: JobData[];
 
   constructor(response: any) {
     try {
@@ -35,4 +35,56 @@ export class JobsResponse {
   private parseJobTypeColor(jobType: string): string {
     return jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? '#563064' : jobType === 'Helper' ? '#050' : jobType === 'BSW' ? '#3a2204' : jobType === 'POTS' ? '#5e5c13' : 'black';
   }
+}
+
+// IMPORTANT INFO:
+// The following interfaces are copied directly from the NestJS server ABCNest, and must match exactly
+// HOWEVER:
+// jobTypeColor: string is added to the JobData interface here, as that data is not calculated in the back end.
+export interface JobData {
+  accountNumber: number,
+  firstName: string,
+  lastName: string,
+  streetAddress: string,
+  city: City,
+  appointment: string,
+  email: string,
+  phone: number,
+  jobType: string,
+  transportType: string,
+  history: History[],
+  facilities: Facility[],
+  services: Service[],
+  jobTypeColor: string,
+}
+
+export interface Facility {
+  heading: string,
+  address: string,
+  cable?: number,
+  pair?: number,
+  port?: number,
+}
+
+export interface Service {
+  type: string,
+  transport?: string,
+  equipment?: string,
+  phone1?: number,
+  phone2?: number,
+  profile?: string,
+}
+
+export interface History {
+  title: string,
+  date: string,
+  info: string[]
+}
+
+export interface City {
+  state: string,
+  city: string,
+  zip?: number,
+  lat: number,
+  long: number
 }
