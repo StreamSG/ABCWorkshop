@@ -25,7 +25,6 @@ export class JobViewComponent implements OnInit, OnDestroy {
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-
     this.subscribeToJobService();
     // this.subscribeToWeatherService(); // Temporarily removed until can be properly implemented as a future feature.
     this.setActiveTabByUrl();

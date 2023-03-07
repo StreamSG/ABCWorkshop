@@ -16,7 +16,7 @@ export class UniversalFacilitiesCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.isFiber = this.transportType.substring(0,4) === 'FTTP';
+    this.isFiber = this.transportType && this.transportType.substring(0,4) === 'FTTP';
   }
 
 }

@@ -15,13 +15,17 @@ import { WeatherService } from 'src/app/services/weather.service';
 export class HomepageComponent implements OnInit {
   public weatherAlertResponse: WeatherAlertResponse;
   public jobsResponse: JobsResponse;
+  private techUUID: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
 
   ngOnInit(): void {
-    // this.callAndSubscribeToWeatherService();
-    this.callAndSubscribeToJobService();
+    // this.callAndSubscribeToWeatherService(); // To be reinstated as a future version.
+    
+    this.techUUID = 'cj692r'; // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.
+    this.callJobServiceJobs(this.techUUID);
+    this.subscribeToJobServiceJobs();
   }
 
   ngOnDestroy(): void {
@@ -43,9 +47,34 @@ export class HomepageComponent implements OnInit {
    * @returns {void}
    */
   public onRefreshJobList(): void {
-    this.callAndSubscribeToJobService();
+    this.callJobServiceJobs(this.techUUID);
   }
-  
+
+  /**
+   * @description To be used in ngOnInit, will do subscribe to job service jobs so that when the api is called it will update the jobResponse data.
+   * @returns {void}
+   */
+  private subscribeToJobServiceJobs(): void {
+    // Should we take(3) here? It is set up to be able to be re-called via the refresh button. So we should take until ngOnDestroy, as it is set now?
+    this.jobService.getLoading().pipe(/*take(3), */takeUntil(this.ngUnsubscribe)).subscribe({
+      next: (loading: boolean) => {
+        if(!loading && this.jobService.hasSuccessfullyCompleted()) {
+          this.jobsResponse = this.jobService.getResults();
+        }
+      }
+    });
+  }
+
+  /**
+   * @description Calls the job list api, passing the tech uuid, which invoke a response from the api containing a list of jobs procedurally generated from the given uuid.
+   * @param {string} uuid The uuid for the tech for which to retrieve the job list. 
+   * @returns {void}
+   */
+  private callJobServiceJobs(uuid: string): void {
+    this.jobsResponse = null;
+    this.jobService.call(uuid);
+  }
+
   // This has been temporarily removed until we can decide where the weather api will be called (back end or front end).
   // /**
   //  * @description - Subscribes to weather service and sets global variable for the api response
@@ -63,16 +92,4 @@ export class HomepageComponent implements OnInit {
   //     });
   //   }
   // }
-
-  private callAndSubscribeToJobService(): void {
-    this.jobsResponse = null;
-    this.jobService.call('cj692r');
-    this.jobService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
-      next: (loading: boolean) => {
-        if(!loading && this.jobService.hasSuccessfullyCompleted()) {
-          this.jobsResponse = this.jobService.getResults();
-        }
-      }
-    });
-  }
 }

@@ -1,8 +1,8 @@
 export class JobsResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
-  readonly jobData: any;
   readonly apiResponse: any;
+  readonly rawJobsData: any;
   readonly jobs: JobData[];
 
   constructor(response: any) {
@@ -18,7 +18,7 @@ export class JobsResponse {
       if (response.flowStatus === 'SUCCESS') {
         // save data from response
         this.apiResponse = response;
-        this.jobData = response.jobData;
+        this.rawJobsData = response.jobData;
         this.jobs = response.jobData.jobs;
         for (let i = 0; i < this.jobs.length; i++) {
           const jobType = this.jobs[i].jobType;
