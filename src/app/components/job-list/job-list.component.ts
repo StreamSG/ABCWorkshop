@@ -13,6 +13,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class JobListComponent implements OnInit, OnDestroy {
   public jobsResponse: JobsResponse;
+  public jobLoadingState: string; 
   
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
@@ -47,8 +48,17 @@ export class JobListComponent implements OnInit, OnDestroy {
   private subscribeToJobServiceList(): void {
     this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
       next: (loading: boolean) => {
-        if(!loading && this.jobService.hasSuccessfullyCompleted()) {
-          this.jobsResponse = this.jobService.getResults();
+        if (loading) {
+          this.jobLoadingState = 'loading';
+        }
+        else {
+          if(this.jobService.hasSuccessfullyCompleted()) {
+            this.jobLoadingState = 'completed';
+            this.jobsResponse = this.jobService.getResults();
+          }
+          else {
+            this.jobLoadingState = 'failed';
+          }
         }
       }
     });
