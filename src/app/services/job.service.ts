@@ -106,9 +106,10 @@ export class JobService {
    * @returns {JobData} Returns the selected job
    */
    public getSelectedJob(): JobData {
-    if (!this.loading && this.isSuccessfullyCompleted) {
+    if (!this.loading && this.isSuccessfullyCompleted && this.jobApiResults && this.jobApiResults.jobs && Array.isArray(this.jobApiResults.jobs)) {
       for (let i = 0; i < this.jobApiResults.jobs.length; i++) {
-        if (this.jobApiResults.jobs[i].accountNumber === this.selectedJobAccountNumber) {
+        const curJob = this.jobApiResults.jobs[i];
+        if (curJob && curJob.accountNumber === this.selectedJobAccountNumber) {
           return this.jobApiResults.jobs[i];
         }
       }

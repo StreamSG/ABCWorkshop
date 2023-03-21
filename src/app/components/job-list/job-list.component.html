@@ -20,9 +20,9 @@
           <div class="col-9">
             <p>ID: {{ job?.accountNumber }}</p>
             <h5>{{ job?.jobType }}</h5>
-            <p>Appt: {{ job?.appointment }}</p> <!-- TODO: Add appointment window -->
-            <span>{{ job?.streetAddress }}</span>
-            <p>{{ job?.city?.city }}, {{ job?.city?.state }} {{ job?.city?.zip }}</p>
+            <p>Appt: {{ job?.appointment }}</p>
+            <span>{{ job?.location?.streetAddress }}</span>
+            <p>{{ job?.location?.city }}, {{ job?.location?.state }} {{ job?.location?.zip }}</p>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@
         <span>{{ job?.firstName }} {{ job?.lastName }}</span>
       </div>
       <div class="col text-end">
-        <span class="phone">{{ job?.phone }}</span>
+        <span class="phone">{{ job?.prettyPhone }}</span>
       </div>
     </div>
     <div class="clean-hr mb-3"></div>
@@ -23,7 +23,7 @@
         <span>{{ job?.firstName }} {{ job?.lastName }}</span>
       </div>
       <div class="col text-end">
-        <span class="phone">{{ job?.phone }}</span>
+        <span class="phone">{{ job?.prettyPhone }}</span>
       </div>
     </div>
     <div class="clean-hr mb-3"></div>
@@ -47,7 +47,7 @@
     </div>
     <div class="d-flex">
       <div class="flex-grow-1">
-        <span>{{ job?.streetAddress }}, {{ job?.city?.city }} {{ job?.city?.state }} {{ job?.city?.zip }}</span>
+        <span>{{ job?.location?.streetAddress }}, {{ job?.location?.city }} {{ job?.location?.state }} {{ job?.location?.zip }}</span>
       </div>
       <div class="text-end">
         <span class="phone">MAP</span>

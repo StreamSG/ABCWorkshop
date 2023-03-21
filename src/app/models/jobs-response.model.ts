@@ -22,6 +22,7 @@ export class JobsResponse {
         this.jobs = response.jobData.jobs;
         for (let i = 0; i < this.jobs.length; i++) {
           const jobType = this.jobs[i].jobType;
+          this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
           this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
         }
       }
@@ -32,9 +33,20 @@ export class JobsResponse {
     }
   }
 
+  /**
+   * @TODO - JSDoc
+   * @param jobType 
+   * @returns 
+   */
   private parseJobTypeColor(jobType: string): string {
     return jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? '#563064' : jobType === 'Helper' ? '#050' : jobType === 'BSW' ? '#3a2204' : jobType === 'POTS' ? '#5e5c13' : 'black';
   }
+
+  private prettifyPhone(phone: number): string {
+    const str = `${phone}`;
+    return `(${str.substring(0,3)}) ${str.substring(3,6)}-${str.substring(6,9)}`
+  }
+
 }
 
 // IMPORTANT INFO:
@@ -45,11 +57,11 @@ export interface JobData {
   accountNumber: number,
   firstName: string,
   lastName: string,
-  streetAddress: string,
-  city: City,
+  location: Location,
   appointment: string,
   email: string,
   phone: number,
+  prettyPhone: string,
   jobType: string,
   transportType: string,
   history: History[],
@@ -81,7 +93,8 @@ export interface History {
   info: string[]
 }
 
-export interface City {
+export interface Location {
+  streetAddress: string,
   state: string,
   city: string,
   zip?: number,

@@ -18,9 +18,7 @@ export class JobViewComponent implements OnInit, OnDestroy {
   public job: JobData;
   public activeTab: number = 0;
   public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
-
   private jobApiLoading: boolean;
-  private jobApiResults: any;
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 

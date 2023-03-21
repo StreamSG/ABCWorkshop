@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-import { JobData } from 'src/app/models/jobs-response.model';
+import { Component, OnInit } from '@angular/core';
 
+import { JobData } from 'src/app/models/jobs-response.model';
 import { JobService } from 'src/app/services/job.service';
 
 @Component({
@@ -9,32 +8,12 @@ import { JobService } from 'src/app/services/job.service';
   templateUrl: './facilities-subview.component.html',
   styleUrls: ['./facilities-subview.component.scss']
 })
-export class FacilitiesSubviewComponent implements OnInit, OnDestroy {
+export class FacilitiesSubviewComponent implements OnInit {
   public job: JobData;
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
   
   constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
-    this.requestJobData();
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  /**
-   * @description - Subscribe to job service in order to get currently selected job data. To be called in ngOnInit()
-   * @returns {void}
-   */
-  private requestJobData(): void {
-    this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
-      next: (loading: boolean) => {
-        if (!loading) {
-          this.job = this.jobService.getSelectedJob();
-        }
-      }
-    });
+    this.job = this.jobService.getSelectedJob();
   }
 }

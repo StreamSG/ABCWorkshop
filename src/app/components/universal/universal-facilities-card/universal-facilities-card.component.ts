@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { Facility } from 'src/app/models/jobs-response.model';
+
 @Component({
   selector: 'app-universal-facilities-card',
   templateUrl: './universal-facilities-card.component.html',
@@ -18,13 +20,4 @@ export class UniversalFacilitiesCardComponent implements OnInit {
   ngOnInit(): void {
     this.isFiber = this.transportType && this.transportType.substring(0,4) === 'FTTP';
   }
-
-}
-
-interface Facility {
-  heading: string,
-  address: string,
-  cable?: number,
-  pair?: number,
-  port?: number,
 }
