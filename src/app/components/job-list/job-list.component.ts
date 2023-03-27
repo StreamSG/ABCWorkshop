@@ -35,7 +35,7 @@ export class JobListComponent implements OnInit, OnDestroy {
    */
   public onJobClicked(selectedJob: JobData): void {
     if (selectedJob) {
-      // this.weatherService.call(selectedJob.lat, selectedJob.long);
+      this.weatherService.call(selectedJob.location.lat, selectedJob.location.long);
     }
     this.jobService.setSelectedJob(selectedJob.accountNumber);
     this.router.navigate(['job']);

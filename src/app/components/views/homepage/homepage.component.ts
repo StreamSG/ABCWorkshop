@@ -20,10 +20,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
   
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
 
-  ngOnInit(): void {
-    // this.callAndSubscribeToWeatherService(); // To be reinstated as a future version.
-    
-    this.techUUID = 'cj692r'; // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.
+  ngOnInit(): void {    
+    this.techUUID = 'mw224g'; // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.
     this.callJobServiceJobs(this.techUUID);
   }
 
@@ -61,6 +59,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
+          // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
+          this.callAndSubscribeToWeatherService(); 
         }
       }
     });
@@ -77,21 +77,21 @@ export class HomepageComponent implements OnInit, OnDestroy {
     this.jobService.call(uuid);
   }
 
-  // This has been temporarily removed until we can decide where the weather api will be called (back end or front end).
-  // /**
-  //  * @description - Subscribes to weather service and sets global variable for the api response
-  //  * @returns {void}
-  //  */
-  // private callAndSubscribeToWeatherService(): void {
-  //   if (Array.isArray(this.jobList) && this.jobList.length > 0) { // only want to make this call if there are 
-  //     this.weatherService.call(this.jobList[0].lat, this.jobList[0].long); // calls with first assigned job cause alerts should be similar to the area
-  //     this.weatherService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
-  //       next: (loading: boolean) => {
-  //         if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
-  //           this.weatherAlertResponse = this.weatherService.getResults();
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
+  /**
+   * @description - Subscribes to weather service and sets global variable for the api response
+   * @returns {void}
+   */
+  private callAndSubscribeToWeatherService(): void {
+    const jobList = this.jobsResponse.jobs;
+    if (Array.isArray(jobList) && jobList.length > 0) { // only want to make this call if there are 
+      this.weatherService.call(jobList[0].location.lat, jobList[0].location.long); // calls with first assigned job cause alerts should be similar to the area
+      this.weatherService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
+        next: (loading: boolean) => {
+          if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
+            this.weatherAlertResponse = this.weatherService.getResults();
+          }
+        }
+      });
+    }
+  }
 }
