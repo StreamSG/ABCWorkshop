@@ -75,7 +75,7 @@ export class JobViewComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * @description - Subscribe to job service in order to get currently selected job data, and then verify that the given job exists. To be called in ngOnInit()
+   * @description - Get currently selected job, and then verify that the given job exists. To be called in ngOnInit()
    * @returns {void}
    */
   private getCurrentJob(): void {
