@@ -68,13 +68,12 @@ export class WeatherAlertComponent implements OnInit, OnDestroy {
           const timeLeft: number = toastLifespanEndTime - new Date().getTime();
           this.toastTimeoutBarWidth = Math.round( timeLeft / toastTimeoutTime * 100000 )/1000; 
 
-          if (timeLeft <= 0) { // this is a safeguard against the window not being in focus when the timer runs out. 
+          if (timeLeft <= 0) { 
+            // this is a safeguard against the window not being in focus when the timer runs out. 
             this.showToast = false;
-            this.timeoutBarUpdateIntervalSubscription.unsubscribe();
           }
         },
-        complete: () => { // When the take(n) hits the limit, the subscription will complete, then hide the tost
-          // With the addition of the timeLeft < 0 check above, this will probably never trigger. I can't unfortunately find a way to avoid this. It doesn't functionally matter, though I (micah) believe it to be bad practice to always "escape" something and never let it run to completion. I'm leaving it in in case some weird edge case causes this to be needed when the above check doesn't trigger but the interval completes, the alert will still be hidden.
+        complete: () => { // When the take(n) hits the limit, the subscription will complete, then hide the toast
           this.showToast = false;
         }
       });
