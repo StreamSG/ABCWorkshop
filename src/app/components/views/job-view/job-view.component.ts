@@ -23,7 +23,7 @@ export class JobViewComponent implements OnInit, OnDestroy {
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.subscribeToJobService();
+    this.getCurrentJob();
     this.subscribeToWeatherService();
     this.setActiveTabByUrl();
   }
@@ -78,16 +78,9 @@ export class JobViewComponent implements OnInit, OnDestroy {
    * @description - Subscribe to job service in order to get currently selected job data, and then verify that the given job exists. To be called in ngOnInit()
    * @returns {void}
    */
-  private subscribeToJobService(): void {
-    this.jobService.getLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
-      next: (loading: boolean) => {
-        this.jobApiLoading = loading;
-        if (!this.jobApiLoading) {
-          this.job = this.jobService.getSelectedJob();
-          this.verifyJobSelected(); // Verify that the job is not null. This can happen if the user refreshes the page from within a job!
-        }
-      }
-    });
+  private getCurrentJob(): void {
+    this.job = this.jobService.getSelectedJob();
+    this.verifyJobSelected(); // Verify that the job is not null. This can happen if the user refreshes the page from within a job!
   }
 
   /**
