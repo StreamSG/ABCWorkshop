@@ -67,8 +67,13 @@ export class WeatherAlertComponent implements OnInit, OnDestroy {
         next: () => { // Each interval, shrink the timer bar
           const timeLeft: number = toastLifespanEndTime - new Date().getTime();
           this.toastTimeoutBarWidth = Math.round( timeLeft / toastTimeoutTime * 100000 )/1000; 
+
+          if (timeLeft <= 0) { 
+            // this is a safeguard against the window not being in focus when the timer runs out. 
+            this.showToast = false;
+          }
         },
-        complete: () => { // When the take(n) hits the limit, the subscription will complete, then hide the tost
+        complete: () => { // When the take(n) hits the limit, the subscription will complete, then hide the toast
           this.showToast = false;
         }
       });

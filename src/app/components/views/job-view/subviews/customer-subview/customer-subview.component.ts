@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { JobData } from 'src/app/models/job-data.model';
+import { JobData } from 'src/app/models/jobs-response.model';
 import { JobService } from 'src/app/services/job.service';
 
 @Component({
@@ -16,5 +16,4 @@ export class CustomerSubviewComponent implements OnInit {
   ngOnInit(): void {
     this.job = this.jobService.getSelectedJob();
   }
-
 }
