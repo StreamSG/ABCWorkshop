@@ -34,14 +34,19 @@ export class JobsResponse {
   }
 
   /**
-   * @TODO - JSDoc
-   * @param jobType 
-   * @returns 
+   * @description Takes in a job type and matches it to a corresponding job color for use in webpage styling.
+   * @param {string} jobType The job type received from the back end.
+   * @returns {string} Color code or name to use in webpage styling.
    */
   private parseJobTypeColor(jobType: string): string {
     return jobType === 'Install' ? '#0764a9' : jobType === 'Repair' ? '#563064' : jobType === 'Helper' ? '#050' : jobType === 'BSW' ? '#3a2204' : jobType === 'POTS' ? '#5e5c13' : 'black';
   }
 
+  /**
+   * @description Takes the customer phone number and styles it as a string, such as (123) 555-1234
+   * @param {number} phone Customer 10 digit phone number
+   * @returns {string} Stylized phone number
+   */
   private prettifyPhone(phone: number): string {
     const str = `${phone}`;
     return `(${str.substring(0,3)}) ${str.substring(3,6)}-${str.substring(6,9)}`

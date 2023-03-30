@@ -1,24 +1,22 @@
-<ng-container *ngIf="job && job.history">
-  <ng-container *ngFor="let history of job?.history">
-    <div class="card my-2">
-      <div class="container">
-        <div class="row pt-2">
-          <div class="col">
-            <h5>{{ history?.title }} History:</h5>
-          </div>
-          <div class="col text-end">
-            <h5>{{ history?.date }}</h5>
-          </div>
+<ng-container *ngFor="let history of job?.history">
+  <div class="card my-2">
+    <div class="container">
+      <div class="row pt-2">
+        <div class="col">
+          <h5>{{ history?.title }} History:</h5>
         </div>
-        <hr>
-        <div class="row">
-          <div class="col">
-            <ng-container *ngFor="let info of history?.info">
-              <div>{{ info }}</div>
-            </ng-container>
-          </div>
+        <div class="col text-end">
+          <h5>{{ history?.date }}</h5>
         </div>
       </div>
+      <hr>
+      <div class="row">
+        <div class="col">
+          <ng-container *ngFor="let info of history?.info">
+            <div>{{ info }}</div>
+          </ng-container>
+        </div>
       </div>
-  </ng-container>
+    </div>
+  </div>
 </ng-container>
