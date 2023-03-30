@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, take, takeUntil } from 'rxjs';
 
-import { JobData } from 'src/app/models/job-data.model';
+import { JobData } from 'src/app/models/jobs-response.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -12,25 +12,25 @@ import { WeatherService } from 'src/app/services/weather.service';
   templateUrl: './job-view.component.html',
   styleUrls: ['./job-view.component.scss']
 })
-export class JobViewComponent implements OnInit {
+export class JobViewComponent implements OnInit, OnDestroy {
   private ngUnsubscribe: Subject<void> = new Subject<void>();
   public weatherAlertResponse: WeatherAlertResponse;
-  public job: JobData; // To be retrieved from jobService
+  public job: JobData;
   public activeTab: number = 0;
   public readonly tabTitleRoutes: string[] = ['job', 'customer', 'history', 'facilities', 'tests'];
+  private jobApiLoading: boolean;
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
 
   ngOnInit(): void {
-    this.job = this.jobService.getSelectedJob(); // Will be undefined if no job selected
+    this.getCurrentJob();
     this.subscribeToWeatherService();
-    this.verifyJobSelected();
     this.setActiveTabByUrl();
   }
 
   ngOnDestroy(): void {
     this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete
+    this.ngUnsubscribe.complete();
   }
 
   /**
@@ -72,6 +72,15 @@ export class JobViewComponent implements OnInit {
     else {
       this.router.navigate(['job', this.tabTitleRoutes[this.activeTab]]); // All other paths are job/tab-name
     }
+  }
+
+  /**
+   * @description - Get currently selected job, and then verify that the given job exists. To be called in ngOnInit()
+   * @returns {void}
+   */
+  private getCurrentJob(): void {
+    this.job = this.jobService.getSelectedJob();
+    this.verifyJobSelected(); // Verify that the job is not null. This can happen if the user refreshes the page from within a job!
   }
 
   /**

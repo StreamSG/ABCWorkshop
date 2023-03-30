@@ -15,9 +15,9 @@ export class WeatherAlertResponse {
 
   constructor(apiResponse: any) {
     try {
-      if (apiResponse && Array.isArray(apiResponse.features) && apiResponse.features.length > 0) {
+      if (apiResponse && Array.isArray(apiResponse.features)) {
         this.flowStatus = 'SUCCESS';
-        this.flowStatusMessage = apiResponse.title;
+        this.flowStatusMessage = apiResponse.features.length > 0 ? apiResponse.title : 'No active weather alerts in your area.';
       } else {
         this.flowStatus = 'FAILURE';
         this.flowStatusMessage = 'Unable to parse api response';

@@ -3,6 +3,11 @@ Bootcamp Document Google Doc: https://docs.google.com/document/d/1y2uNK5R61G93Kr
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.2.
 
+## Outside Dependencies
+
+This project requires a sister NestJS service located at `https://github.com/micah-wehrle/ABCNest`.
+ABCWorkshop will look for a the NestJS server on port 3000.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
