@@ -81,11 +81,13 @@ export class JobService {
    * @param {string} uuid - the uuid to be passed to the back end as a seed to generate jobs.
    * @returns {void}
    */
-  public call(uuid: string): void {
+  public call(uuid: string, jobCount?: number): void {
     // validate we're not already loading an API response and that we have the expected parameters
     if (!this.loading && uuid) {
       this.updateLoading(true);
-      this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}`)
+
+      const payload: string = `${uuid}${jobCount ? '/' + jobCount : ''}`
+      this.httpSubscription = this.http.get(`${this.serverURL}/${payload}`)
         .subscribe({ 
           next: (response: any) => {
             this.jobApiResults = new JobsResponse(response);

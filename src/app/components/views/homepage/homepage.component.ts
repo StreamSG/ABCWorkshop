@@ -17,6 +17,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
   private techUUID: string;
   private jobServiceSubscription: Subscription;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
+  private jobCount: number;
   
   constructor(private weatherService: WeatherService, private jobService: JobService) { }
 
@@ -38,7 +39,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   public onRequestJobButtonClick(): void {
-    console.log('TODO: awaiting implementation as a future feature.');
+    this.jobCount++;
+    this.callJobServiceJobs(this.techUUID);
   }
 
   /**
@@ -61,6 +63,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
+          this.jobCount = this.jobsResponse.jobs.length;
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }
@@ -75,8 +78,14 @@ export class HomepageComponent implements OnInit, OnDestroy {
    */
   private callJobServiceJobs(uuid: string): void {
     this.jobsResponse = null;
+    this.jobService.resetData();
     this.subscribeToJobServiceJobs();
-    this.jobService.call(uuid);
+    if (!this.jobCount) {
+      this.jobService.call(uuid);
+    }
+    else {
+      this.jobService.call(uuid, this.jobCount);
+    }
   }
 
   /**
