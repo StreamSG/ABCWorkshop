@@ -13,48 +13,8 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-          <!-- this should be its own components, it works but very messy -->
           <ng-container *ngFor="let menuLink of menuLinks">
-            <ng-container *ngIf="!menuLink.hr">
-              <li class="nav-item" [ngClass]="menuLink.dropdown ? 'dropdown' : ''">
-                <ng-container *ngIf="menuLink.dropdown">
-                  <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{ menuLink.text }}
-                    <ng-container *ngIf="menuLink.imgPath">
-                      <img class="float-end" [src]="menuLink.imgPath" width="30" height="30">
-                    </ng-container>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <ng-container *ngFor="let dropdown of menuLink.dropdown">
-                      <li>
-                        <ng-container *ngIf="!dropdown.hr">
-                          <a class="dropdown-item" [routerLink]="dropdown.routerLink" data-bs-dismiss="offcanvas">
-                            {{ dropdown.text }}
-                            <ng-container *ngIf="dropdown.imgPath">
-                              <img class="float-end" [src]="dropdown.imgPath" width="30" height="30">
-                            </ng-container>
-                          </a>
-                        </ng-container>
-                        <ng-container *ngIf="dropdown.hr">
-                          <hr class="dropdown-divider">
-                        </ng-container>
-                      </li>
-                    </ng-container>
-                  </ul>
-                </ng-container>
-                <ng-container *ngIf="!menuLink.dropdown">
-                  <a class="nav-link active" [routerLink]="menuLink.routerLink" data-bs-dismiss="offcanvas">
-                    {{ menuLink.text }}
-                    <ng-container *ngIf="menuLink.imgPath">
-                      <img class="float-end" [src]="menuLink.imgPath" width="30" height="30">
-                    </ng-container>
-                  </a>
-                </ng-container>
-              </li>
-            </ng-container>
-            <ng-container *ngIf="menuLink.hr">
-              <hr>
-            </ng-container>
+            <app-sidebar-list [menuLink]="menuLink"></app-sidebar-list>
           </ng-container>
         </ul>
       </div>

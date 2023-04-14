@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
 
 }
 
-interface MenuLink {
+export interface MenuLink {
   text?: string,
   routerLink?: string,
   imgPath?: string,
