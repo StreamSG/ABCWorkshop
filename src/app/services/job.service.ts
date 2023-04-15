@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { JobsResponse, JobData } from '../models/jobs-response.model';
 import { ApiService } from './api.service';

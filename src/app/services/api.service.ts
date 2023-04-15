@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injector } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+
 import { ApiResponseModel } from '../models/api-response.model';
 
 export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk if extends is needed
@@ -12,7 +13,7 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   protected isSuccessfullyCompleted: boolean = false;
   // Dependencies
   private http: HttpClient;
-
+  
   constructor(injector: Injector) {
     // Why this uses injector: child components receive any injected dependencies (such as a service file), and then need to pass it to this abstract class via super() within the child constructor. As such, any changes here to which dependencies are needed, would require you to update EVERY child class that uses this as a parent. However, using Injector, this class can simply use injector.get to retrieve any dependencies it needs, without requiring any changes to child class.
     this.http = injector.get(HttpClient);
@@ -81,14 +82,17 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
  
   /**
    * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
-   * @param {string} uuid - the uuid to be passed to the back end as a seed to generate jobs.
+   * @param {string} params - the parameters to be passed appended to the 
    * @returns {void}
    */
-  public call(uuid: string): void {
+  public call(params: string): void {
     // validate we're not already loading an API response and that we have the expected parameters
-    if (!this.loading && uuid) {
+    if (!this.loading && params) {
       this.updateLoading(true);
-      this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}`)
+      if (params.charAt(0) === '/') {
+        params = params.substring(1);
+      }
+      this.httpSubscription = this.http.get(`${this.serverURL}/${params}`)
         .subscribe({ 
           next: (response: any) => {
             this.apiResults = this.parseApiResponse(response);
