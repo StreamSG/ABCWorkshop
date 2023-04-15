@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +6,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
   public menuLinks: MenuLink[] = [
     { text: 'Home', routerLink: '' },
     { text: 'Alerts', routerLink: 'weather' },
@@ -28,16 +26,11 @@ export class HeaderComponent implements OnInit {
       { text: 'Ticket Generator', routerLink: 'ticket-generator' },
       { text: 'QC Timer', routerLink: 'qc-timer' },
     ]},
-  ]
+  ];
+  
+  constructor() { }
 
-  public activeRoute: string = 'home';
-
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
-    this.activeRoute = this.router.url.substring(1);
-  }
-
+  ngOnInit(): void {}
 }
 
 export interface MenuLink {
