@@ -8,11 +8,9 @@ import { MenuLink } from '../header.component';
   styleUrls: ['./sidebar-list.component.scss']
 })
 export class SidebarListComponent implements OnInit {
-  @Input('menuLink') menuLink: MenuLink;
+  @Input() menuLink: MenuLink;
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }
