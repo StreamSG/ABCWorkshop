@@ -14,8 +14,22 @@ export class JobService extends ApiService<JobsResponse> {
     super(injector);
   }
 
+  /**
+   * @description - Takes the raw data from the job list api and parses it via the JobsResponse model class
+   * @param {any} response - The raw data from the job list api
+   * @returns {JobsResponse} - The parsed response from the job list api
+   */
   protected parseApiResponse(response: any): JobsResponse {
     return new JobsResponse(response);
+  }
+
+  /**
+   * @description Taking either no data or the number of jobs to request, and calls the job list api to get the current job list
+   * @param {string} data - (optional) The number of jobs to request from the job list api
+   * @returns {void}
+   */
+  public call(data: string): void {
+    this.callPrimary(data);
   }
 
   /**

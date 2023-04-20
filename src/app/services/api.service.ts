@@ -78,18 +78,37 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
     return this.apiResults;
   }
 
-  protected abstract parseApiResponse(response: any): ApiResults;
- 
   /**
-   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
-   * @param {string} params - the parameters to be passed appended to the 
+   * @abstract
+   * @description - To be created in child class. Will take in the api response and pass it into the constructor for the response-handler model class, and return the instance of that class.
+   * @param {any} response - The raw data received from the api.
+   * @returns {ApiResults} - The instance of the model file which parses the raw response from the api.
+   */
+  protected abstract parseApiResponse(response: any): ApiResults;
+
+  // I don't really know a better way of doing this. We will talk about it.
+  /**
+   * @abstract
+   * @description - To be created in child class. Used to call the api, can be configured to receive any number of parameters which can be manipulated before being passed to the callPrimary method as a string.
+   * @param {any} any1 - Optional parameter 1
+   * @param {any} any2 - Optional parameter 2
+   * @param {any} any3 - Optional parameter 3
+   * @param {any} any4 - Optional parameter 4
+   * @param {any} any5 - Optional parameter 5
    * @returns {void}
    */
-  public call(params: string): void {
+  public abstract call(any1?: any, any2?: any, any3?: any, any4?: any, any5?: any): void;
+
+  /**
+   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
+   * @param {string} params - the parameters to be passed appended to the server url when calling the api
+   * @returns {void}
+   */
+  protected callPrimary(params: string): void {
     // validate we're not already loading an API response and that we have the expected parameters
-    if (!this.loading && params) {
+    if (!this.loading && typeof params === 'string') {
       this.updateLoading(true);
-      if (params.charAt(0) === '/') {
+      if (params && params.length > 0 && params.charAt(0) === '/') {
         params = params.substring(1);
       }
       this.httpSubscription = this.http.get(`${this.serverURL}/${params}`)
