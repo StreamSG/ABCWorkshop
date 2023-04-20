@@ -35,7 +35,7 @@
   </div>
   <div class="row my-5">
     <div class="col-9 d-grid"> 
-      <button type="button" class="btn btn-primary" (click)="onRequestJobButtonClick()">Request Job</button>
+      <button type="button" class="btn btn-primary" [disabled]="!jobsResponse" (click)="onRequestJobButtonClick()">Request Job</button>
     </div>
     <div class="col-3 d-grid">
       <button type="button" class="btn btn-secondary" (click)="onRefreshJobList()">Refresh</button>
