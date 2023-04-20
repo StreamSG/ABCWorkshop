@@ -35,6 +35,7 @@ import { FacilitiesSubviewComponent } from './components/views/job-view/subviews
 import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
 import { UniversalFacilitiesCardComponent } from './components/universal/universal-facilities-card/universal-facilities-card.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
+import { SidebarListComponent } from './components/header/sidebar-list/sidebar-list.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { WeatherViewComponent } from './components/views/weather-view/weather-vi
     FacilitiesSubviewComponent,
     TestsSubviewComponent,
     UniversalFacilitiesCardComponent,
-    WeatherViewComponent
+    WeatherViewComponent,
+    SidebarListComponent
   ],
   imports: [
     BrowserModule,
