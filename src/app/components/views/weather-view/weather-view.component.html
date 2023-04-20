@@ -10,12 +10,13 @@
   </div>
   <ng-container *ngIf="weatherAlertResponse?.allActiveWeatherAlerts?.length > 0">
     <ng-container *ngFor="let alert of weatherAlertResponse?.allActiveWeatherAlerts; let i = index">
-      <div class="card my-4 border" [ngClass]="{'border-danger': alert?.event?.includes('Warning') || alert?.event?.includes('Extreme'),'border-warning': alert?.event?.includes('Watch')}">
+      <div class="card my-4 border" [ngClass]="{'border-danger': alert?.event?.includes('Warning') || alert?.event?.includes('Extreme'),'border-warning': alert?.event?.includes('Watch'), 'border-blue': !(alert?.event?.includes('Warning') || alert?.event?.includes('Extreme') || alert?.event?.includes('Watch')) }">
         <div class="card-header"
           [ngClass]="{
             'bg-danger': alert?.event?.includes('Warning') || alert?.event?.includes('Extreme'),
             'text-light': alert?.event?.includes('Warning') || alert?.event?.includes('Extreme'),
-            'bg-warning': alert?.event?.includes('Watch')}">
+            'bg-warning': alert?.event?.includes('Watch'),
+            'bg-blue': !(alert?.event?.includes('Warning') || alert?.event?.includes('Extreme') || alert?.event?.includes('Watch')) }">
           <h4 class="card-title">{{alert?.event ? alert?.event : 'Weather Alert'}}</h4>
         </div>
         <div class="card-body">
