@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiLoadingService } from 'src/app/services/api-loading.service';
 
 @Component({
   selector: 'app-header',
@@ -27,10 +28,19 @@ export class HeaderComponent implements OnInit {
       { text: 'QC Timer', routerLink: 'qc-timer' },
     ]},
   ];
-  
-  constructor() { }
 
-  ngOnInit(): void { }
+  public spinIcon: boolean = false; // we aren't calling anything right away!
+  
+  // TODO - everything relating to ApiLoadingService is implemented in a temporary way!! Gross code, beware!
+  constructor(private apiLoadingService: ApiLoadingService) { }
+
+  ngOnInit(): void {
+    this.apiLoadingService.getAllLoading().subscribe({
+      next: () => {
+        this.spinIcon = this.apiLoadingService.getNumberOfLoadingApis() > 0;
+      }
+    })
+  }
 }
 
 export interface MenuLink {

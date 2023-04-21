@@ -11,7 +11,7 @@ export class JobService extends ApiService<JobsResponse> {
   private selectedJobAccountNumber: number = 0;
 
   constructor(injector: Injector) {
-    super(injector);
+    super('Job Service', injector);
   }
 
   /**

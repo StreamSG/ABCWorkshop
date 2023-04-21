@@ -3,6 +3,7 @@ import { Injector } from '@angular/core';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 
 import { ApiResponseModel } from '../models/api-response.model';
+import { ApiLoadingService } from './api-loading.service';
 
 export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk if extends is needed
   protected abstract serverURL: string;
@@ -11,12 +12,17 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   protected loading: boolean;
   protected httpSubscription: Subscription;
   protected isSuccessfullyCompleted: boolean = false;
+  private apiUniqueId: number;
   // Dependencies
   private http: HttpClient;
+  private apiLoadingService: ApiLoadingService;
   
-  constructor(injector: Injector) {
+  constructor(private apiName: string, injector: Injector) {
     // Why this uses injector: child components receive any injected dependencies (such as a service file), and then need to pass it to this abstract class via super() within the child constructor. As such, any changes here to which dependencies are needed, would require you to update EVERY child class that uses this as a parent. However, using Injector, this class can simply use injector.get to retrieve any dependencies it needs, without requiring any changes to child class.
     this.http = injector.get(HttpClient);
+    this.apiLoadingService = injector.get(ApiLoadingService);
+
+    this.apiUniqueId = this.apiLoadingService.registerApi(apiName);
   }
 
   /**
@@ -57,7 +63,7 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
    * @returns {void}
    */
   protected updateLoading(loading: boolean): void {
-    // this.isLoadingService.myLoadingStatus(someUniqueDataToThisFile, loading);
+    this.apiLoadingService.updateApi(this.apiUniqueId, loading);
     this.loading = loading;
     this.loadingChanged.next(this.loading);
   }

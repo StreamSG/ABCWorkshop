@@ -10,7 +10,7 @@ export class WeatherService extends ApiService<WeatherAlertResponse> {
   protected serverURL: string = 'https://api.weather.gov/alerts/active';
 
   constructor (injector: Injector) {
-    super(injector);
+    super('Weather Service', injector);
   }
 
   /**
