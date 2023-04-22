@@ -23,26 +23,26 @@ export class TicketGeneratorComponent implements OnInit {
   public trainingDue!: string[]; // Array of training titles
 
   constructor() {}
-  
+
   public ngOnInit(): void {
     this.banForm = new FormGroup({
       'ban': new FormControl(null, [
-        Validators.required, 
-        Validators.minLength(15), 
-        Validators.maxLength(15), 
+        Validators.required,
+        Validators.minLength(15),
+        Validators.maxLength(15),
         Validators.pattern(/^[0-9]+$/m) // Only allow numbers
       ]),
     });
 
     this.trainingForm = new FormGroup({
       'uuid': new FormControl(null, [
-        Validators.required, 
-        Validators.minLength(7), 
-        Validators.maxLength(7), 
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(7),
         Validators.pattern(/[a-z]+[a-z]+[0-9]+[0-9]+[0-9]+[a-z0-9]+[0-9]/) // only allow 2 letters, 3 numbers, and then a letter OR number, and then finally another number
-      ]), 
+      ]),
     });
-  }
+  };
 
   /**
    * @description For use to generate a random BAN when the Generate ban button is pressed
@@ -63,7 +63,7 @@ export class TicketGeneratorComponent implements OnInit {
     if(banData && this.banForm.valid) {
       this.seededBan = new SeededBanDataGenerator(+banData); // create seeded random number generator
       this.customerData = { // create and store address, phone, and circuit ID to be displayed in DOM
-        address: this.seededBan.getAddress(), 
+        address: this.seededBan.getAddress(),
         phone: this.seededBan.getPhoneNumber(),
         circuitID: this.seededBan.getCircuitID(),
       }

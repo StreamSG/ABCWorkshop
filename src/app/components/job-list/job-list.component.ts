@@ -6,6 +6,7 @@ import { JobsResponse, JobData } from 'src/app/models/jobs-response.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
 
+
 @Component({
   selector: 'app-job-list',
   templateUrl: './job-list.component.html',
@@ -13,8 +14,8 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class JobListComponent implements OnInit, OnDestroy {
   public jobsResponse: JobsResponse;
-  public jobLoadingState: string; 
-  
+  public jobLoadingState: string;
+
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }

@@ -16,9 +16,10 @@ import { HistorySubviewComponent } from './components/views/job-view/subviews/hi
 import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
 import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
+import { LoginViewComponent } from './components/views/login-view/login-view.component';
 
 const routes: Routes = [
-  { path: '', component: HomepageComponent, pathMatch: 'full' },
+  { path: '', component: LoginViewComponent, pathMatch: 'full' },
   { path: 'home', component: HomepageComponent },
   { path: 'job', component: JobViewComponent, children: [
     { path: '', component: JobSubviewComponent },
