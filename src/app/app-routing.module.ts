@@ -20,6 +20,7 @@ import { LoginViewComponent } from './components/views/login-view/login-view.com
 
 const routes: Routes = [
   { path: '', component: LoginViewComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginViewComponent },
   { path: 'home', component: HomepageComponent },
   { path: 'job', component: JobViewComponent, children: [
     { path: '', component: JobSubviewComponent },
