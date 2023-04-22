@@ -2,15 +2,15 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">ABC Local Logon</h5>
+        <div class="card-body text-center">
+          <h5 class="card-title ">ABC Local Logon</h5>
           <p class="card-text">Log in using your super secret ABC ID that is not at all made up</p>
           <form (ngSubmit)="onLogin()" [formGroup]="uidForm">
             <div class="form-group">
               <label for="uid">ID:</label>
               <input type="text" id="uid" class="form-control" formControlName="uid">
             </div>
-            <button type="submit" class="btn btn-success" [disabled]="!(uidForm && uidForm.valid)">Login!</button>
+             <button type="submit" class="btn btn-success" [disabled]="!(uidForm && uidForm.valid)">Login!</button>
           </form>
           <p class="card-footer">
             this test website makes fresh cookies, diabetics beware!
