@@ -39,14 +39,13 @@ export class LoginViewComponent implements OnInit {
       this.router.navigateByUrl('home');
   }
 }
-public checkLogin(): boolean {
+
+/**
+ * @description If cookie exists, automatically forward to home page
+ * @returns {void}
+ */
+public checkLogin(): void {
   if (this.cookieService.check('user')) {
     this.router.navigateByUrl('home');
-    return true
   }
-  else {
-    return false
-  }
-
-}
-};
+}};
