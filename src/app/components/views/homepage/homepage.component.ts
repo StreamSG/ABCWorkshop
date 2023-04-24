@@ -63,7 +63,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          this.jobCount = this.jobsResponse.jobs.length;
+          this.jobCount = this.jobsResponse && this.jobsResponse.jobs && Array.isArray(this.jobsResponse.jobs) ? this.jobsResponse.jobs.length : 0;
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }
