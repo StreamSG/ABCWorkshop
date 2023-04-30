@@ -9,6 +9,8 @@
             <div class="form-group">
               <label for="uid">ID:</label>
               <input type="text" id="uid" class="form-control" formControlName="uid">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control">
             </div>
              <button type="submit" class="btn btn-success" [disabled]="(!uidForm?.valid)">Login!</button>
           </form>

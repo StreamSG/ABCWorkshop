@@ -23,9 +23,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.techUUID = this.cookieService.get('user'); // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.
-    if (!this.jobService.getResults()) { // don't call the api if it already has data
       this.callJobServiceJobs(this.techUUID);
-    }
   }
 
   ngOnDestroy(): void {

@@ -15,7 +15,6 @@ export class LoginViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.uidForm = this.createUidForm('uid')
-
     this.checkLogin()
   };
 
