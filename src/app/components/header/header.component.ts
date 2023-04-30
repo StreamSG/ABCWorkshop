@@ -34,8 +34,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  public onLogout() {
-    console.log('logout clicked!');
+  /**
+   * @description deletes cookie and routes to login
+   * @returns {void}
+   */
+  public onLogout(): void {
     this.cookieService.delete('user');
     this.router.navigateByUrl('login');
   }

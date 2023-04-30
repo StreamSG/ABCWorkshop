@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service'
+
 import { JobsResponse } from 'src/app/models/jobs-response.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
@@ -18,7 +19,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
   private jobServiceSubscription: Subscription;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
-  constructor(private weatherService: WeatherService, private jobService: JobService, public cookieService: CookieService ) { }
+  constructor(private weatherService: WeatherService, private jobService: JobService, public cookieService: CookieService) { }
 
   ngOnInit(): void {
     this.techUUID = this.cookieService.get('user'); // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.

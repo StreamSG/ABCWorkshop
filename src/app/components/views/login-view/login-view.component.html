@@ -10,11 +10,9 @@
               <label for="uid">ID:</label>
               <input type="text" id="uid" class="form-control" formControlName="uid">
             </div>
-             <button type="submit" class="btn btn-success" [disabled]="!(uidForm && uidForm.valid)">Login!</button>
+             <button type="submit" class="btn btn-success" [disabled]="(!uidForm?.valid)">Login!</button>
           </form>
-          <p class="card-footer">
-            this test website makes fresh cookies, diabetics beware!
-          </p>
+          <p class="card-footer">this test website makes fresh cookies, diabetics beware!</p>
         </div>
       </div>
     </div>
