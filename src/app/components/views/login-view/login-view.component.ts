@@ -14,12 +14,12 @@ export class LoginViewComponent implements OnInit {
   constructor(private cookieService: CookieService, private router: Router) { }
 
   ngOnInit(): void {
-    this.uidForm = this.createUidForm('uid')
-    this.checkLogin()
+    this.uidForm = this.createUidForm('uid');
+    this.checkLogin();
   };
 
   /**
-   * @description Saving login information when information is entered then kicks you home
+   * @description Saving login information when information is entered then redirects home
    * @returns {void}
    */
   public onLogin(): void {
@@ -27,7 +27,7 @@ export class LoginViewComponent implements OnInit {
     if (userLogin && this.uidForm.valid) {
       this.cookieService.set('user', userLogin);
       this.router.navigateByUrl('home');
-  }
+  };
 }
 
 /**
@@ -37,7 +37,7 @@ export class LoginViewComponent implements OnInit {
 public checkLogin(): void {
   if (this.cookieService.check('user')) {
     this.router.navigateByUrl('home');
-  }
+  };
 }
 
 /**
