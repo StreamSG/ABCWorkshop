@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-header',
@@ -27,11 +29,21 @@ export class HeaderComponent implements OnInit {
       { text: 'QC Timer', routerLink: 'qc-timer' },
     ]},
   ];
-  
-  constructor() { }
+
+  constructor(private cookieService: CookieService, private router: Router) { }
 
   ngOnInit(): void { }
+
+  /**
+   * @description deletes cookie and routes to login
+   * @returns {void}
+   */
+  public onLogout(): void {
+    this.cookieService.delete('user');
+    this.router.navigateByUrl('login');
+  }
 }
+
 
 export interface MenuLink {
   text?: string,

@@ -16,16 +16,20 @@ import { HistorySubviewComponent } from './components/views/job-view/subviews/hi
 import { FacilitiesSubviewComponent } from './components/views/job-view/subviews/facilities-subview/facilities-subview.component';
 import { TestsSubviewComponent } from './components/views/job-view/subviews/tests-subview/tests-subview.component';
 import { WeatherViewComponent } from './components/views/weather-view/weather-view.component';
+import { LoginViewComponent } from './components/views/login-view/login-view.component';
+import { ProfessorComponent } from './components/views/login-view/professor/professor.component';
 
 const routes: Routes = [
-  { path: '', component: HomepageComponent, pathMatch: 'full' },
+  { path: '', component: LoginViewComponent, pathMatch: 'full' },
+  { path: 'login', component: LoginViewComponent },
   { path: 'home', component: HomepageComponent },
+  { path: 'professor', component: ProfessorComponent},
   { path: 'job', component: JobViewComponent, children: [
     { path: '', component: JobSubviewComponent },
     { path: 'customer', component: CustomerSubviewComponent },
     { path: 'history', component: HistorySubviewComponent },
     { path: 'facilities', component: FacilitiesSubviewComponent },
-    { path: 'tests', component: TestsSubviewComponent }
+    { path: 'tests', component: TestsSubviewComponent },
   ]},
   // Mini-projects
   { path: 'touch-n-go', component: OfficeInfoComponent },

@@ -13,8 +13,7 @@ import { WeatherService } from 'src/app/services/weather.service';
 })
 export class JobListComponent implements OnInit, OnDestroy {
   public jobsResponse: JobsResponse;
-  public jobLoadingState: string; 
-  
+  public jobLoadingState: string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(private jobService: JobService, private router: Router, private weatherService: WeatherService) { }
