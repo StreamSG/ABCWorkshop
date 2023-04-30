@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
   constructor(private weatherService: WeatherService, private jobService: JobService, public cookieService: CookieService) { }
 
   ngOnInit(): void {
-    this.techUUID = this.cookieService.get('user'); // TODO - Make part of a sort of "login" feature. Aaron is working on this I believe, possibly a sort of modal.
+    this.techUUID = this.cookieService.get('user');
       this.callJobServiceJobs(this.techUUID);
   }
 

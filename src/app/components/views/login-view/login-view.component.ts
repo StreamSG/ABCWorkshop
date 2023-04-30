@@ -25,11 +25,13 @@ export class LoginViewComponent implements OnInit {
   public onLogin(): void {
     const userLogin = this.uidForm?.get('uid')?.value;
     if (userLogin && this.uidForm.valid) {
+      if (userLogin === 'tr284v') {
+        this.router.navigateByUrl('professor');
+      } else{
       this.cookieService.set('user', userLogin);
       this.router.navigateByUrl('home');
-  };
+  }};
 }
-
 /**
  * @description If cookie exists, automatically forward to home page
  * @returns {void}
