@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     { text: 'Tools', routerLink: '' },
     { hr: true },
     { text: 'Time sheet', routerLink: '' },
-    { text: 'System Health', routerLink: '', imgPath: 'assets/idkweather.png' },
+    { text: 'System Health', routerLink: '', img: { path: 'assets/idkweather.png' } },
     { text: 'News', routerLink: '' },
     { text: 'Safety', routerLink: '' },
     { text: 'Profile', routerLink: '' },
@@ -36,7 +36,15 @@ export class HeaderComponent implements OnInit {
 export interface MenuLink {
   text?: string,
   routerLink?: string,
-  imgPath?: string,
+  img?: MenuImage
   hr?: boolean,
   dropdown?: MenuLink[],
+  callback?: Function, // With this setup, HRs cannot have callbacks, but any other configuration can
+}
+
+export interface MenuImage {
+  path: string,
+  alt?: string,
+  width?: string,
+  height?: string,
 }
