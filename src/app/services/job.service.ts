@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class JobService extends ApiService<JobsResponse> {
-  protected serverURL: string = 'http://localhost:3000/jobs/get'; // For use with https://github.com/micah-wehrle/ABCNest
+  protected serverUrl: string = 'http://localhost:3000/jobs/get'; // For use with https://github.com/micah-wehrle/ABCNest
   private selectedJobAccountNumber: number = 0;
 
   constructor(injector: Injector) {
@@ -29,7 +29,7 @@ export class JobService extends ApiService<JobsResponse> {
    * @returns {void}
    */
   public call(data: string): void {
-    this.callPrimary(data);
+    this.get(data);
   }
 
   /**

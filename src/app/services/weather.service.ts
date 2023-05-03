@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class WeatherService extends ApiService<WeatherAlertResponse> {
-  protected serverURL: string = 'https://api.weather.gov/alerts/active';
+  protected serverUrl: string = 'https://api.weather.gov/alerts/active';
 
   constructor (injector: Injector) {
     super('Weather Service', injector);
@@ -29,6 +29,6 @@ export class WeatherService extends ApiService<WeatherAlertResponse> {
    * @returns {void}
    */
   public call(lat: number, long: number): void {
-    this.callPrimary(`?point=${lat}%2C${long}&limit=500`);
+    this.get(`?point=${lat}%2C${long}&limit=500`);
   }
 }

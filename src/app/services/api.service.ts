@@ -6,7 +6,7 @@ import { ApiResponseModel } from '../models/api-response.model';
 import { ApiLoadingService } from './api-loading.service';
 
 export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk if extends is needed
-  protected abstract serverURL: string;
+  protected abstract serverUrl: string;
   protected apiResults: ApiResults;
   protected loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   protected loading: boolean;
@@ -92,44 +92,60 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
    */
   protected abstract parseApiResponse(response: any): ApiResults;
 
-  // I don't really know a better way of doing this. We will talk about it.
-  /**
-   * @abstract
-   * @description - To be created in child class. Used to call the api, can be configured to receive any number of parameters which can be manipulated before being passed to the callPrimary method as a string.
-   * @param {any} any1 - Optional parameter 1
-   * @param {any} any2 - Optional parameter 2
-   * @param {any} any3 - Optional parameter 3
-   * @param {any} any4 - Optional parameter 4
-   * @param {any} any5 - Optional parameter 5
-   * @returns {void}
-   */
-  public abstract call(any1?: any, any2?: any, any3?: any, any4?: any, any5?: any): void;
-
   /**
    * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
    * @param {string} params - the parameters to be passed appended to the server url when calling the api
+   * @param {object} options - optional, for passing any get request options
    * @returns {void}
    */
-  protected callPrimary(params: string): void {
+  protected get(params: string, options: object = {}): void {
     // validate we're not already loading an API response and that we have the expected parameters
     if (!this.loading && typeof params === 'string') {
       this.updateLoading(true);
       if (params && params.length > 0 && params.charAt(0) === '/') {
         params = params.substring(1);
       }
-      this.httpSubscription = this.http.get(`${this.serverURL}/${params}`)
-        .subscribe({ 
-          next: (response: any) => {
-            this.apiResults = this.parseApiResponse(response);
-            this.isSuccessfullyCompleted = true;
-            this.updateLoading(false);
-          },
-          error: (error: any) => {
-            this.apiResults = this.parseApiResponse(error.error);
-            this.isSuccessfullyCompleted = false;
-            this.updateLoading(false);
-          }
-        });
+      this.httpSubscription = this.http.get(`${this.serverUrl}/${params}`, options).subscribe({ 
+        next: (response: any) => {
+          this.apiResults = this.parseApiResponse(response);
+          this.isSuccessfullyCompleted = true;
+          this.updateLoading(false);
+        },
+        error: (error: any) => {
+          this.apiResults = this.parseApiResponse(error.error);
+          this.isSuccessfullyCompleted = false;
+          this.updateLoading(false);
+        }
+      });
+    }
+  }
+
+  /**
+   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
+   * @param {string} params - the parameters to be passed appended to the server url when calling the api
+   * @param {any} body - The body of the post request
+   * @param {object} options - optional, for passing any post request options
+   * @returns {void}
+   */
+   protected post(params: string, body: any, options: object = {}): void {
+    // validate we're not already loading an API response and that we have the expected parameters
+    if (!this.loading && typeof params === 'string') {
+      this.updateLoading(true);
+      if (params && params.length > 0 && params.charAt(0) === '/') {
+        params = params.substring(1);
       }
+      this.httpSubscription = this.http.post(`${this.serverUrl}/${params}`, body, options).subscribe({ 
+        next: (response: any) => {
+          this.apiResults = this.parseApiResponse(response);
+          this.isSuccessfullyCompleted = true;
+          this.updateLoading(false);
+        },
+        error: (error: any) => {
+          this.apiResults = this.parseApiResponse(error.error);
+          this.isSuccessfullyCompleted = false;
+          this.updateLoading(false);
+        }
+      });
+    }
   }
 }
