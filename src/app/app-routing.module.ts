@@ -6,8 +6,8 @@ import { HomepageComponent } from './components/views/homepage/homepage.componen
 import { TicketGeneratorComponent } from './components/views/ticket-generator/ticket-generator.component';
 import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
 import { WeTrackComponent } from './components/views/we-track/we-track.component';
-import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
-import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
+import { WeTrackListComponent } from './components/we-track-old-for-ref/we-track-list/we-track-list.component';
+import { WeTrackEditComponent } from './components/we-track-old-for-ref/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
 import { JobViewComponent } from './components/views/job-view/job-view.component';
 import { JobSubviewComponent } from './components/views/job-view/subviews/job-subview/job-subview.component';
