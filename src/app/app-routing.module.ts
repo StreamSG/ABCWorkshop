@@ -5,7 +5,7 @@ import { HelpComponent } from './components/views/help/help.component';
 import { HomepageComponent } from './components/views/homepage/homepage.component';
 import { TicketGeneratorComponent } from './components/views/ticket-generator/ticket-generator.component';
 import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
-import { WeTrackComponent } from './components/views/we-track/we-track.component';
+import { WeTrackComponentOld } from './components/views/we-track-old/we-track.component';
 import { WeTrackListComponent } from './components/we-track-old-for-ref/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track-old-for-ref/we-track-edit/we-track-edit.component';
 import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
@@ -33,7 +33,7 @@ const routes: Routes = [
   { path: 'qc-timer', component: QcTimerComponent },
   { path: 'help', component: HelpComponent },
   { path: 'weather', component: WeatherViewComponent },
-  { path: 'we-track', component: WeTrackComponent, children: [
+  { path: 'we-track', component: WeTrackComponentOld, children: [
     { path: '', component: WeTrackListComponent },
     { path: 'new', component: WeTrackEditComponent },
     { path: 'edit', component: WeTrackEditComponent }

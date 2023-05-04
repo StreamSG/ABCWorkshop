@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WeTrackComponent } from './we-track.component';
+import { WeTrackComponentOld } from './we-track.component';
 
 describe('WeTrackComponent', () => {
-  let component: WeTrackComponent;
-  let fixture: ComponentFixture<WeTrackComponent>;
+  let component: WeTrackComponentOld;
+  let fixture: ComponentFixture<WeTrackComponentOld>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WeTrackComponent ]
+      declarations: [ WeTrackComponentOld ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WeTrackComponent);
+    fixture = TestBed.createComponent(WeTrackComponentOld);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

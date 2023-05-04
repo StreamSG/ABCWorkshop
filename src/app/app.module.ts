@@ -12,7 +12,7 @@ import { TicketGeneratorComponent } from './components/views/ticket-generator/ti
 import { HelpComponent } from './components/views/help/help.component';
 import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
 import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component';
-import { WeTrackComponent } from './components/views/we-track/we-track.component';
+import { WeTrackComponentOld } from './components/views/we-track-old/we-track.component';
 import { WeTrackItemComponent } from './components/we-track-old-for-ref/we-track-item/we-track-item.component';
 import { WeTrackListComponent } from './components/we-track-old-for-ref/we-track-list/we-track-list.component';
 import { WeTrackEditComponent } from './components/we-track-old-for-ref/we-track-edit/we-track-edit.component';
@@ -46,7 +46,7 @@ import { SidebarListComponent } from './components/header/sidebar-list/sidebar-l
     HelpComponent,
     OfficeInfoComponent,
     TouchNGoComponent,
-    WeTrackComponent,
+    WeTrackComponentOld,
     WeTrackItemComponent,
     WeTrackListComponent,
     WeTrackEditComponent,
