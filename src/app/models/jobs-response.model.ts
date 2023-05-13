@@ -71,7 +71,7 @@ export interface JobData {
   transportType: string,
   history: History[],
   facilities: Facility[],
-  services: Service[],
+  services: Services,
   jobTypeColor: string,
 }
 
@@ -83,13 +83,12 @@ export interface Facility {
   port?: number,
 }
 
-export interface Service {
-  type: string,
-  transport?: string,
-  equipment?: string,
-  phone1?: number,
-  phone2?: number,
-  profile?: string,
+export interface Services {
+  equipment: string[];
+  internetSpeed?: number;
+  potsNumber?: number;
+  voipNumbers?: number[];
+  uversePackage?: string;
 }
 
 export interface History {
