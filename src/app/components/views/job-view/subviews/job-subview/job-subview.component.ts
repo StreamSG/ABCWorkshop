@@ -33,6 +33,11 @@ export class JobSubviewComponent implements OnInit {
     }
   }
 
+  /**
+   * @description Generates an object containing organized data for use in html to show equipment name, data, and images
+   * @param {string} equipment Builds EquipmentDisplayData objects based on the equipment name passed in from the back end
+   * @returns {EquipmentDisplayData} An object used to generate ui elements for an equipment item
+   */
   private generateEquipmentDataObject(equipment: string): EquipmentDisplayData {
     if (equipment.match(/jack/i)) { // If it's a jack
       return {
@@ -72,6 +77,9 @@ export class JobSubviewComponent implements OnInit {
   }
 }
 
+/**
+ * @description Contains data to be passed into the html to easily build html elements for customer equipment
+ */
 interface EquipmentDisplayData {
   src: string;
   alt: string;
