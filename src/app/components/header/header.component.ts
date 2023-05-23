@@ -10,19 +10,19 @@ export class HeaderComponent implements OnInit {
     { text: 'Home', routerLink: '' },
     { text: 'Alerts', routerLink: 'weather' },
     { text: 'Help', routerLink: 'help' },
-    { text: 'Map', routerLink: '' },
-    { text: 'Prior Tickets', routerLink: '' },
-    { text: 'Tools', routerLink: '' },
-    { hr: true },
-    { text: 'Time sheet', routerLink: '' },
-    { text: 'System Health', routerLink: '', img: { path: 'assets/idkweather.png' } },
-    { text: 'News', routerLink: '' },
-    { text: 'Safety', routerLink: '' },
-    { text: 'Profile', routerLink: '' },
+    { text: 'Map', routerLink: '', disabled: true },
+    { text: 'Prior Tickets', routerLink: '', disabled: true },
+    { text: 'Tools', routerLink: '', disabled: true },
+    { isHr: true },
+    { text: 'Time sheet', routerLink: '', disabled: true },
+    { text: 'System Health', routerLink: '', img: { path: 'assets/idkweather.png' }, disabled: true },
+    { text: 'News', routerLink: '', disabled: true },
+    { text: 'Safety', routerLink: '', disabled: true },
+    { text: 'Profile', routerLink: '', disabled: true },
     { text: 'Mini-projects', dropdown: [
       { text: 'weTrack', routerLink: 'we-track' },
-      { hr: true },
-      { text: 'Touch \'n\' Go', routerLink: 'touch-n-go' },
+      { isHr: true },
+      { text: 'Touch \'n\' Go', routerLink: 'touch-n-go', img: { path: 'assets/idkweather.png' } },
       { text: 'Ticket Generator', routerLink: 'ticket-generator' },
       { text: 'QC Timer', routerLink: 'qc-timer' },
     ]},
@@ -34,17 +34,16 @@ export class HeaderComponent implements OnInit {
 }
 
 export interface MenuLink {
-  text?: string,
-  routerLink?: string,
-  img?: MenuImage
-  hr?: boolean,
-  dropdown?: MenuLink[],
-  callback?: Function, // With this setup, HRs cannot have callbacks, but any other configuration can
-}
-
-export interface MenuImage {
-  path: string,
-  alt?: string,
-  width?: string,
-  height?: string,
+  isHr?: boolean;
+  disabled?: boolean;
+  text?: string;
+  routerLink?: string;
+  img?: {
+    path: string;
+    alt?: string;
+    width?: string;
+    height?: string;
+  };
+  dropdown?: MenuLink[];
+  callback?: Function;
 }

@@ -1,24 +1,24 @@
-<ng-container *ngIf="!menuLink?.hr">
-  <li class="nav-item" [ngClass]="menuLink?.dropdown ? 'dropdown' : ''" (click)="menuLink?.callback && menuLink?.callback()">
+<ng-container *ngIf="!menuLink?.isHr">
+  <li class="nav-item" [ngClass]="{'dropdown' : menuLink?.dropdown}" (click)="menuLink?.callback && menuLink?.callback()">
     <ng-container *ngIf="menuLink?.dropdown">
-      <a class="nav-link dropdown-toggle active" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <a class="nav-link dropdown-toggle active" [ngClass]="{'disabled' : menuLink?.disabled, 'active' : !menuLink?.disabled}" [attr.aria-disabled]="menuLink?.disabled" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{ menuLink?.text }}
         <ng-container *ngIf="menuLink?.img">
-          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '30'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '30'">
+          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '25'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '25'">
         </ng-container>
       </a>
       <ul class="dropdown-menu">
         <ng-container *ngFor="let dropdown of menuLink?.dropdown">
           <li>
-            <ng-container *ngIf="!dropdown?.hr">
-              <a class="dropdown-item" [routerLink]="dropdown?.routerLink" data-bs-dismiss="offcanvas">
+            <ng-container *ngIf="!dropdown?.isHr">
+              <a class="dropdown-item" [ngClass]="{'disabled' : dropdown?.disabled}" [attr.aria-disabled]="dropdown?.disabled" [routerLink]="dropdown?.routerLink" data-bs-dismiss="offcanvas">
                 {{ dropdown?.text }}
                 <ng-container *ngIf="dropdown?.img">
-                  <img class="float-end" [src]="dropdown?.img?.path" [alt]="dropdown?.img?.alt" [width]="dropdown?.img?.width ? dropdown?.img?.width : '30'" [height]="dropdown?.img?.height ? dropdown?.img?.height : '30'">
+                  <img class="float-end" [src]="dropdown?.img?.path" [alt]="dropdown?.img?.alt" [width]="dropdown?.img?.width ? dropdown?.img?.width : '25'" [height]="dropdown?.img?.height ? dropdown?.img?.height : '25'">
                 </ng-container>
               </a>
             </ng-container>
-            <ng-container *ngIf="dropdown?.hr">
+            <ng-container *ngIf="dropdown?.isHr">
               <hr class="dropdown-divider">
             </ng-container>
           </li>
@@ -26,15 +26,15 @@
       </ul>
     </ng-container>
     <ng-container *ngIf="!menuLink?.dropdown">
-      <a class="nav-link active" [routerLink]="menuLink?.routerLink" data-bs-dismiss="offcanvas">
+      <a class="nav-link" [ngClass]="{'disabled' : menuLink?.disabled, 'active' : !menuLink?.disabled}" [attr.aria-disabled]="menuLink?.disabled" [routerLink]="menuLink?.routerLink" data-bs-dismiss="offcanvas">
         {{ menuLink?.text }}
         <ng-container *ngIf="menuLink?.img">
-          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '30'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '30'">
+          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '25'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '25'">
         </ng-container>
       </a>
     </ng-container>
   </li>
 </ng-container>
-<ng-container *ngIf="menuLink?.hr">
+<ng-container *ngIf="menuLink?.isHr">
   <hr>
 </ng-container>
