@@ -1,14 +1,14 @@
-<ng-container *ngIf="!menuLink?.isHr">
-  <li class="nav-item" [ngClass]="{'dropdown' : menuLink?.dropdown}" (click)="menuLink?.callback && menuLink?.callback()">
-    <ng-container *ngIf="menuLink?.dropdown">
-      <a class="nav-link dropdown-toggle active" [ngClass]="{'disabled' : menuLink?.disabled, 'active' : !menuLink?.disabled}" [attr.aria-disabled]="menuLink?.disabled" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        {{ menuLink?.text }}
-        <ng-container *ngIf="menuLink?.img">
-          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '25'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '25'">
+<ng-container *ngIf="!menuItem?.isHr">
+  <li class="nav-item" [ngClass]="{'dropdown' : menuItem?.dropdown}" (click)="menuItem?.callback && menuItem?.callback()">
+    <ng-container *ngIf="menuItem?.dropdown">
+      <a class="nav-link dropdown-toggle active" [ngClass]="{'disabled' : menuItem?.disabled, 'active' : !menuItem?.disabled}" [attr.aria-disabled]="menuItem?.disabled" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ menuItem?.text }}
+        <ng-container *ngIf="menuItem?.img">
+          <img class="float-end" [src]="menuItem?.img?.path" [alt]="menuItem?.img?.alt" [width]="menuItem?.img?.width ? menuItem?.img?.width : '25'" [height]="menuItem?.img?.height ? menuItem?.img?.height : '25'">
         </ng-container>
       </a>
       <ul class="dropdown-menu">
-        <ng-container *ngFor="let dropdown of menuLink?.dropdown">
+        <ng-container *ngFor="let dropdown of menuItem?.dropdown">
           <li>
             <ng-container *ngIf="!dropdown?.isHr">
               <a class="dropdown-item" [ngClass]="{'disabled' : dropdown?.disabled}" [attr.aria-disabled]="dropdown?.disabled" [routerLink]="dropdown?.routerLink" data-bs-dismiss="offcanvas">
@@ -25,16 +25,16 @@
         </ng-container>
       </ul>
     </ng-container>
-    <ng-container *ngIf="!menuLink?.dropdown">
-      <a class="nav-link" [ngClass]="{'disabled' : menuLink?.disabled, 'active' : !menuLink?.disabled}" [attr.aria-disabled]="menuLink?.disabled" [routerLink]="menuLink?.routerLink" data-bs-dismiss="offcanvas">
-        {{ menuLink?.text }}
-        <ng-container *ngIf="menuLink?.img">
-          <img class="float-end" [src]="menuLink?.img?.path" [alt]="menuLink?.img?.alt" [width]="menuLink?.img?.width ? menuLink?.img?.width : '25'" [height]="menuLink?.img?.height ? menuLink?.img?.height : '25'">
+    <ng-container *ngIf="!menuItem?.dropdown">
+      <a class="nav-link" [ngClass]="{'disabled' : menuItem?.disabled, 'active' : !menuItem?.disabled}" [attr.aria-disabled]="menuItem?.disabled" [routerLink]="menuItem?.routerLink" data-bs-dismiss="offcanvas">
+        {{ menuItem?.text }}
+        <ng-container *ngIf="menuItem?.img">
+          <img class="float-end" [src]="menuItem?.img?.path" [alt]="menuItem?.img?.alt" [width]="menuItem?.img?.width ? menuItem?.img?.width : '25'" [height]="menuItem?.img?.height ? menuItem?.img?.height : '25'">
         </ng-container>
       </a>
     </ng-container>
   </li>
 </ng-container>
-<ng-container *ngIf="menuLink?.isHr">
+<ng-container *ngIf="menuItem?.isHr">
   <hr>
 </ng-container>

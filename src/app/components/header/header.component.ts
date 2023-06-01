@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public menuLinks: MenuLink[] = [
+  public menuItems: MenuItem[] = [
     { text: 'Home', routerLink: '' },
     { text: 'Alerts', routerLink: 'weather' },
     { text: 'Help', routerLink: 'help' },
@@ -33,8 +33,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void { }
 }
 
-export interface MenuLink {
-  isHr?: boolean;
+export type MenuItem = {
   disabled?: boolean;
   text?: string;
   routerLink?: string;
@@ -44,6 +43,8 @@ export interface MenuLink {
     width?: string;
     height?: string;
   };
-  dropdown?: MenuLink[];
+  dropdown?: MenuItem[];
   callback?: Function;
+  /** * @property isHr should only be used by itself, as all other properties will be ignored when isHr is present */
+  isHr?: true; 
 }
