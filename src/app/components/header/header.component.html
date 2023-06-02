@@ -13,12 +13,11 @@
       </div>
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-start flex-grow-1 pe-3">
-          <ng-container *ngFor="let menuLink of menuLinks">
-            <app-sidebar-list [menuLink]="menuLink"></app-sidebar-list>
+          <ng-container *ngFor="let menuItem of menuItems">
+            <app-sidebar-list [menuItem]="menuItem"></app-sidebar-list>
           </ng-container>
         </ul>
       </div>
     </div>
   </div>
 </nav>
-<!-- If you'd like to add something, check this resource: https://getbootstrap.com/docs/5.2/components/navbar/ -->
