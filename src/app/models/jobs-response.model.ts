@@ -2,7 +2,6 @@ export class JobsResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
   readonly apiResponse: any;
-  readonly rawJobsData: any;
   readonly jobs: JobData[];
 
   constructor(response: any) {
@@ -18,9 +17,8 @@ export class JobsResponse {
       if (response.flowStatus === 'SUCCESS') {
         // save data from response
         this.apiResponse = response;
-        this.rawJobsData = response.jobData;
-        this.jobs = response.jobData.jobs;
-        for (let i = 0; i < this.jobs.length; i++) {
+        this.jobs = response.jobs;
+        for (let i = 0; i < this.jobs.length; i++) { // for client-side calculations and data generation for display improvements
           const jobType = this.jobs[i].jobType;
           this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
           this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
