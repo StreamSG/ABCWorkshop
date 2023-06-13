@@ -63,7 +63,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
     if (this.jobServiceSubscription && !this.jobServiceSubscription.closed) {
       this.jobServiceSubscription.unsubscribe(); // This prevents a situation where the user attempts to subscribe to the api call when there is already a pending api call.
     }
-    this.jobServiceSubscription = this.jobService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
+    this.jobServiceSubscription = this.jobService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
@@ -100,7 +100,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
     const jobList = this.jobsResponse.jobs;
     if (Array.isArray(jobList) && jobList.length > 0) { // only want to make this call if there are 
       this.weatherService.call(jobList[0].location.lat, jobList[0].location.long); // calls with first assigned job cause alerts should be similar to the area
-      this.weatherService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
+      this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
         next: (loading: boolean) => {
           if (!loading && this.weatherService.hasSuccessfullyCompleted()) {
             this.weatherAlertResponse = this.weatherService.getResults();
