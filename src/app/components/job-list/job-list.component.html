@@ -13,9 +13,10 @@
     <ng-container *ngFor="let job of jobsResponse?.jobs; let i = index">
       <div class="card end-0 mb-2" (click)="onJobClicked(job)"> 
         <div class="row">
-          <div class="col-3 text-center pt-3 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
+          <div class="col-3 text-center pt-3 ps-4 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
             <p>JOB</p>
             <p>{{ i+1 }}</p>
+            <p class="mt-5 smaller-text">{{job?.transportType}}</p>
           </div>
           <div class="col-9">
             <p>ID: {{ job?.accountNumber }}</p>

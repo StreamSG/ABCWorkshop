@@ -79,13 +79,14 @@ export class JobService {
   /**
    * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
    * @param {string} uuid - the uuid to be passed to the back end as a seed to generate jobs.
+   * @param {number} [jobCount = null] - The number of jobs to request from the back end. If nothing is passed then the back end will determine the job count based on the seed.
    * @returns {void}
    */
-  public call(uuid: string): void {
+  public call(uuid: string, jobCount: number = null): void {
     // validate we're not already loading an API response and that we have the expected parameters
     if (!this.loading && uuid) {
       this.updateLoading(true);
-      this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}`)
+      this.httpSubscription = this.http.get(`${this.serverURL}/${uuid}/${jobCount}`)
         .subscribe({ 
           next: (response: any) => {
             this.jobApiResults = new JobsResponse(response);
