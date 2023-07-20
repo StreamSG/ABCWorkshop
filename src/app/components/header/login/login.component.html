@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title ">ABC Local Logon</h5>
+          <p class="card-text">Log in using your super secret ABC ID that is not at all made up</p>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="mt-5">
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input id="username" type="text" formControlName="username" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input id="password" type="password" formControlName="password" class="form-control"><br>
+            </div>
+            <button type="submit" class="btn btn-primary">Login</button>
+          </form><br>
+          <p class="card-footer">this test website makes fresh cookies, diabetics beware!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
