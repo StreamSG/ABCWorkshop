@@ -12,7 +12,7 @@ export class WeTrackService {
       Add lock on ability to add or delete ticket when there's an open promise with server?
   */
 
-  readonly databaseUrl = 'https://atlas-boot-camp-default-rtdb.firebaseio.com/we-track.json';
+  readonly databaseUrl = 'localhost:3000/we-track';
 
   private tickets: WeTrackTicket[] = []; // master list of all tickets
   private loadingTickets = false; 
@@ -56,7 +56,7 @@ export class WeTrackService {
     // If there is on pending response from database, create new promise:
     this.loadingTickets = true; // Log that a promise is being created
     this.loadTicketPromise = new Promise( (resolve, reject) => { // store the promise to be returned
-      this.http.get<WeTrackTicket[]>(this.databaseUrl).subscribe({ // subscribe to the response from the server
+      this.http.get<WeTrackTicket[]>(`${this.databaseUrl}/get/`).subscribe({ // subscribe to the response from the server
         next: (response) => {
           // on a positive response, store the ticket data and resolve the promise
           this.tickets = response ? response : [];

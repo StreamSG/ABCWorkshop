@@ -63,7 +63,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
     if (this.jobServiceSubscription && !this.jobServiceSubscription.closed) {
       this.jobServiceSubscription.unsubscribe(); // This prevents a situation where the user attempts to subscribe to the api call when there is already a pending api call.
     }
-    this.jobServiceSubscription = this.jobService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
+    //TODO should this be take 2 or 3? Will need to adjust order of subscription and calling API if it needs to be take 2.
+    this.jobServiceSubscription = this.jobService.getLoading().pipe(take(3), takeUntil(this.ngUnsubscribe)).subscribe({
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();

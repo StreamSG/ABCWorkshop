@@ -24,7 +24,7 @@ export class WeTrackTicket {
     TAGS: {
       
     }
-  }
+  };
   
   public static readonly TYPE = {
     FEATURE: 'feature',
@@ -38,14 +38,14 @@ export class WeTrackTicket {
     IN_PROGRESS: 'in-progress',
     COMPLETE: 'complete',
     CANCELLED: 'cancelled',
-  }
+  };
 
   public static PRIORITY = {
     LOW: 'low',
     MEDIUM: 'medium',
     HIGH: 'high',
     URGENT: 'urgent',
-  }
+  };
   
   constructor(
     // Definite parameters
