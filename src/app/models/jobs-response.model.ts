@@ -2,7 +2,6 @@ export class JobsResponse {
   readonly flowStatus: string;
   readonly flowStatusMessage: string;
   readonly apiResponse: any;
-  readonly rawJobsData: any;
   readonly jobs: JobData[];
 
   constructor(response: any) {
@@ -18,9 +17,8 @@ export class JobsResponse {
       if (response.flowStatus === 'SUCCESS') {
         // save data from response
         this.apiResponse = response;
-        this.rawJobsData = response.jobData;
-        this.jobs = response.jobData.jobs;
-        for (let i = 0; i < this.jobs.length; i++) {
+        this.jobs = response.jobs;
+        for (let i = 0; i < this.jobs.length; i++) { // for client-side calculations and data generation for display improvements
           const jobType = this.jobs[i].jobType;
           this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
           this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
@@ -71,7 +69,7 @@ export interface JobData {
   transportType: string,
   history: History[],
   facilities: Facility[],
-  services: Service[],
+  services: Services,
   jobTypeColor: string,
 }
 
@@ -83,13 +81,12 @@ export interface Facility {
   port?: number,
 }
 
-export interface Service {
-  type: string,
-  transport?: string,
-  equipment?: string,
-  phone1?: number,
-  phone2?: number,
-  profile?: string,
+export interface Services {
+  equipment: string[];
+  internetSpeed?: number;
+  potsNumber?: number;
+  voipNumbers?: number[];
+  uversePackage?: string;
 }
 
 export interface History {
