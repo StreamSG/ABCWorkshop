@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+/**
+ * @description This is an example implementation of the power of using an abstract service file. Allows for APIs to "register" with this service, so that it can monitor what service files are waiting on a response at a given time.
+ */
 @Injectable({
   providedIn: 'root'
 })

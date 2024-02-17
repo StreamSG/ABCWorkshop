@@ -88,7 +88,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       this.jobService.call(uuid);
     }
     else {
-      this.jobService.call(uuid, this.jobCount);
+      this.jobService.call(`${uuid}/${this.jobCount}`);
     }
   }
 
