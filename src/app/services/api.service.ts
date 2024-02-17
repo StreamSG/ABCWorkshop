@@ -15,9 +15,13 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   private apiUniqueId: number;
   // Dependencies
   private http: HttpClient;
-  private apiLoadingService: ApiLoadingService;
+  private apiLoadingService: ApiLoadingService; 
   
-  constructor(private apiName: string, injector: Injector) {
+  /**
+   * @param {string} apiName - A unique name for your service file, to be used in the ApiLoadingService monitor.
+   * @param {Injector} injector - The Injector from \@angular/core. Allows for shared dependencies to be adjusted from the parent class without needing to adjust every child.
+   */
+  constructor(apiName: string, injector: Injector) {
     // Why this uses injector: child components receive any injected dependencies (such as a service file), and then need to pass it to this abstract class via super() within the child constructor. As such, any changes here to which dependencies are needed, would require you to update EVERY child class that uses this as a parent. However, using Injector, this class can simply use injector.get to retrieve any dependencies it needs, without requiring any changes to child class.
     this.http = injector.get(HttpClient);
     this.apiLoadingService = injector.get(ApiLoadingService);
