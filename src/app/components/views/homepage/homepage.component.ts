@@ -28,7 +28,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
       this.callJobServiceJobs(this.techUUID);
     }
     else {
-      this.jobCount = this.jobsResponse && this.jobsResponse.jobs && Array.isArray(this.jobsResponse.jobs) ? this.jobsResponse.jobs.length : 0;
+      const jobs = this.jobsResponse?.getJobs();
+      this.jobCount = jobs && Array.isArray(jobs) ? jobs.length : 0;
     }
   }
 
@@ -67,7 +68,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          this.jobCount = this.jobsResponse && this.jobsResponse.jobs && Array.isArray(this.jobsResponse.jobs) ? this.jobsResponse.jobs.length : 0;
+          const jobs = this.jobsResponse?.getJobs();
+          this.jobCount = jobs && Array.isArray(jobs) ? jobs.length : 0;
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }
@@ -84,12 +86,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
     this.jobsResponse = null;
     this.jobService.resetData();
     this.subscribeToJobServiceJobs();
-    if (!this.jobCount) {
-      this.jobService.call(uuid);
-    }
-    else {
-      this.jobService.call(`${uuid}/${this.jobCount}`);
-    }
+    this.jobService.call(uuid, this.jobCount);
   }
 
   /**
@@ -97,7 +94,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   private callAndSubscribeToWeatherService(): void {
-    const jobList = this.jobsResponse.jobs;
+    const jobList = this.jobsResponse.getJobs();
     if (Array.isArray(jobList) && jobList.length > 0) { // only want to make this call if there are 
       this.weatherService.call(jobList[0].location.lat, jobList[0].location.long); // calls with first assigned job cause alerts should be similar to the area
       this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({

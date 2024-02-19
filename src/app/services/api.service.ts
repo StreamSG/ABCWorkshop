@@ -30,7 +30,7 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   }
 
   /**
-   * @description - Resets the state of the service. This should be called in clearJobData service if this service is a job specific API.
+   * @description - Resets the state of the service.
    * @returns {void}
    */
    public resetData(): void {
@@ -81,8 +81,8 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   }
  
   /**
-   * @description - Returns the <yourModel> API result
-   * @returns {ApiResults} - The API results for the inquireBillingAuthorization call
+   * @description - Returns the generic <ApiResults> model
+   * @returns {ApiResults} - The API results from the call
    */
   public getResults(): ApiResults {
     return this.apiResults;
@@ -97,7 +97,7 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   protected abstract parseApiResponse(response: any): ApiResults;
 
   /**
-   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
+   * @description - Makes a get request to the back end to the path of passed params. Can optionally include an options object for use in the http request.
    * @param {string} params - the parameters to be passed appended to the server url when calling the api
    * @param {object} options - optional, for passing any get request options
    * @returns {void}
@@ -125,7 +125,7 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   }
 
   /**
-   * @description - Calls the back end in order to get current job data based on given uuid. For use in homepage to load job data when the app is loaded or refreshed.
+   * @description - Makes a post request to the back end to the path of passed params. The body data for the request is passed as the second parameter, and can optionally include an options object for use in the http request.
    * @param {string} params - the parameters to be passed appended to the server url when calling the api
    * @param {any} body - The body of the post request
    * @param {object} options - optional, for passing any post request options

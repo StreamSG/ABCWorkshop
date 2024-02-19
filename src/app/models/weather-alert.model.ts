@@ -14,6 +14,7 @@ export class WeatherAlertResponse extends ApiResponseModel {
 
   constructor(response: any) {
     super(response);
+    this.processResponse(response);
   }
 
   protected processResponse(response: any): void {

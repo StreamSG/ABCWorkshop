@@ -1,16 +1,25 @@
 import { ApiResponseModel } from "./api-response.model";
 
 export class JobsResponse extends ApiResponseModel {
-  public jobs: JobData[];
+  private jobs: JobData[];
 
   constructor(response: any) {
     super(response);
   }
 
+  public getJobs(): JobData[] {
+    return this.jobs.slice();
+  }
+
   protected processResponse(response: any): void {
     this.jobs = response.jobs;
+    
+    if (!Array.isArray(this.jobs)) {
+      return;
+    }
+    
     for (let i = 0; i < this.jobs.length; i++) { // for client-side calculations and data generation for display improvements
-      const jobType = this.jobs[i].jobType;
+      const jobType: string = this.jobs[i]?.jobType;
       this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
       this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
     }

@@ -1,7 +1,6 @@
 export abstract class ApiResponseModel {
   protected readonly flowStatus: string;
   protected readonly flowStatusMessage: string;
-  protected readonly apiResponse: any;
   
   constructor(response: any) {
     try {
@@ -14,8 +13,6 @@ export abstract class ApiResponseModel {
         this.flowStatusMessage = 'Unable to call API';
       }
       if (response.flowStatus === 'SUCCESS') {
-        // save data from response
-        this.apiResponse = response;
         this.processResponse(response);
       }
     }
