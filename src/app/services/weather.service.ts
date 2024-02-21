@@ -8,19 +8,11 @@ import { ApiService } from './api.service';
 })
 export class WeatherService extends ApiService<WeatherAlertResponse> {
   protected serverUrl: string = 'https://api.weather.gov/alerts/active';
+  protected apiResultsConstructor: new (response: any) => WeatherAlertResponse = WeatherAlertResponse;
 
   constructor (injector: Injector) {
     super('Weather Service', injector);
   }
-
-  /**
-   * @description - Takes the raw data from the weather api call and converts it into usable data via the WeatherAlertResponse model class.
-   * @param {any} response - The raw response from the weather api
-   * @returns {WeatherAlertResponse} - The parsed response from the weather api
-   */
-  protected parseApiResponse(response: any): WeatherAlertResponse {
-    return new WeatherAlertResponse(response);
-  }  
 
   /**
    * @description - Takes the latitude and longitude from a job location and class the weather api with that data

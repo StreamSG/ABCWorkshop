@@ -5,9 +5,11 @@ import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ApiResponseModel } from '../models/api-response.model';
 import { ApiLoadingService } from './api-loading.service';
 
-export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk if extends is needed
+export abstract class ApiService<ApiResults extends ApiResponseModel> {
   protected abstract serverUrl: string;
   protected apiResults: ApiResults;
+  /** @description In the child class, this needs to be set as the type of the model file which the response will be passed to in the respective child class. This allows the abstract class to create an instance of the model file once it receives the api response. */
+  protected abstract apiResultsConstructor: new (response: any) => ApiResults;
   protected loadingChanged: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   protected loading: boolean;
   protected httpSubscription: Subscription;
@@ -89,14 +91,6 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
   }
 
   /**
-   * @abstract
-   * @description - To be created in child class. Will take in the api response and pass it into the constructor for the response-handler model class, and return the instance of that class.
-   * @param {any} response - The raw data received from the api.
-   * @returns {ApiResults} - The instance of the model file which parses the raw response from the api.
-   */
-  protected abstract parseApiResponse(response: any): ApiResults;
-
-  /**
    * @description - Makes a get request to the back end to the path of passed params. Can optionally include an options object for use in the http request.
    * @param {string} params - the parameters to be passed appended to the server url when calling the api
    * @param {object} options - optional, for passing any get request options
@@ -111,12 +105,14 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
       }
       this.httpSubscription = this.http.get(`${this.serverUrl}/${params}`, options).subscribe({ 
         next: (response: any) => {
-          this.apiResults = this.parseApiResponse(response);
+          this.apiResults = new this.apiResultsConstructor(response); // Creates an instance of the model file
           this.isSuccessfullyCompleted = true;
           this.updateLoading(false);
         },
         error: (error: any) => {
-          this.apiResults = this.parseApiResponse(error.error);
+          console.log(error);
+          console.log(error.error);
+          this.apiResults = new this.apiResultsConstructor(error.error); // Creates an instance of the model file
           this.isSuccessfullyCompleted = false;
           this.updateLoading(false);
         }
@@ -140,12 +136,12 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> { // idk i
       }
       this.httpSubscription = this.http.post(`${this.serverUrl}/${params}`, body, options).subscribe({ 
         next: (response: any) => {
-          this.apiResults = this.parseApiResponse(response);
+          this.apiResults = new this.apiResultsConstructor(response); // Creates an instance of the model file
           this.isSuccessfullyCompleted = true;
           this.updateLoading(false);
         },
         error: (error: any) => {
-          this.apiResults = this.parseApiResponse(error.error);
+          this.apiResults = new this.apiResultsConstructor(error.error); // Creates an instance of the model file
           this.isSuccessfullyCompleted = false;
           this.updateLoading(false);
         }

@@ -8,19 +8,11 @@ import { ApiService } from './api.service';
 })
 export class JobService extends ApiService<JobsResponse> {
   protected serverUrl: string = 'http://localhost:3000/jobs/get'; // For use with https://github.com/micah-wehrle/ABCNest
+  protected apiResultsConstructor: new (response: any) => JobsResponse = JobsResponse;
   private selectedJobAccountNumber: number = 0;
 
   constructor(injector: Injector) {
     super('Job Service', injector);
-  }
-
-  /**
-   * @description - Takes the raw data from the job list api and parses it via the JobsResponse model class
-   * @param {any} response - The raw data from the job list api
-   * @returns {JobsResponse} - The parsed response from the job list api
-   */
-  protected parseApiResponse(response: any): JobsResponse {
-    return new JobsResponse(response);
   }
 
   /**
