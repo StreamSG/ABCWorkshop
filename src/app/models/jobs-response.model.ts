@@ -7,10 +7,19 @@ export class JobsResponse extends ApiResponseModel {
     super(response);
   }
 
+  /**
+   * @description Getter for accessing the list of jobs retrieved from the back end
+   * @returns The array of jobs as called from the back end.
+   */
   public getJobs(): JobData[] {
     return this.jobs.slice();
   }
 
+  /**
+   * @description Called in the abstract class, and created here so that the api response can be parsed properly
+   * @param response - The response from the api, passed here to be parsed
+   * @returns {void}
+   */
   protected processResponse(response: any): void {
     this.jobs = response.jobs;
     

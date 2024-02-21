@@ -1,4 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
+import { isNumber } from '@ng-bootstrap/ng-bootstrap/util/util';
 
 import { WeatherAlertResponse } from '../models/weather-alert.model';
 import { ApiService } from './api.service';
@@ -29,6 +30,8 @@ export class WeatherService extends ApiService<WeatherAlertResponse> {
    * @returns {void}
    */
   public call(lat: number, long: number): void {
-    this.get(`?point=${lat}%2C${long}&limit=500`);
+    if (isNumber(lat) && isNumber(long)) {
+      this.get(`?point=${lat}%2C${long}&limit=500`);
+    }
   }
 }

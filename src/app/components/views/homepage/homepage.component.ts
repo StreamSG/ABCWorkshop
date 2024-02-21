@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 
-import { JobsResponse } from 'src/app/models/jobs-response.model';
+import { JobData, JobsResponse } from 'src/app/models/jobs-response.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -68,8 +68,8 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          const jobs = this.jobsResponse?.getJobs();
-          this.jobCount = jobs && Array.isArray(jobs) ? jobs.length : 0;
+          const jobs: JobData[] = this.jobsResponse?.getJobs();
+          this.jobCount = Array.isArray(jobs) ? jobs.length : 0;
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }

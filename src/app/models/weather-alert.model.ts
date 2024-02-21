@@ -14,19 +14,28 @@ export class WeatherAlertResponse extends ApiResponseModel {
 
   constructor(response: any) {
     super(response);
-    this.processResponse(response);
   }
 
+  /**
+   * @description Called in the abstract class, and created here so that the api response can be parsed properly
+   * @param response - The response from the api, passed here to be parsed
+   * @returns {void}
+   */
   protected processResponse(response: any): void {
     const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(response);
     this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
+    if (!Array.isArray(this.allActiveWeatherAlerts) || this.allActiveWeatherAlerts.length === 0 || !this.allActiveWeatherAlerts[0]) {
+      this.showAlertToast = false;
+      return;
+    }
+    this.showAlertToast = true;
+    const firstAlert = this.allActiveWeatherAlerts[0];
     // the below variables are set to 0 index of array because that will be up-to-date active alert
-    this.activeAlertHeadline = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].headline ? this.allActiveWeatherAlerts[0].headline : '';
-    this.activeAlertDescription = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].description ? this.allActiveWeatherAlerts[0].description : '';
-    this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
-    this.activeAlertId = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].id ? this.allActiveWeatherAlerts[0].id : '';
-    this.activeAlertInstruction = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].instruction ? this.allActiveWeatherAlerts[0].instruction : '';
-    this.showAlertToast = Array.isArray(this.allActiveWeatherAlerts) && this.allActiveWeatherAlerts.length > 0;
+    this.activeAlertHeadline = firstAlert.headline ?? '';
+    this.activeAlertDescription = firstAlert.description ?? '';
+    this.activeAlertEvent = firstAlert.event ?? '';
+    this.activeAlertId = firstAlert.id ?? '';
+    this.activeAlertInstruction = firstAlert.instruction ?? '';
   }
 
   /* ***** Below is parsing that should be done on a backend but mocked here ***** */

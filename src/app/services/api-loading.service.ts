@@ -85,5 +85,6 @@ export class ApiData {
   public lastCall: Date = undefined;
   public totalCalls: number = 0;
   public totalCallLength: number = 0;
+  
   constructor(public name: string) { }
 }
