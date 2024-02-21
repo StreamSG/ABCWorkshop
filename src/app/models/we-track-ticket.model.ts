@@ -69,4 +69,7 @@ export interface Comment {
   name: string,
   comment: string,
   date: Date,
+  reply: Reply[]
 }
+
+export interface Reply extends Omit<Comment, 'reply'> {} 
