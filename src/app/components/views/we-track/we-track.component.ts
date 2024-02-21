@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './we-track.component.html',
   styleUrls: ['./we-track.component.scss']
 })
-export class WeTrackComponentOld implements OnInit {
+export class WeTrackComponent implements OnInit {
 
   constructor() {}
 

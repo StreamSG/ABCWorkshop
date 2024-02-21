@@ -12,11 +12,11 @@ import { TicketGeneratorComponent } from './components/views/ticket-generator/ti
 import { HelpComponent } from './components/views/help/help.component';
 import { OfficeInfoComponent } from './components/views/office-info/office-info.component';
 import { TouchNGoComponent } from './components/touch-n-go/touch-n-go.component';
-import { WeTrackComponentOld } from './components/views/we-track-old/we-track.component';
-import { WeTrackItemComponent } from './components/we-track-old-for-ref/we-track-item/we-track-item.component';
-import { WeTrackListComponent } from './components/we-track-old-for-ref/we-track-list/we-track-list.component';
-import { WeTrackEditComponent } from './components/we-track-old-for-ref/we-track-edit/we-track-edit.component';
-import { WeTrackCommentComponent } from './components/we-track-old-for-ref/we-track-comment/we-track-comment.component';
+import { WeTrackComponent } from './components/views/we-track/we-track.component';
+import { WeTrackItemComponent } from './components/we-track/we-track-item/we-track-item.component';
+import { WeTrackListComponent } from './components/we-track/we-track-list/we-track-list.component';
+import { WeTrackEditComponent } from './components/we-track/we-track-edit/we-track-edit.component';
+import { WeTrackCommentComponent } from './components/we-track/we-track-comment/we-track-comment.component';
 import { QcTimerComponent } from './components/views/qc-timer/qc-timer.component';
 import { UniversalDropdownDotsComponent } from './components/universal/universal-dropdown-dots/universal-dropdown-dots.component';
 import { UniversalTicketTypeComponent } from './components/universal/universal-ticket-type/universal-ticket-type.component';
@@ -46,7 +46,7 @@ import { SidebarListComponent } from './components/header/sidebar-list/sidebar-l
     HelpComponent,
     OfficeInfoComponent,
     TouchNGoComponent,
-    WeTrackComponentOld,
+    WeTrackComponent,
     WeTrackItemComponent,
     WeTrackListComponent,
     WeTrackEditComponent,
