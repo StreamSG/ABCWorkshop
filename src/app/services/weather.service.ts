@@ -79,7 +79,7 @@ export class WeatherService {
   /**
    * @description - Will make a request to the weather.gov API, and retrieve weather alerts at the lat/long parameters provided. Will process the response in WeatherAlertResponse model.
    * @param {number} lat - The latitude of the location where you'd like to request weather alerts
-   * @param {number} long - The longitude of the location where you'd like to request weather alerts
+   * @param {number} [long] - The longitude of the location where you'd like to request weather alerts
    * @returns {void}
    */
   public call(lat: number, long: number): void {

@@ -7,20 +7,22 @@ import { WeTrackTicket } from '../models/we-track-ticket.model';
   providedIn: 'root'
 })
 export class WeTrackService {
-  private databaseUrl = 'localhost:3000/we-track';
+  protected databaseUrl = 'localhost:3000/we-track';
   private tickets: WeTrackTicket[] = []; // Master list of all tickets to be populated when api called
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-
+  // TODO remove when merged with abstract service. Placeholders for a method of the abstract class
+  private get(params: string): void {}
+  private post(params: string, options: object): void {}
   // CRUD
 
-  public callTickets(): Promise<WeTrackTicket[]> {
-    return null;
+  public callTickets(): void {
+    this.get(`${this.databaseUrl}/get`);
   }
 
   public createTicket(ticket: WeTrackTicket): void {
-
+    this.http.post(`${this.databaseUrl}/get`, {test: 'test', 'howdy': 23}).subscribe({next: (response)=>console.log(response)});//, {test: 'testing', "howdy": 5});
   }
 
   public updateTicket(ticketId: number, ticket: Partial<WeTrackTicket>): void {

@@ -52,7 +52,7 @@ export class WeTrackItemComponent implements OnInit {
   public onTicketDropdownOptionsClicked(optionClicked: string): void {
     switch(optionClicked) {
       case this.staticTicketDropdownOptions.EDIT:
-        this.weTrackService.selectedTicket = this.weTrackService.getIndexOfTicket(this.weTrackTicket);
+        // this.weTrackService.selectedTicket = this.weTrackService.getIndexOfTicket(this.weTrackTicket);
         this.router.navigate(['we-track','edit']);
         break;
       case this.staticTicketDropdownOptions.DELETE:
@@ -116,20 +116,20 @@ export class WeTrackItemComponent implements OnInit {
    */
   public onSubmitComment(): void {
     
-    if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
-    let updatedTicketPayload = {...this.weTrackTicket};
-    if(!Array.isArray(updatedTicketPayload.comments) || updatedTicketPayload.comments.length === 0) {
-      updatedTicketPayload.comments = [{name: this.commentName, comment: this.commentText, date: new Date()}];
-    }
-    else {
-      updatedTicketPayload.comments.push({name: this.commentName, comment: this.commentText, date: new Date()});
-    }
-    this.commentText = '';
+    // if(this.commentName.trim() === '' || this.commentText.trim() === '') { return; }
+    // let updatedTicketPayload = {...this.weTrackTicket};
+    // if(!Array.isArray(updatedTicketPayload.comments) || updatedTicketPayload.comments.length === 0) {
+    //   updatedTicketPayload.comments = [{name: this.commentName, comment: this.commentText, date: new Date()}];
+    // }
+    // else {
+    //   updatedTicketPayload.comments.push({name: this.commentName, comment: this.commentText, date: new Date()});
+    // }
+    // this.commentText = '';
 
-    this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
-      .then(() => {
-        this.weTrackTicket = updatedTicketPayload;
-      });
+    // this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
+    //   .then(() => {
+    //     this.weTrackTicket = updatedTicketPayload;
+    //   });
   }
 
   /**
@@ -140,10 +140,10 @@ export class WeTrackItemComponent implements OnInit {
     let updatedTicketPayload = {...this.weTrackTicket};
     updatedTicketPayload.comments.splice(index, 1);
 
-    this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
-      .then(() => {
-        this.weTrackTicket = updatedTicketPayload;
-      });
+    // this.weTrackService.updateTicket(updatedTicketPayload, this.weTrackTicketIndex)
+    //   .then(() => {
+    //     this.weTrackTicket = updatedTicketPayload;
+    //   });
   }
 
   public stopPropagation(event: Event): void {

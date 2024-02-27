@@ -84,28 +84,28 @@ export class WeTrackListComponent implements OnInit {
     }
     
     // Depending on the sorting type, call the Array.sort prototype method with the specified sorting procedure
-    switch(this.selectedSorting) {
-      case this.staticSortingDropdownOptions.DATE: // Sort by date
-        this.orderedTickets.sort( (a, b) => (new Date(a.creationDate).getTime() > new Date(b.creationDate).getTime()) ? this.sortOrder : -this.sortOrder);
-        break;
-      case this.staticSortingDropdownOptions.TICKET_TYPE: // Sort types alphabetically
-        this.orderedTickets.sort( (a, b) => (a.type > b.type) ? this.sortOrder : -this.sortOrder);
-        break;
-      case this.staticSortingDropdownOptions.SUBMITTER: // Sort submitters alphabetically
-        this.orderedTickets.sort( (a, b) => (a.submitter > b.submitter) ? this.sortOrder : -this.sortOrder);
-        break;
-      case this.staticSortingDropdownOptions.PRIORITY: // Call a service method which will return a number corresponding to the 'weight' of the ticket importance. Low importance returns a low number and high importance returns a high number.
-        this.orderedTickets.sort( (a,b) => ( this.weTrackService.getSortableValueFromTicket(a, 'importance') > this.weTrackService.getSortableValueFromTicket(b, 'importance')) ? this.sortOrder : -this.sortOrder)
-        break;
-      case this.staticSortingDropdownOptions.ASSIGNEE: // Sort by assignee alphabetically
-        this.orderedTickets.sort((a,b) => (a.assignee > b.assignee) ? this.sortOrder : -this.sortOrder);
-        break;
-      case this.staticSortingDropdownOptions.EDIT_DATE: // Sort by date
-        this.orderedTickets.sort((a,b) => (new Date(a.editDate).getTime() > new Date(b.editDate).getTime()) ? this.sortOrder : -this.sortOrder);
-        break;
-      case this.staticSortingDropdownOptions.STATUS: // Sort status in an order deemed meaningful by the service method
-        this.orderedTickets.sort((a,b) => ( this.weTrackService.getSortableValueFromTicket(a, 'status') > this.weTrackService.getSortableValueFromTicket(b, 'status')  ) ? this.sortOrder : -this.sortOrder);
-    }
+    // switch(this.selectedSorting) {
+    //   case this.staticSortingDropdownOptions.DATE: // Sort by date
+    //     this.orderedTickets.sort( (a, b) => (new Date(a.creationDate).getTime() > new Date(b.creationDate).getTime()) ? this.sortOrder : -this.sortOrder);
+    //     break;
+    //   case this.staticSortingDropdownOptions.TICKET_TYPE: // Sort types alphabetically
+    //     this.orderedTickets.sort( (a, b) => (a.type > b.type) ? this.sortOrder : -this.sortOrder);
+    //     break;
+    //   case this.staticSortingDropdownOptions.SUBMITTER: // Sort submitters alphabetically
+    //     this.orderedTickets.sort( (a, b) => (a.submitter > b.submitter) ? this.sortOrder : -this.sortOrder);
+    //     break;
+    //   case this.staticSortingDropdownOptions.PRIORITY: // Call a service method which will return a number corresponding to the 'weight' of the ticket importance. Low importance returns a low number and high importance returns a high number.
+    //     this.orderedTickets.sort( (a,b) => ( this.weTrackService.getSortableValueFromTicket(a, 'importance') > this.weTrackService.getSortableValueFromTicket(b, 'importance')) ? this.sortOrder : -this.sortOrder)
+    //     break;
+    //   case this.staticSortingDropdownOptions.ASSIGNEE: // Sort by assignee alphabetically
+    //     this.orderedTickets.sort((a,b) => (a.assignee > b.assignee) ? this.sortOrder : -this.sortOrder);
+    //     break;
+    //   case this.staticSortingDropdownOptions.EDIT_DATE: // Sort by date
+    //     this.orderedTickets.sort((a,b) => (new Date(a.editDate).getTime() > new Date(b.editDate).getTime()) ? this.sortOrder : -this.sortOrder);
+    //     break;
+    //   case this.staticSortingDropdownOptions.STATUS: // Sort status in an order deemed meaningful by the service method
+    //     this.orderedTickets.sort((a,b) => ( this.weTrackService.getSortableValueFromTicket(a, 'status') > this.weTrackService.getSortableValueFromTicket(b, 'status')  ) ? this.sortOrder : -this.sortOrder);
+    // }
   }
 
   // -----    Ticket Filtering    -----
@@ -153,13 +153,13 @@ export class WeTrackListComponent implements OnInit {
    */
   public onRefreshTickets(): void {
     this.currentlyLoadingTickets = true;
-    this.weTrackService.loadTickets()
-      .then((tickets) => {
-        this.tickets = tickets;
-        this.currentlyLoadingTickets = false;
-        this.sortTickets();
-      })
-      .catch((err) => {console.error(err); this.currentlyLoadingTickets = false; });
+    // this.weTrackService.loadTickets()
+    //   .then((tickets) => {
+    //     this.tickets = tickets;
+    //     this.currentlyLoadingTickets = false;
+    //     this.sortTickets();
+    //   })
+    //   .catch((err) => {console.error(err); this.currentlyLoadingTickets = false; });
   }
 
   /**
@@ -175,12 +175,12 @@ export class WeTrackListComponent implements OnInit {
       ['Micah', 'Aaron', 'Kerry', 'Raul', 'Someone else', 'Another person'][Math.floor(Math.random()*6)],
     );
     tempTicket.status = ['pending', 'in-progress', 'complete', 'cancelled', 'assigned'][Math.floor(Math.random()*5)];
-    this.weTrackService.addNewTicket(tempTicket)
-      .then((tickets) => { 
-        this.tickets = tickets; 
-        this.sortTickets();
-      })
-      .catch((err) => { console.error(err); });
+    // this.weTrackService.addNewTicket(tempTicket)
+    //   .then((tickets) => { 
+    //     this.tickets = tickets; 
+    //     this.sortTickets();
+    //   })
+    //   .catch((err) => { console.error(err); });
   }
 
   /**
@@ -189,11 +189,11 @@ export class WeTrackListComponent implements OnInit {
    * @returns {void}
    */
   public deleteTicket(ticket: WeTrackTicket): void {
-    this.weTrackService.deleteTicket(ticket)
-      .then((tickets) => { 
-        this.tickets = tickets;
-        this.sortTickets();
-      });
+    // this.weTrackService.deleteTicket(ticket)
+    //   .then((tickets) => { 
+    //     this.tickets = tickets;
+    //     this.sortTickets();
+    //   });
   }
 
   /**
