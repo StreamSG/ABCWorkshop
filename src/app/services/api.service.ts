@@ -93,12 +93,12 @@ export abstract class ApiService<ApiResults extends ApiResponseModel> {
   /**
    * @description - Makes a get request to the back end to the path of passed params. Can optionally include an options object for use in the http request.
    * @param {string} params - the parameters to be passed appended to the server url when calling the api
-   * @param {object} options - optional, for passing any get request options
+   * @param {object} [options = {}] - optional, for passing any get request options
    * @returns {void}
    */
   protected get(params: string, options: object = {}): void {
     // validate we're not already loading an API response and that we have the expected parameters
-    if (!this.loading && typeof params === 'string') {
+    if (!this.loading && params) {
       this.updateLoading(true);
       if (params && params.length > 0 && params.charAt(0) === '/') {
         params = params.substring(1);
