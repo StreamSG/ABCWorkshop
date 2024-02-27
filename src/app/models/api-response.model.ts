@@ -18,7 +18,7 @@ export abstract class ApiResponseModel {
     }
     catch (e) {
       this.flowStatus = 'FAILURE';
-      this.flowStatusMessage = 'Unable to parse API response';
+      this.flowStatusMessage = e.message;
     }
   }
 
