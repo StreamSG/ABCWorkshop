@@ -2,7 +2,6 @@ import * as moment from "moment";
 import * as SafetyJobAid from '../safetyJobAids.json';
 import { ApiResponseModel } from "./api-response.model";
 
-
 export class WeatherAlertResponse extends ApiResponseModel {
   public allActiveWeatherAlerts: WeatherAlertInfo[];
   public activeAlertDescription: string;

@@ -27,10 +27,13 @@ export class JobsResponse extends ApiResponseModel {
       return;
     }
     
-    for (let i = 0; i < this.jobs.length; i++) { // for client-side calculations and data generation for display improvements
-      const jobType: string = this.jobs[i]?.jobType;
-      this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
-      this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
+    for (let job of this.jobs) { // for client-side calculations and data generation for display improvements
+      if (!job) {
+        continue;
+      }
+      const jobType: string = job.jobType;
+      job.prettyPhone = this.prettifyPhone(job.phone);
+      job.jobTypeColor = this.parseJobTypeColor(jobType);
     }
   }
 

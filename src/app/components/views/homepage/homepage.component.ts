@@ -28,8 +28,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       this.callJobServiceJobs(this.techUUID);
     }
     else {
-      const jobs = this.jobsResponse?.getJobs();
-      this.jobCount = jobs && Array.isArray(jobs) ? jobs.length : 0;
+      this.calculateJobCount();
     }
   }
 
@@ -68,8 +67,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          const jobs: JobData[] = this.jobsResponse?.getJobs();
-          this.jobCount = Array.isArray(jobs) ? jobs.length : 0;
+          this.calculateJobCount();
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }
@@ -105,5 +103,13 @@ export class HomepageComponent implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  /**
+   * @description Sets jobCount variable by counting jobs from jobsResponse
+   */
+  private calculateJobCount(): void {
+    const jobs: JobData[] = this.jobsResponse?.getJobs();
+    this.jobCount = Array.isArray(jobs) ? jobs.length : 0;
   }
 }

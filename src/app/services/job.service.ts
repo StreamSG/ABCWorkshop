@@ -36,7 +36,7 @@ export class JobService extends ApiService<JobsResponse> {
   public getSelectedJob(): JobData {
     const jobs: JobData[] = this.apiResults.getJobs();
 
-    if (!this.loading && this.isSuccessfullyCompleted && this.apiResults && jobs && Array.isArray(jobs)) {
+    if (!this.loading && this.isSuccessfullyCompleted && this.apiResults && Array.isArray(jobs)) {
       for (let i = 0; i < jobs.length; i++) {
         const curJob = jobs[i];
         if (curJob && curJob.accountNumber === this.selectedJobAccountNumber) {

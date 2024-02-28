@@ -15,7 +15,7 @@ export class WeatherService extends ApiService<WeatherAlertResponse> {
   }
 
   /**
-   * @description - Takes the latitude and longitude from a job location and class the weather api with that data
+   * @description - Takes the latitude and longitude from a job location and calls the weather api with that data
    * @param {number} lat - The latitude for the desired weather alerts
    * @param {number} long - The longitude for teh desired weather alerts
    * @returns {void}
