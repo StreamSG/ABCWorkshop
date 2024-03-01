@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription, take, takeUntil } from 'rxjs';
 
-import { JobData, JobsResponse } from 'src/app/models/jobs-response.model';
+import { JobsResponse } from 'src/app/models/jobs-response.model';
 import { WeatherAlertResponse } from 'src/app/models/weather-alert.model';
 import { JobService } from 'src/app/services/job.service';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -28,7 +28,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       this.callJobServiceJobs(this.techUUID);
     }
     else {
-      this.calculateJobCount();
+      this.jobCount = this.jobsResponse && this.jobsResponse.jobs && Array.isArray(this.jobsResponse.jobs) ? this.jobsResponse.jobs.length : 0;
     }
   }
 
@@ -67,7 +67,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
       next: (loading: boolean) => {
         if(!loading && this.jobService.hasSuccessfullyCompleted()) {
           this.jobsResponse = this.jobService.getResults();
-          this.calculateJobCount();
+          this.jobCount = this.jobsResponse && this.jobsResponse.jobs && Array.isArray(this.jobsResponse.jobs) ? this.jobsResponse.jobs.length : 0;
           // Putting this here is bad practice, you shouldn't string calls together! We should talk about how to fix long term. I'm fine leaving it in for now.
           this.callAndSubscribeToWeatherService(); 
         }
@@ -84,7 +84,12 @@ export class HomepageComponent implements OnInit, OnDestroy {
     this.jobsResponse = null;
     this.jobService.resetData();
     this.subscribeToJobServiceJobs();
-    this.jobService.call(uuid, this.jobCount);
+    if (!this.jobCount) {
+      this.jobService.call(uuid);
+    }
+    else {
+      this.jobService.call(uuid, this.jobCount);
+    }
   }
 
   /**
@@ -92,7 +97,7 @@ export class HomepageComponent implements OnInit, OnDestroy {
    * @returns {void}
    */
   private callAndSubscribeToWeatherService(): void {
-    const jobList = this.jobsResponse.getJobs();
+    const jobList = this.jobsResponse.jobs;
     if (Array.isArray(jobList) && jobList.length > 0) { // only want to make this call if there are 
       this.weatherService.call(jobList[0].location.lat, jobList[0].location.long); // calls with first assigned job cause alerts should be similar to the area
       this.weatherService.getLoading().pipe(take(2), takeUntil(this.ngUnsubscribe)).subscribe({
@@ -103,13 +108,5 @@ export class HomepageComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
-
-  /**
-   * @description Sets jobCount variable by counting jobs from jobsResponse
-   */
-  private calculateJobCount(): void {
-    const jobs: JobData[] = this.jobsResponse?.getJobs();
-    this.jobCount = Array.isArray(jobs) ? jobs.length : 0;
   }
 }

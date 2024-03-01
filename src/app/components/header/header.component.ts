@@ -1,16 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
-
-import { ApiLoadingService } from 'src/app/services/api-loading.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
-  private ngUnsubscribe: Subject<void> = new Subject<void>();
-
+export class HeaderComponent implements OnInit {
   // Sidebar menu items to be dynamically generated from the array below. See MenuItem documentation for implementation help. Far future feature: convert to class and add service file for more advanced control over sidebar elements (such as disabling and enabling at will).
   public menuItems: MenuItem[] = [
     { text: 'Home', routerLink: '' },
@@ -33,27 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { text: 'QC Timer', routerLink: 'qc-timer' },
     ]},
   ];
+  
+  constructor() { }
 
-  public iconSpinning: boolean = false; // nothing being called right away
-
-  constructor(private apiLoadingService: ApiLoadingService) { }
-
-  ngOnInit(): void {
-    this.subscribeToApiServiceToSpinIcon();
-  }
-
-  ngOnDestroy(): void {
-    this.ngUnsubscribe.next();
-    this.ngUnsubscribe.complete();
-  }
-
-  private subscribeToApiServiceToSpinIcon(): void {
-    this.apiLoadingService.getAllLoading().pipe(takeUntil(this.ngUnsubscribe)).subscribe({
-      next: () => {
-        this.iconSpinning = this.apiLoadingService.getNumberOfLoadingApis() > 0;
-      }
-    });
-  }
+  ngOnInit(): void { }
 }
 
 /**

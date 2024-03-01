@@ -1,40 +1,42 @@
 import * as moment from "moment";
 import * as SafetyJobAid from '../safetyJobAids.json';
-import { ApiResponseModel } from "./api-response.model";
 
-export class WeatherAlertResponse extends ApiResponseModel {
-  public allActiveWeatherAlerts: WeatherAlertInfo[];
-  public activeAlertDescription: string;
-  public activeAlertEvent: string;
-  public activeAlertHeadline: string;
-  public activeAlertId: string;
-  public activeAlertInstruction: string;
-  public showAlertToast: boolean;
 
-  constructor(response: any) {
-    super(response);
-  }
+export class WeatherAlertResponse {
+  readonly flowStatus: string;
+  readonly flowStatusMessage: string;
+  readonly allActiveWeatherAlerts: WeatherAlertInfo[];
+  readonly activeAlertDescription: string;
+  readonly activeAlertEvent: string;
+  readonly activeAlertHeadline: string;
+  readonly activeAlertId: string;
+  readonly activeAlertInstruction: string;
+  readonly showAlertToast: boolean;
 
-  /**
-   * @description Called in the abstract class, and created here so that the api response can be parsed properly
-   * @param response - The response from the api, passed here to be parsed
-   * @returns {void}
-   */
-  protected processResponse(response: any): void {
-    const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(response);
-    this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
-    if (!Array.isArray(this.allActiveWeatherAlerts) || this.allActiveWeatherAlerts.length === 0 || !this.allActiveWeatherAlerts[0]) {
-      this.showAlertToast = false;
-      return;
+  constructor(apiResponse: any) {
+    try {
+      if (apiResponse && Array.isArray(apiResponse.features)) {
+        this.flowStatus = 'SUCCESS';
+        this.flowStatusMessage = apiResponse.features.length > 0 ? apiResponse.title : 'No active weather alerts in your area.';
+      } else {
+        this.flowStatus = 'FAILURE';
+        this.flowStatusMessage = 'Unable to parse api response';
+      }
+      if (this.flowStatus === 'SUCCESS') {
+        const tempAllActiveWeatherAlerts: WeatherAlertInfo[] = this.parseApiResponse(apiResponse);
+        this.allActiveWeatherAlerts = this.filterDuplicateAlerts(tempAllActiveWeatherAlerts);
+        // the below variables are set to 0 index of array because that will be up-to-date active alert
+        this.activeAlertHeadline = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].headline ? this.allActiveWeatherAlerts[0].headline : '';
+        this.activeAlertDescription = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].description ? this.allActiveWeatherAlerts[0].description : '';
+        this.activeAlertEvent = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].event ? this.allActiveWeatherAlerts[0].event : '';
+        this.activeAlertId = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].id ? this.allActiveWeatherAlerts[0].id : '';
+        this.activeAlertInstruction = this.allActiveWeatherAlerts && this.allActiveWeatherAlerts[0] && this.allActiveWeatherAlerts[0].instruction ? this.allActiveWeatherAlerts[0].instruction : '';
+        this.showAlertToast = Array.isArray(this.allActiveWeatherAlerts) && this.allActiveWeatherAlerts.length > 0;
+      }
+    } catch (e) {
+      this.flowStatus = 'FAILURE';
+      this.flowStatusMessage = e;
     }
-    this.showAlertToast = true;
-    const firstAlert = this.allActiveWeatherAlerts[0];
-    // the below variables are set to 0 index of array because that will be up-to-date active alert
-    this.activeAlertHeadline = firstAlert.headline ?? '';
-    this.activeAlertDescription = firstAlert.description ?? '';
-    this.activeAlertEvent = firstAlert.event ?? '';
-    this.activeAlertId = firstAlert.id ?? '';
-    this.activeAlertInstruction = firstAlert.instruction ?? '';
   }
 
   /* ***** Below is parsing that should be done on a backend but mocked here ***** */
