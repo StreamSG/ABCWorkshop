@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light sticky-top bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="home">
-      <img src="assets/att-logo-white.png" width="30" height="30" alt="Logo" >
+      <img src="assets/att-logo-white.png" width="30" height="30" alt="Logo" [ngClass]="{'spinning-icon': iconSpinning}">
     </a>
     <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
