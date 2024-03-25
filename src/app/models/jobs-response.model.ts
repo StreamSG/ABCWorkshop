@@ -1,33 +1,39 @@
-export class JobsResponse {
-  readonly flowStatus: string;
-  readonly flowStatusMessage: string;
-  readonly apiResponse: any;
-  readonly jobs: JobData[];
+import { ApiResponseModel } from "./api-response.model";
+
+export class JobsResponse extends ApiResponseModel {
+  private jobs: JobData[];
 
   constructor(response: any) {
-    try {
-      if (response.flowStatus === 'SUCCESS' || response.flowStatus === 'FAILURE') {
-        this.flowStatus = response.flowStatus;
-        this.flowStatusMessage = response.flowStatusMessage;
-      }
-      else {
-        this.flowStatus = 'FAILURE';
-        this.flowStatusMessage = 'Unable to call API';
-      }
-      if (response.flowStatus === 'SUCCESS') {
-        // save data from response
-        this.apiResponse = response;
-        this.jobs = response.jobs;
-        for (let i = 0; i < this.jobs.length; i++) { // for client-side calculations and data generation for display improvements
-          const jobType = this.jobs[i].jobType;
-          this.jobs[i].prettyPhone = this.prettifyPhone(this.jobs[i].phone);
-          this.jobs[i].jobTypeColor = this.parseJobTypeColor(jobType);
-        }
-      }
+    super(response);
+  }
+
+  /**
+   * @description Getter for accessing the list of jobs retrieved from the back end
+   * @returns The array of jobs as called from the back end.
+   */
+  public getJobs(): JobData[] {
+    return this.jobs.slice();
+  }
+
+  /**
+   * @description Called in the abstract class, and created here so that the api response can be parsed properly
+   * @param response - The response from the api, passed here to be parsed
+   * @returns {void}
+   */
+  protected processResponse(response: any): void {
+    this.jobs = response.jobs;
+    
+    if (!Array.isArray(this.jobs)) {
+      return;
     }
-    catch (e) {
-      this.flowStatus = 'FAILURE';
-      this.flowStatusMessage = 'Unable to parse API response';
+    
+    for (let job of this.jobs) { // for client-side calculations and data generation for display improvements
+      if (!job) {
+        continue;
+      }
+      const jobType: string = job.jobType;
+      job.prettyPhone = this.prettifyPhone(job.phone);
+      job.jobTypeColor = this.parseJobTypeColor(jobType);
     }
   }
 

@@ -10,7 +10,7 @@
     </div>
   </ng-container>
   <ng-container *ngSwitchCase="'completed'">
-    <ng-container *ngFor="let job of jobsResponse?.jobs; let i = index">
+    <ng-container *ngFor="let job of jobsResponse?.getJobs(); let i = index">
       <div class="card end-0 mb-2" (click)="onJobClicked(job)"> 
         <div class="row">
           <div class="col-3 text-center pt-3 ps-4 text-light" [ngStyle]=" {'background-color': job?.jobTypeColor}">
